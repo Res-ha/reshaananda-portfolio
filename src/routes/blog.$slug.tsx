@@ -54,12 +54,12 @@ function BlogPost() {
           {pick(post.title)}
         </h1>
         <div className="mt-8 space-y-6">
-          {post.body.map((paragraph) => (
+          {pick(post.body).map((paragraph) => (
             <p
-              key={paragraph.en}
+              key={paragraph}
               className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400"
             >
-              {pick(paragraph)}
+              {paragraph}
             </p>
           ))}
         </div>

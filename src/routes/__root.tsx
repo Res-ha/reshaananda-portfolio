@@ -112,7 +112,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         <Scripts />
       </body>
     </html>
@@ -124,16 +124,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <div className="flex min-h-dvh flex-col bg-zinc-50 transition-colors duration-300 dark:bg-zinc-900">
-          <SiteNav />
-          <main className="flex-1 pb-16">
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
-          </main>
-          <SiteFooter />
-        </div>
-      </LanguageProvider>
+      <div className="flex min-h-dvh flex-col bg-zinc-50 transition-colors duration-300 dark:bg-zinc-900">
+        <SiteNav />
+        <main className="flex-1 pb-16">
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <SiteFooter />
+      </div>
     </QueryClientProvider>
   );
 }

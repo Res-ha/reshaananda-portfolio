@@ -126,16 +126,16 @@ function ProjectDetail() {
             {t("projects.features")}
           </h2>
           <ul className="mt-4 space-y-3">
-            {project.features.map((feature) => (
+            {pick(project.features).map((feature) => (
               <li
-                key={feature.en}
+                key={feature}
                 className="flex items-start gap-3 text-base leading-relaxed text-zinc-600 dark:text-zinc-400"
               >
                 <span
                   aria-hidden="true"
                   className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600 dark:bg-teal-400"
                 />
-                {pick(feature)}
+                {feature}
               </li>
             ))}
           </ul>
@@ -168,16 +168,16 @@ function ProjectDetail() {
             {t("projects.challenges")}
           </h2>
           <ul className="mt-4 space-y-3">
-            {project.challenges.map((challenge) => (
+            {pick(project.challenges).map((challenge) => (
               <li
-                key={challenge.en}
+                key={challenge}
                 className="flex items-start gap-3 text-base leading-relaxed text-zinc-600 dark:text-zinc-400"
               >
                 <span
                   aria-hidden="true"
                   className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600 dark:bg-teal-400"
                 />
-                {pick(challenge)}
+                {challenge}
               </li>
             ))}
           </ul>
