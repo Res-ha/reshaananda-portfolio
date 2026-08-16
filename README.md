@@ -4,7 +4,7 @@ Website portofolio pribadi **Resha Ananda Rahman** — IT support specialist & w
 
 Dibangun dengan [TanStack Start](https://tanstack.com/start) (file-based routing + SSR), React 19, dan Tailwind CSS v4.
 
-**Live app**: https://reshaananda-portfolio.lovable.app
+**Live app**: https://reshaananda-portfolio.vercel.app
 
 ## Halaman
 
