@@ -1,142 +1,254 @@
-# PRD: Portfolio Website — Resha Ananda Rahman
+# PRD — Project Requirements Document
 
-> Product Requirements Document · v2.0 · 16 Agustus 2026
-> Status: **Fase Implementasi** · Stack: TanStack Start + React 19 + Tailwind CSS v4
+## 1. Overview
 
-## Problem Statement
+**Project:** Portfolio Website — Resha Ananda Rahman  
+**Version:** v2.0  
+**Tanggal:** 16 Agustus 2026  
+**Status:** **Fase Implementasi**  
+**Stack:** TanStack Start + React 19 + Tailwind CSS v4
 
-Sebagai developer web yang berdomisili di Palangka Raya, aku mau punya kehadiran daring terpadu yang menampilkan portofolio proyek, tulisan teknis, riwayat kerja, dan jalur kontak dalam satu tempat. Supaya klien dan rekan developer bisa menilai kemampuan dalam hitungan detik, menghubungi dengan mudah, dan tidak perlu menebak-nebak siapa aku. Dulu aku tidak punya halaman yang cepat, rapi, dan mudah dirawat — konten tersebar dan tampilan tidak konsisten. Sekarang aku mau halaman yang ringan (SSR), bisa dibaca dua bahasa (EN/ID), dan kontennya gampang diganti tanpa menyentuh kode komponen.
+Website portfolio ini bertujuan menyediakan kehadiran daring terpadu yang menampilkan profil, proyek, tulisan teknis, riwayat kerja, galeri, dan jalur kontak dalam satu tempat. Sebelumnya, konten tersebar dan tampilan belum konsisten sehingga calon klien, rekan developer, maupun perekrut tidak dapat menilai kemampuan secara cepat dari satu sumber.
 
----
+Tujuan utama website adalah menghadirkan portfolio yang cepat, rapi, profesional, mudah dirawat, mendukung SSR, tersedia dalam Bahasa Indonesia dan English, serta memungkinkan konten diperbarui melalui file di `src/data/` tanpa mengubah kode komponen.
 
-## Goals
+Target pengguna utama:
+- **Klien / Calon Pemberi Kerja:** melihat hasil kerja, CV, profesionalisme, dan jalur kontak.
+- **Rekan Developer:** membaca tulisan teknis, melihat tech stack, dan terhubung melalui GitHub/LinkedIn.
+- **HR / Perekrut:** meninjau profil dan mengunduh CV dalam format PDF.
+- **Pengunjung Umum:** menjelajah galeri dan mengenal pemilik portfolio melalui halaman About.
 
-- Menyajikan profil, proyek, tulisan, dan kontak dalam satu situs multi-route yang cepat dan rapi.
-- Memberikan kesan profesional lewat estetika **Spotlight**: zinc neutrals + aksen teal, font Geist, light/dark mode.
-- Mendukung dua bahasa (Bahasa Indonesia & English) di seluruh halaman dengan satu toggle.
-- Menjaga konten (proyek, tulisan, pengalaman) dapat diperbarui tanpa mengubah komponen — cukup edit file di `src/data/`.
-- Memastikan halaman ringan, aksesibel, dan bebas error konsol maupun tautan mati.
+## 2. Requirements
 
----
+Berikut adalah persyaratan tingkat tinggi untuk website portfolio:
 
-## Target Users
+- **Performance:** Lighthouse Performance ≥ 90 dan FCP < 1,5 detik pada emulasi 4G, dengan SSR dan bundle yang tetap kecil.
+- **Accessibility:** Seluruh teks memenuhi kontras WCAG AA (≥ 4.5:1), mendukung navigasi keyboard, dan menggunakan `aria-current` pada navigasi aktif.
+- **Bilingual:** Seluruh UI dan konten utama tersedia dalam English dan Bahasa Indonesia melalui toggle **EN/ID**.
+- **Theme:** Mendukung light/dark mode dengan preferensi tersimpan dan tanpa flash tema (FOUC).
+- **Maintainability:** Konten profil, proyek, tulisan, dan pengalaman dikelola secara terpusat dan typed melalui `src/data/` sebagai single source of truth.
+- **Reliability:** Tidak terdapat error konsol maupun tautan internal yang menghasilkan 404 secara tidak disengaja.
+- **Portability:** Menggunakan npm dengan `package-lock.json` dan tidak mempertahankan dependensi `ui/*` shadcn yang tidak digunakan.
+- **Privacy:** Tidak menggunakan backend untuk menyimpan data pengguna; link sosial menggunakan `rel="noreferrer"`.
+- **Navigation:** Navbar utama berisi **About, Project, Blog, Gallery** tanpa menu Home.
+- **Content Delivery:** CV tersedia sebagai file PDF statis di `public/cv-resha-ananda-rahman.pdf`.
 
-- **Klien / Calon Pemberi Kerja**: ingin melihat hasil kerja & CV, menilai profesionalisme, menghubungi via email.
-- **Rekan Developer**: membaca tulisan teknis, melihat tech stack, terhubung lewat GitHub/LinkedIn.
-- **HR / Perekrut**: mengunduh CV dalam PDF untuk arsip.
-- **Pengunjung Umum**: menjelajah galeri dan memahami kepribadian pemilik lewat halaman About.
+## 3. Core Features
 
----
+Fitur-fitur utama website portfolio adalah sebagai berikut:
 
-## User Stories
+1. **Home / Landing Page**
+   - Hero menampilkan foto profil bulat, headline, bio singkat, dan ikon sosial.
+   - PhotoCollage dengan animasi hover.
+   - Section **Selected Projects** menampilkan proyek unggulan dengan badge tech stack dan tahun.
+   - Preview tulisan terbaru dengan tautan menuju Blog.
+   - Work Experience dengan tombol **Download CV**.
+   - Kartu kontak.
 
-### 1. Pengunjung di Halaman Awal
+2. **Navigation**
+   - Menu utama: **About, Project, Blog, Gallery**.
+   - Halaman aktif menggunakan `aria-current="page"` dan aksen teal.
+   - Theme toggle dan language toggle berada di sisi kanan navbar.
+   - Pada halaman selain Home, avatar dan nama tampil di kiri dan dapat diklik untuk kembali ke `/`.
 
-**Story:** Sebagai pengunjung, aku mau melihat profil dan karya unggulan di halaman pertama supaya aku bisa menilai kemampuan dalam 5 detik.
+3. **Bilingual EN/ID**
+   - Toggle **EN/ID** mengganti teks navigasi, hero, blog, proyek, galeri, dan kontak.
+   - Bahasa aktif disimpan di `localStorage`.
+   - Atribut `lang` pada `<html>` mengikuti bahasa aktif.
+   - Bahasa default adalah English.
 
-**Acceptance:**
-- Hero menampilkan foto profil bulat, headline, bio singkat, dan ikon sosial.
-- Section "Selected projects" menampilkan proyek unggulan dengan badge tech stack.
-- Section tulisan menampilkan posting terbaru dengan tautan ke daftar lengkap.
-- Sidebar menampilkan kartu Work Experience (dengan tombol **Download CV**) dan kartu kontak.
+4. **About**
+   - Kolom kiri sticky berisi portrait, role, lokasi dengan ikon MapPin, dan skill.
+   - Kolom kanan berisi nama, headline, ikon sosial, bio, timeline **Work**, dan **Tools I reach for**.
 
-### 2. Navigasi Tanpa Home
+5. **Projects**
+   - `/projects` menampilkan daftar proyek.
+   - `/projects/$slug` menampilkan overview, tech stack, features, challenges & solutions, dan outcome.
 
-**Story:** Sebagai pengunjung, aku mau menu navigasi yang ringkas tanpa tautan Home supaya aku berpindah halaman lebih cepat.
+6. **Blog**
+   - `/blog` menampilkan daftar tulisan.
+   - `/blog/$slug` menampilkan isi tulisan lengkap.
+   - Judul, ringkasan, dan isi tersedia dalam EN dan ID.
+   - Slug yang tidak dikenal diarahkan ke halaman 404 tanpa menyebabkan crash.
 
-**Acceptance:**
-- Menu navbar: **About, Project, Blog, Gallery** (tanpa Home).
-- Link aktif diberi `aria-current="page"` dan warna teal.
-- Toggle tema dan toggle bahasa berdiri di kanan navbar.
-- Di halaman non-Home, avatar + nama muncul di kiri (klik → kembali ke `/`).
+7. **Gallery**
+   - `/gallery` menampilkan grid foto.
 
-### 3. Baca Situs dalam Bahasa Indonesia / English
+8. **Download CV**
+   - Tombol **Download CV** membuka `/cv-resha-ananda-rahman.pdf`.
+   - File PDF berada di `public/` dan harus berhasil disertakan dalam build.
 
-**Story:** Sebagai pembaca berbahasa Indonesia atau tamu internasional, aku mau situs bisa dibaca dalam dua bahasa supaya aku nyaman memahami isinya.
+9. **Light/Dark Mode**
+   - Theme toggle menyimpan preferensi ke `localStorage`.
+   - Jika belum ada preferensi, sistem menggunakan `prefers-color-scheme`.
+   - Class `.dark` diterapkan melalui inline script untuk mencegah FOUC.
 
-**Acceptance:**
-- Tombol **EN/ID** di navbar mengganti seluruh teks UI dan konten (nav, hero, blog, proyek, galeri, kontak).
-- Pilihan bahasa tersimpan di `localStorage` dan bertahan setelah reload/pindah halaman.
-- Atribut `lang` pada `<html>` ikut berubah mengikuti bahasa aktif.
-- Default bahasa adalah English; pengguna bisa berpindah ke Bahasa Indonesia.
+10. **Contact**
+    - Form kontak menggunakan `mailto:` tanpa backend dan tanpa penyimpanan data pengguna.
 
-### 4. About ala Magic Portfolio
+11. **Error Handling**
+    - 404 dan error UI ditangani melalui `__root.tsx`.
+    - Pesan error tersedia dalam kedua bahasa.
 
-**Story:** Sebagai klien, aku mau melihat profil lengkap dengan riwayat kerja supaya aku percaya pada kredibilitas kandidat.
+## 4. User Flow
 
-**Acceptance:**
-- Kolom kiri sticky: portrait, role, lokasi (ikon MapPin), dan skill.
-- Kolom kanan: nama, headline, ikon sosial, bio paragraf, section **Work** (timeline perusahaan + periode), section **Tools I reach for** (skill badges).
+Alur utama pengunjung saat menggunakan website:
 
-### 5. Unduh CV
+1. **Masuk ke Home:** Pengunjung membuka `/` dan melihat profil, headline, karya unggulan, tulisan terbaru, pengalaman kerja, serta jalur kontak.
+2. **Menilai Portfolio:** Pengunjung membuka **Project** untuk melihat daftar karya dan memilih proyek tertentu untuk membaca detail implementasinya.
+3. **Mengenal Profil:** Pengunjung membuka **About** untuk melihat profil lengkap, skill, tools, dan riwayat kerja.
+4. **Membaca Tulisan:** Pengunjung membuka **Blog**, memilih tulisan, kemudian membaca konten melalui URL berbasis slug.
+5. **Menjelajah Gallery:** Pengunjung membuka **Gallery** untuk melihat koleksi foto.
+6. **Mengubah Bahasa:** Pengunjung menggunakan toggle **EN/ID**; pilihan tersimpan dan tetap aktif setelah reload atau perpindahan halaman.
+7. **Mengubah Tema:** Pengunjung memilih light/dark mode; preferensi tersimpan dan diterapkan tanpa FOUC.
+8. **Mengunduh CV:** HR atau perekrut menekan **Download CV** untuk membuka file PDF statis.
+9. **Menghubungi:** Pengunjung menggunakan form kontak yang membuka aplikasi email melalui `mailto:`.
 
-**Story:** Sebagai HR, aku mau mengunduh CV dalam format PDF supaya aku bisa mengarsipkannya.
+Rute utama yang termasuk dalam scope:
 
-**Acceptance:**
-- Tombol "Download CV" membuka `/cv-resha-ananda-rahman.pdf` (file di `public/`).
-- File PDF valid dan berhasil ikut build.
+- `/`
+- `/about`
+- `/blog`
+- `/blog/$slug`
+- `/projects`
+- `/projects/$slug`
+- `/gallery`
 
-### 6. Blog Dua Bahasa
+## 5. Architecture
 
-**Story:** Sebagai pembaca, aku mau membaca tulisan lengkap dengan URL bersih dan isi tersedia dalam bahasa pilihanku supaya mudah dibagikan.
+Website menggunakan arsitektur frontend berbasis **TanStack Start + React 19 + Tailwind CSS v4** dengan SSR. Konten utama tidak bergantung pada database atau CMS, melainkan disimpan secara terpusat di `src/data/` dan dikonsumsi oleh route serta komponen React.
 
-**Acceptance:**
-- `/blog` menampilkan daftar tulisan; `/blog/$slug` menampilkan isi lengkap.
-- Judul, ringkasan, dan isi tulisan tersedia dalam EN & ID.
-- Slug tak dikenal → halaman 404 (tanpa crash).
+```mermaid
+sequenceDiagram
+    participant User as Visitor (Browser)
+    participant App as TanStack Start / React
+    participant Data as src/data
+    participant Public as public/
 
-### 7. Mode Light/Dark
+    User->>App: Request halaman
+    App->>Data: Ambil profile/projects/posts/experience
+    Data-->>App: Typed content
+    App-->>User: SSR HTML + UI
 
-**Story:** Sebagai pengguna malam, aku mau beralih tema yang tersimpan supaya aku tidak perlu mengatur ulang.
+    User->>App: Ubah bahasa EN/ID
+    App->>User: Update konten dan html lang
+    App->>User: Simpan preferensi ke localStorage
 
-**Acceptance:**
-- Toggle menyimpan pilihan ke `localStorage`; fallback `prefers-color-scheme`.
-- Class `.dark` diterapkan via inline script → **tanpa flash (FOUC)**.
+    User->>App: Ubah light/dark mode
+    App->>User: Terapkan theme + simpan preferensi
 
----
+    User->>App: Klik Download CV
+    App->>Public: Request cv-resha-ananda-rahman.pdf
+    Public-->>User: Tampilkan file CV PDF
+```
 
-## Functional Requirements
+Struktur data dan tanggung jawab utama:
 
-- [x] **Hero & PhotoCollage**: foto profil bulat, headline, bio singkat, ikon sosial, dan kolase foto dengan animasi hover.
-- [x] **Selected Projects**: grid proyek unggulan (1/2/3 kolom responsif) dengan meta tahun saja dan badge stack.
-- [x] **Project Detail**: `/projects/$slug` menampilkan overview, tech stack, features, challenges & solutions, outcome.
-- [x] **Blog**: daftar tulisan di `/blog` dan detail di `/blog/$slug`, konten EN/ID.
-- [x] **Gallery**: grid foto di `/gallery`.
-- [x] **About**: profil lengkap dengan riwayat kerja dan tools.
-- [x] **Download CV**: tautan ke `public/cv-resha-ananda-rahman.pdf`.
-- [x] **Kontak via mailto**: form kontak membuka email pengguna (tanpa backend).
-- [x] **Theme Toggle**: light/dark dengan persistensi `localStorage` + inline script anti-FOUC.
-- [x] **Language Toggle**: EN/ID seluruh situs dengan persistensi `localStorage` dan sinkron `lang` pada `<html>`.
-- [x] **404 & Error Handler**: halaman 404 dan error UI di `__root.tsx`, teks diterjemahkan.
+- `src/data/`: single source of truth untuk profile, projects, posts, dan experience.
+- Route TanStack Start: menangani Home, About, Blog, Project, Gallery, detail berbasis slug, 404, dan error UI.
+- React components: menangani presentasi UI dan interaksi pengguna.
+- `localStorage`: menyimpan preferensi bahasa dan tema pada browser pengguna.
+- `public/`: menyimpan aset statis termasuk CV PDF.
 
----
+## 6. Database Schema
 
-## Non-Functional Requirements
+Website portfolio ini **tidak menggunakan database** dalam scope saat ini. Konten dikelola melalui typed data files di `src/data/`, sedangkan preferensi bahasa dan tema hanya disimpan secara lokal pada browser melalui `localStorage`.
 
-- **Performance**: Lighthouse Performance ≥ 90; FCP < 1,5 detik (emulasi 4G); render SSR + bundle kecil.
-- **Accessibility**: semua teks lolos kontras WCAG AA (≥ 4.5:1) di light & dark mode; navigasi keyboard dan `aria-current`.
-- **Reliability**: zero error konsol dan zero 404 pada semua tautan internal.
-- **Maintainability**: konten di `src/data/` (typed, single source of truth); dokumen PRD, DESIGN, dan README sinkron.
-- **Portability**: paket manager npm (lockfile `package-lock.json`); tidak ada dependensi `ui/*` shadcn yang tak terpakai.
-- **Privacy**: tanpa backend, tanpa data pengguna tersimpan; semua link sosial `rel="noreferrer"`.
+Struktur data logis yang digunakan aplikasi:
 
----
+```mermaid
+erDiagram
+    PROFILE {
+        string name
+        string role
+        string location
+        string bio
+    }
 
-## Scope
+    PROJECT {
+        string slug
+        string title
+        int year
+        string overview
+        string tech_stack
+    }
 
-### In Scope
+    POST {
+        string slug
+        string title
+        string summary
+        string content
+    }
 
-1. Tujuh rute utama: `/`, `/about`, `/blog`, `/blog/$slug`, `/projects`, `/projects/$slug`, `/gallery`.
-2. Hero, PhotoCollage, Selected Projects, preview Blog, Skills, Work Experience, dan Kontak di Home.
-3. Bilingual (Bahasa Indonesia & English) dengan toggle di navbar.
-4. Theme toggle light/dark tanpa FOUC.
-5. Konten terpusat di `src/data/` (profile, projects, posts, experience).
-6. CV PDF statis di `public/`.
+    EXPERIENCE {
+        string company
+        string role
+        string period
+    }
 
-### Out of Scope
+    PROFILE ||--o{ PROJECT : "showcases"
+    PROFILE ||--o{ POST : "writes"
+    PROFILE ||--o{ EXPERIENCE : "has"
+```
 
-1. Backend/API kontak — form memakai `mailto:` tanpa penyimpanan server.
-2. CMS headless (mis. MDX) — konten dikelola lewat file `src/data/*`.
-3. Login/autentikasi, payment, atau komentar blog.
-4. Halaman "Articles" terpisah — tulisan ditangani lewat Blog.
-5. Jam real-time di footer (LiveClock) — dihapus demi fokus performa.
+| Data | Deskripsi |
+|------|-----------|
+| **profile** | Informasi identitas portfolio, headline, bio, lokasi, skill, dan sosial |
+| **projects** | Daftar proyek beserta slug, tahun, tech stack, overview, features, challenges, solutions, dan outcome |
+| **posts** | Konten blog bilingual beserta slug, judul, ringkasan, dan isi |
+| **experience** | Riwayat pekerjaan/peran beserta perusahaan dan periode |
+| **localStorage** | Preferensi lokal pengguna untuk bahasa dan tema; bukan penyimpanan data aplikasi/server |
+
+## 7. Design & Technical Constraints
+
+Bagian ini menetapkan batasan teknis, desain, scope, dan kualitas implementasi website.
+
+1. **High-Level Technology**
+   - Framework utama: **TanStack Start**.
+   - UI: **React 19**.
+   - Styling: **Tailwind CSS v4**.
+   - Rendering mengutamakan SSR untuk performa dan initial page load.
+   - Package manager menggunakan npm dengan `package-lock.json`.
+
+2. **Visual Design**
+   - Estetika utama menggunakan gaya **Spotlight**.
+   - Palet menggunakan zinc neutrals dengan aksen teal.
+   - Font utama menggunakan Geist.
+   - Seluruh halaman mendukung light dan dark mode.
+   - Layout harus responsif dan tetap mudah digunakan pada ukuran layar berbeda.
+
+3. **Accessibility**
+   - Kontras teks minimal mengikuti WCAG AA (≥ 4.5:1).
+   - Navigasi dapat digunakan melalui keyboard.
+   - Link navigasi aktif menggunakan `aria-current="page"`.
+   - Atribut `<html lang>` mengikuti bahasa aktif.
+
+4. **Performance & Reliability**
+   - Lighthouse Performance ≥ 90.
+   - FCP < 1,5 detik pada emulasi 4G.
+   - Tidak ada error konsol.
+   - Tidak ada broken internal link atau 404 yang tidak disengaja.
+   - Bundle dijaga tetap kecil dan dependensi yang tidak digunakan harus dihapus.
+
+5. **Content & Maintainability**
+   - Konten dikelola melalui `src/data/` dan tidak di-hardcode tersebar di komponen.
+   - Data harus typed dan menjadi single source of truth.
+   - Dokumen PRD, DESIGN, dan README harus tetap sinkron dengan implementasi.
+
+6. **In Scope**
+   - Tujuh rute utama: `/`, `/about`, `/blog`, `/blog/$slug`, `/projects`, `/projects/$slug`, `/gallery`.
+   - Hero, PhotoCollage, Selected Projects, Blog preview, Skills, Work Experience, dan Contact pada Home.
+   - Bilingual EN/ID.
+   - Light/dark theme tanpa FOUC.
+   - Konten terpusat di `src/data/`.
+   - CV PDF statis di `public/`.
+
+7. **Out of Scope**
+   - Backend/API untuk form kontak; form tetap menggunakan `mailto:`.
+   - Headless CMS atau MDX.
+   - Login/autentikasi.
+   - Payment.
+   - Komentar blog.
+   - Halaman **Articles** terpisah; tulisan dikelola melalui Blog.
+   - LiveClock/jam real-time di footer demi menjaga fokus performa.
+

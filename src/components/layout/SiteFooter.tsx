@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Container } from "./Container";
+import { Container } from "@/components/layout/Container";
 import { profile } from "@/data/profile";
 import { useLanguage, type MessageKey } from "@/lib/i18n";
 
@@ -13,7 +13,7 @@ const links = [
 export function SiteFooter() {
   const { t } = useLanguage();
   return (
-    <footer className="mt-24 border-t border-zinc-900/5 py-10 transition-colors duration-300 dark:border-white/10">
+    <footer className="mt-24 border-t border-border py-10 transition-colors duration-300">
       <Container>
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div className="flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
@@ -22,14 +22,14 @@ export function SiteFooter() {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-sm font-medium text-zinc-700 transition-colors duration-300 hover:text-teal-700 dark:text-zinc-300 dark:hover:text-teal-400"
+                    className="text-sm font-medium text-foreground transition-colors duration-300 hover:text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     {t(link.label)}
                   </Link>
                 </li>
               ))}
             </ul>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="text-sm text-muted-foreground">
               &copy; 2026 {profile.name}. {t("footer.rights")}
             </p>
           </div>

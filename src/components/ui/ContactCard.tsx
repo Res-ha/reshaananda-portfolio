@@ -1,6 +1,6 @@
 import { Mail } from "lucide-react";
 import { useId, useState, type FormEvent } from "react";
-import { SurfaceCard } from "./Card";
+import { SurfaceCard } from "@/components/ui/Card";
 import { profile } from "@/data/profile";
 import { useLanguage } from "@/lib/i18n";
 
@@ -40,18 +40,15 @@ export function ContactCard() {
 
   return (
     <SurfaceCard>
-      <h2 className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <Mail className="h-4 w-4 text-zinc-600 dark:text-zinc-400" aria-hidden="true" />
+      <h2 className="flex items-center gap-2 text-sm font-semibold text-card-foreground">
+        <Mail className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
         {t("contact.title")}
       </h2>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{t("contact.subtitle")}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{t("contact.subtitle")}</p>
 
       <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4">
         <div>
-          <label
-            htmlFor={emailId}
-            className="block text-xs font-medium text-zinc-700 dark:text-zinc-300"
-          >
+          <label htmlFor={emailId} className="block text-xs font-medium text-foreground">
             {t("contact.email")}
           </label>
           <input
@@ -63,20 +60,17 @@ export function ContactCard() {
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? `${emailId}-error` : undefined}
             placeholder={t("contact.emailPlaceholder")}
-            className="mt-1.5 min-h-11 w-full rounded-xl border border-zinc-900/10 bg-zinc-50 px-3 text-sm text-zinc-900 transition-colors duration-300 placeholder:text-zinc-600 dark:border-white/10 dark:bg-zinc-900/40 dark:text-zinc-100 dark:placeholder:text-zinc-400"
+            className="mt-1.5 min-h-11 w-full rounded-xl border border-input bg-background px-3 text-sm text-foreground transition-colors duration-300 placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           />
           {errors.email && (
-            <p id={`${emailId}-error`} className="mt-1.5 text-xs text-red-700 dark:text-red-400">
+            <p id={`${emailId}-error`} className="mt-1.5 text-xs text-destructive">
               {errors.email}
             </p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor={messageId}
-            className="block text-xs font-medium text-zinc-700 dark:text-zinc-300"
-          >
+          <label htmlFor={messageId} className="block text-xs font-medium text-foreground">
             {t("contact.message")}
           </label>
           <textarea
@@ -88,10 +82,10 @@ export function ContactCard() {
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={errors.message ? `${messageId}-error` : undefined}
             placeholder={t("contact.messagePlaceholder")}
-            className="mt-1.5 w-full rounded-xl border border-zinc-900/10 bg-zinc-50 p-3 text-sm text-zinc-900 transition-colors duration-300 placeholder:text-zinc-600 dark:border-white/10 dark:bg-zinc-900/40 dark:text-zinc-100 dark:placeholder:text-zinc-400"
+            className="mt-1.5 w-full rounded-xl border border-input bg-background p-3 text-sm text-foreground transition-colors duration-300 placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           />
           {errors.message && (
-            <p id={`${messageId}-error`} className="mt-1.5 text-xs text-red-700 dark:text-red-400">
+            <p id={`${messageId}-error`} className="mt-1.5 text-xs text-destructive">
               {errors.message}
             </p>
           )}
@@ -100,28 +94,28 @@ export function ContactCard() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="min-h-11 w-full rounded-xl bg-teal-700 px-4 text-sm font-medium text-white transition-colors duration-300 hover:bg-teal-800 active:scale-[0.98] disabled:opacity-70 dark:bg-teal-500 dark:text-zinc-950 dark:hover:bg-teal-400"
+          className="min-h-11 w-full rounded-full bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "sending" ? t("contact.sending") : t("contact.send")}
         </button>
 
         {status === "success" && (
-          <p role="status" className="text-xs text-teal-700 dark:text-teal-400">
+          <p role="status" className="text-xs text-primary">
             {t("contact.success")}
           </p>
         )}
         {status === "error" && Object.keys(errors).length > 0 && (
-          <p role="alert" className="text-xs text-red-700 dark:text-red-400">
+          <p role="alert" className="text-xs text-destructive">
             {t("contact.errorFix")}
           </p>
         )}
       </form>
 
-      <p className="mt-4 text-xs text-zinc-600 dark:text-zinc-400">
+      <p className="mt-4 text-xs text-muted-foreground">
         {t("contact.response")}{" "}
         <a
           href={`mailto:${profile.email}`}
-          className="font-medium text-teal-700 underline-offset-4 hover:underline dark:text-teal-400"
+          className="font-medium text-primary underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           {profile.email}
         </a>
