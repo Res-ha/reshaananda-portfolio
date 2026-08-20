@@ -1,23 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { Container } from "@/components/layout/Container";
+import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { ContactCard } from "@/components/ui/ContactCard";
+import { Capabilities } from "@/components/ui/Capabilities";
 import { ExperienceCard } from "@/components/ui/ExperienceCard";
-import { PhotoCollage } from "@/components/media/PhotoCollage";
 import { ProjectListItem } from "@/components/ui/ProjectListItem";
-import { SkillBadges } from "@/components/ui/SkillBadges";
+import { SectionMarker } from "@/components/ui/SectionMarker";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerContainer } from "@/components/motion/Stagger";
-import { posts } from "@/data/posts";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
-import portrait from "@/assets/portrait.jpg";
+import { absoluteUrl, personStructuredData, siteUrl, websiteStructuredData } from "@/lib/seo";
 
-const title = `${profile.name} - Web Developer in Palangka Raya`;
+const title = `${profile.name} | Web Developer & Data Analytics Learner`;
 const description =
-  "Portfolio of Resha Ananda Rahman: PHP, Laravel, and WordPress projects, network notes, and writing in Indonesian.";
+  "Portfolio of Resha Ananda Rahman, a Web Developer in Palangka Raya specializing in PHP, Laravel, WordPress, and practical web solutions while growing in data analytics.";
+const featuredProjects = [projects[2], projects[0], projects[3]].filter(
+  (project): project is (typeof projects)[number] => project !== undefined,
+);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,9 +28,29 @@ export const Route = createFileRoute("/")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { property: "og:url", content: siteUrl },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        "script:ld+json": {
+          "@context": "https://schema.org",
+          "@graph": [
+            personStructuredData,
+            websiteStructuredData,
+            {
+              "@type": "WebPage",
+              "@id": `${siteUrl}/#webpage`,
+              name: title,
+              url: absoluteUrl("/"),
+              isPartOf: { "@id": `${siteUrl}/#website` },
+              about: { "@id": `${siteUrl}/#person` },
+              inLanguage: ["en", "id"],
+            },
+          ],
+        },
+      },
     ],
+    links: [{ rel: "canonical", href: absoluteUrl("/") }],
   }),
   component: Home,
 });
@@ -36,122 +58,95 @@ export const Route = createFileRoute("/")({
 function Home() {
   const { pick, t } = useLanguage();
   return (
-    <>
-      <Container className="mt-12 sm:mt-20">
-        <div className="grid grid-cols-1 items-center gap-y-10 lg:grid-cols-12 lg:gap-x-16">
-          <FadeIn className="lg:col-span-7">
-            <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              {pick(profile.headline)}
-            </h1>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">
-              {pick(profile.short)}
+    <PortfolioPageLayout className="mt-10 sm:mt-16">
+      <section aria-labelledby="home-hero-heading">
+        <FadeIn>
+          <SectionMarker index="00" label={t("home.profile")} />
+          <h1
+            id="home-hero-heading"
+            className="hero-title-reveal mt-3 max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+          >
+            {profile.name}
+          </h1>
+          <p className="hero-copy-reveal mt-4 max-w-2xl text-lg font-medium leading-relaxed text-primary">
+            {pick(profile.role)}
+          </p>
+          <p className="hero-copy-reveal mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground [animation-delay:180ms]">
+            {pick(profile.heroShort)}
+          </p>
+          <div className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
+            <p className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-30 motion-reduce:hidden" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+              </span>
+              {t("home.availability")}
             </p>
-            <div className="mt-8">
-              <SocialLinks />
+            <p className="flex items-center gap-2 before:hidden before:text-border before:content-['/'] sm:before:inline">
+              {t("home.currentFocus")}
+            </p>
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              to="/projects"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              {t("home.viewProjects")}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <a
+              href="#contact"
+              className="inline-flex min-h-11 items-center rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:border-primary hover:text-primary active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              {t("home.contactMe")}
+            </a>
+          </div>
+
+          <div className="mt-10 border-t border-border pt-6">
+            <p className="text-sm font-medium text-muted-foreground">{t("home.connect")}</p>
+            <div className="mt-3">
+              <SocialLinks label={t("home.connect")} />
             </div>
-          </FadeIn>
-          <FadeIn delay={100} className="lg:col-span-5">
-            <img
-              src={portrait}
-              alt={t("home.portraitAlt")}
-              width={900}
-              height={900}
-              className="float-soft mx-auto aspect-[4/5] w-full max-w-sm rotate-2 rounded-2xl object-cover ring-1 ring-border lg:mx-0 lg:ml-auto"
-            />
-          </FadeIn>
-        </div>
-      </Container>
-
-      <PhotoCollage />
-
-      <Container className="mt-20 sm:mt-28">
-        <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-12 lg:gap-x-12">
-          <div className="lg:col-span-7">
-            <section aria-labelledby="projects-heading">
-              <h2
-                id="projects-heading"
-                className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-              >
-                {t("home.selectedProjects")}
-              </h2>
-              <StaggerContainer className="mt-6 -mx-5 space-y-2">
-                {projects.slice(0, 4).map((project) => (
-                  <ProjectListItem key={project.slug} project={project} />
-                ))}
-              </StaggerContainer>
-              <Link
-                to="/projects"
-                className="group mt-6 ml-0 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                {t("home.allProjects")}
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </Link>
-            </section>
-
-            <section aria-labelledby="writing-heading" className="mt-16">
-              <h2
-                id="writing-heading"
-                className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-              >
-                {t("home.latestWriting")}
-              </h2>
-              <StaggerContainer className="mt-6 space-y-6">
-                {posts.slice(0, 3).map((post) => (
-                  <article key={post.slug} className="group">
-                    <p className="text-xs text-muted-foreground">{pick(post.dateLabel)}</p>
-                    <h3 className="mt-1 text-lg font-medium text-foreground">
-                      <Link
-                        to="/blog/$slug"
-                        params={{ slug: post.slug }}
-                        className="transition-colors duration-300 group-hover:text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
-                      >
-                        {pick(post.title)}
-                      </Link>
-                    </h3>
-                    <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                      {pick(post.excerpt)}
-                    </p>
-                  </article>
-                ))}
-              </StaggerContainer>
-              <Link
-                to="/blog"
-                className="group mt-8 ml-0 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                {t("home.allPosts")}
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </Link>
-            </section>
-
-            <section aria-labelledby="skills-heading" className="mt-16">
-              <h2
-                id="skills-heading"
-                className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-              >
-                {t("home.skills")}
-              </h2>
-              <div className="mt-6">
-                <SkillBadges skills={profile.skills} />
-              </div>
-            </section>
           </div>
+        </FadeIn>
+      </section>
 
-          <div className="space-y-8 lg:col-span-5">
-            <FadeIn>
-              <ExperienceCard />
-            </FadeIn>
-            <FadeIn delay={100}>
-              <ContactCard />
-            </FadeIn>
-          </div>
-        </div>
-      </Container>
-    </>
+      <div className="mt-20 border-t border-border pt-10 sm:mt-24 sm:pt-12">
+        <Capabilities />
+      </div>
+
+      <section aria-labelledby="projects-heading" className="mt-20 sm:mt-24">
+        <SectionMarker index="02" label={t("home.sectionProjects")} />
+        <h2
+          id="projects-heading"
+          className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+        >
+          {t("home.selectedProjects")}
+        </h2>
+        <StaggerContainer className="mt-8">
+          {featuredProjects.map((project, index) => (
+            <ProjectListItem key={project.slug} project={project} featured={index === 0} />
+          ))}
+        </StaggerContainer>
+        <Link
+          to="/projects"
+          className="group mt-6 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        >
+          {t("home.allProjects")}
+          <ArrowRight
+            className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </Link>
+      </section>
+
+      <FadeIn className="mt-20 sm:mt-24">
+        <ExperienceCard sectionIndex="03" />
+      </FadeIn>
+
+      <FadeIn delay={100} className="mt-20 sm:mt-24">
+        <ContactCard sectionIndex="04" />
+      </FadeIn>
+    </PortfolioPageLayout>
   );
 }

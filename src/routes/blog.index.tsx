@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerContainer } from "@/components/motion/Stagger";
 import { posts } from "@/data/posts";
 import { useLanguage } from "@/lib/i18n";
+import { absoluteUrl } from "@/lib/seo";
 
 const title = "Blog - Catatan Resha Ananda Rahman";
 const description =
@@ -18,8 +19,10 @@ export const Route = createFileRoute("/blog/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: absoluteUrl("/blog") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: absoluteUrl("/blog") }],
   }),
   component: BlogIndex,
 });

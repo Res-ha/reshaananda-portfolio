@@ -21,15 +21,15 @@ Website ini menampilkan profil, pengalaman kerja, proyek, tulisan teknis, galeri
 
 ## Halaman
 
-| Route | Isi |
-| --- | --- |
-| `/` | Hero, proyek pilihan, tulisan terbaru, skills, pengalaman kerja, CV, dan kontak |
-| `/about` | Profil, bio, pengalaman, pendidikan, tools, dan sosial |
-| `/projects` | Daftar proyek dalam bentuk card grid |
-| `/projects/$slug` | Detail proyek: overview, fitur, tech stack, tantangan, dan outcome |
-| `/blog` | Daftar tulisan |
-| `/blog/$slug` | Detail tulisan |
-| `/gallery` | Galeri foto |
+| Route             | Isi                                                                             |
+| ----------------- | ------------------------------------------------------------------------------- |
+| `/`               | Hero, proyek pilihan, tulisan terbaru, skills, pengalaman kerja, CV, dan kontak |
+| `/about`          | Profil, bio, pengalaman, pendidikan, tools, dan sosial                          |
+| `/projects`       | Daftar proyek dalam bentuk card grid                                            |
+| `/projects/$slug` | Detail proyek: overview, fitur, tech stack, tantangan, dan outcome              |
+| `/blog`           | Daftar tulisan                                                                  |
+| `/blog/$slug`     | Detail tulisan                                                                  |
+| `/gallery`        | Galeri foto                                                                     |
 
 ## Tech Stack
 
@@ -126,4 +126,3 @@ npm run build
 ## Lisensi
 
 © 2026 Resha Ananda Rahman. All rights reserved.
-

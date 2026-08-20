@@ -4,7 +4,7 @@ export type Experience = {
   company: string;
   initials: string;
   role: Localized<string>;
-  start: string;
+  start: Localized<string>;
   end: Localized<string>;
 };
 
@@ -16,8 +16,8 @@ export const experiences: Experience[] = [
       en: "Help Desk Provisioning & Migration",
       id: "Help Desk Provisioning & Migrasi",
     },
-    start: "2025",
-    end: { en: "Present", id: "Sekarang" },
+    start: { en: "July 2025", id: "Juli 2025" },
+    end: { en: "August 2026", id: "Agustus 2026" },
   },
   {
     company: "Tingang.id",
@@ -26,8 +26,8 @@ export const experiences: Experience[] = [
       en: "Junior Web Developer (Freelance)",
       id: "Junior Web Developer (Freelance)",
     },
-    start: "2024",
-    end: { en: "2025", id: "2025" },
+    start: { en: "July 2024", id: "Juli 2024" },
+    end: { en: "August 2025", id: "Agustus 2025" },
   },
   {
     company: "Universitas Palangka Raya",
@@ -36,8 +36,8 @@ export const experiences: Experience[] = [
       en: "Lab Teaching Assistant",
       id: "Asisten Praktikum Laboratorium",
     },
-    start: "2023",
-    end: { en: "2024", id: "2024" },
+    start: { en: "October 2023", id: "Oktober 2023" },
+    end: { en: "May 2024", id: "Mei 2024" },
   },
   {
     company: "Koperasi Upaya UPR",
@@ -46,7 +46,7 @@ export const experiences: Experience[] = [
       en: "IT Support & Web Developer Intern",
       id: "Magang IT Support & Web Developer",
     },
-    start: "2023",
-    end: { en: "2023", id: "2023" },
+    start: { en: "August 2023", id: "Agustus 2023" },
+    end: { en: "October 2023", id: "Oktober 2023" },
   },
 ];

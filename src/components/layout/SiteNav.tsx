@@ -9,11 +9,12 @@ import { cn } from "@/lib/utils";
 import portrait from "@/assets/portrait.jpg";
 
 const links = [
-  { to: "/about", label: "nav.about" },
-  { to: "/projects", label: "nav.projects" },
-  { to: "/blog", label: "nav.blog" },
-  { to: "/gallery", label: "nav.gallery" },
-] as const satisfies ReadonlyArray<{ to: string; label: MessageKey }>;
+  { kind: "route", to: "/about", label: "nav.about" },
+  { kind: "route", to: "/projects", label: "nav.projects" },
+  { kind: "route", to: "/experience", label: "nav.experience" },
+  { kind: "route", to: "/certifications", label: "nav.certifications" },
+  { kind: "route", to: "/contact", label: "nav.contact" },
+] as const satisfies ReadonlyArray<{ kind: "route"; to: string; label: MessageKey }>;
 
 export function SiteNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });

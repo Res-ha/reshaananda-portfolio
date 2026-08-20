@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { posts } from "@/data/posts";
 import { useLanguage } from "@/lib/i18n";
+import { absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -26,7 +27,21 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: post.excerpt.en },
         { property: "og:type", content: "article" },
         { name: "twitter:card", content: "summary_large_image" },
+        { property: "og:url", content: absoluteUrl(`/blog/${post.slug}`) },
+        {
+          "script:ld+json": {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title.en,
+            description: post.excerpt.en,
+            datePublished: post.date,
+            dateModified: post.date,
+            mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+            author: { "@id": "https://reshaananda-portfolio.vercel.app/#person" },
+          },
+        },
       ],
+      links: [{ rel: "canonical", href: absoluteUrl(`/blog/${post.slug}`) }],
     };
   },
   component: BlogPost,

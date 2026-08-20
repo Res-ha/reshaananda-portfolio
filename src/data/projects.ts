@@ -8,6 +8,9 @@ export type Project = {
   year: string;
   category: Localized<string>;
   date: Localized<string>;
+  role: Localized<string>;
+  impact: Localized<string>;
+  status: Localized<string>;
   summary: Localized<string>;
   stack: string[];
   caseStudy: boolean;
@@ -29,6 +32,12 @@ export const projects: Project[] = [
     year: "2026",
     category: { en: "Web App", id: "Aplikasi Web" },
     date: { en: "August 2026", id: "Agustus 2026" },
+    role: { en: "Full-stack Developer", id: "Full-stack Developer" },
+    impact: {
+      en: "A recap workflow covering 4,446 polling stations in the demo dataset.",
+      id: "Alur rekap yang mencakup 4.446 TPS pada dataset demo.",
+    },
+    status: { en: "Working prototype", id: "Prototipe aktif" },
     summary: {
       en: "A real-time vote count monitor for the 2024 Central Kalimantan gubernatorial election, built with Laravel 12 and AdminLTE.",
       id: "Monitor real-time perolehan suara untuk Pilkada Gubernur Kalimantan Tengah 2024, dibangun dengan Laravel 12 dan AdminLTE.",
@@ -77,6 +86,12 @@ export const projects: Project[] = [
     year: "2026",
     category: { en: "Web App", id: "Aplikasi Web" },
     date: { en: "August 2026", id: "Agustus 2026" },
+    role: { en: "Designer & Frontend Developer", id: "Designer & Frontend Developer" },
+    impact: {
+      en: "SSR portfolio with bilingual EN/ID content and typed data-driven pages.",
+      id: "Portofolio SSR dengan konten bilingual EN/ID dan halaman berbasis typed data.",
+    },
+    status: { en: "Live", id: "Live" },
     summary: {
       en: "A personal portfolio with server-side rendering, built with TanStack Start and Tailwind CSS v4, styled after the Spotlight design system with full EN/ID bilingual support.",
       id: "Portofolio pribadi dengan server-side rendering, dibangun dengan TanStack Start dan Tailwind CSS v4, bergaya mengikuti design system Spotlight dengan dukungan bilingual penuh EN/ID.",
@@ -126,6 +141,12 @@ export const projects: Project[] = [
     year: "2026",
     category: { en: "Web App", id: "Aplikasi Web" },
     date: { en: "August 2026", id: "Agustus 2026" },
+    role: { en: "Frontend Developer", id: "Frontend Developer" },
+    impact: {
+      en: "Turns 38 matchweeks of Premier League data into a focused responsive experience.",
+      id: "Menyajikan data 38 pekan Premier League dalam pengalaman responsif yang terfokus.",
+    },
+    status: { en: "Live", id: "Live" },
     summary: {
       en: "Live Sports Tracker Premier League - scores, fixtures, standings, and player stats from the API-Football 2024/25 season.",
       id: "Live Sports Tracker Premier League - skor, jadwal, klasemen, dan statistik pemain dari musim API-Football 2024/25.",
@@ -176,6 +197,12 @@ export const projects: Project[] = [
     year: "2024",
     category: { en: "Web App", id: "Aplikasi Web" },
     date: { en: "June 2024", id: "Juni 2024" },
+    role: { en: "Full-stack Developer", id: "Full-stack Developer" },
+    impact: {
+      en: "Established the cooperative's official production web presence.",
+      id: "Membangun kehadiran web produksi resmi untuk koperasi.",
+    },
+    status: { en: "Live", id: "Live" },
     summary: {
       en: "The official website for Koperasi Upaya Universitas Palangka Raya - profiles, services, and operational info for members.",
       id: "Website resmi Koperasi Upaya Universitas Palangka Raya - profil, layanan, dan informasi operasional bagi anggota.",
@@ -225,6 +252,12 @@ export const projects: Project[] = [
     year: "2024",
     category: { en: "Data Science", id: "Ilmu Data" },
     date: { en: "June 2024", id: "Juni 2024" },
+    role: { en: "Data Analyst", id: "Data Analyst" },
+    impact: {
+      en: "A reproducible workflow for aspect-based analysis of Indonesian text.",
+      id: "Workflow yang dapat direproduksi untuk analisis berbasis aspek pada teks Indonesia.",
+    },
+    status: { en: "Open source", id: "Open source" },
     summary: {
       en: "Aspect-based sentiment analysis combined with topic modeling on Indonesian text, built as a Jupyter notebook study.",
       id: "Analisis sentimen berbasis aspek yang dipadukan dengan topic modeling pada teks Bahasa Indonesia, disusun sebagai studi Jupyter notebook.",
@@ -273,6 +306,12 @@ export const projects: Project[] = [
     year: "2024",
     category: { en: "E-commerce", id: "Toko Online" },
     date: { en: "June 2024", id: "Juni 2024" },
+    role: { en: "Backend Web Developer", id: "Backend Web Developer" },
+    impact: {
+      en: "An end-to-end MVC reference covering products, carts, and order flow.",
+      id: "Referensi MVC end-to-end untuk produk, keranjang, dan alur pesanan.",
+    },
+    status: { en: "Open source", id: "Open source" },
     summary: {
       en: "An online shop built on the CodeIgniter framework - products, cart, and orders.",
       id: "Toko online yang dibangun di atas framework CodeIgniter - produk, keranjang, dan pesanan.",

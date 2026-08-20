@@ -17,6 +17,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { themeScript } from "@/lib/theme";
 import { LanguageProvider } from "@/lib/LanguageProvider";
 import { useLanguage } from "@/lib/i18n";
+import { personStructuredData, siteUrl, websiteStructuredData } from "@/lib/seo";
 
 function NotFoundComponent() {
   const { t } = useLanguage();
@@ -82,11 +83,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Portfolio and writing of Resha Ananda Rahman, IT support specialist and web developer in Palangka Raya.",
+          "Portfolio of Resha Ananda Rahman, a Web Developer in Palangka Raya specializing in PHP, Laravel, WordPress, and practical web solutions while learning data analytics.",
       },
       { name: "author", content: "Resha Ananda Rahman" },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: siteUrl },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        "script:ld+json": {
+          "@context": "https://schema.org",
+          "@graph": [personStructuredData, websiteStructuredData],
+        },
+      },
     ],
     links: [
       {
@@ -95,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      { rel: "apple-touch-icon", href: "/favicon.svg" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
@@ -132,13 +140,19 @@ function RootComponent() {
       >
         {t("a11y.skipToContent")}
       </a>
-      <div className="flex min-h-dvh flex-col bg-background transition-colors duration-300">
-        <SiteNav />
-        <main id="main-content" className="flex-1 pb-16">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </main>
-        <SiteFooter />
+      <div className="relative flex min-h-dvh overflow-clip bg-background transition-colors duration-300">
+        <div className="site-atmosphere" aria-hidden="true">
+          <span className="ambient-glow" />
+          <span className="ambient-glow ambient-glow--secondary" />
+        </div>
+        <div className="relative z-10 flex min-h-dvh w-full flex-col">
+          <SiteNav />
+          <main id="main-content" className="flex-1 pb-16">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
       </div>
     </QueryClientProvider>
   );

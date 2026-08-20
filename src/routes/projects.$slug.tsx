@@ -1,9 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from "lucide-react";
-import { Container } from "@/components/layout/Container";
+import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
+import { absoluteUrl, siteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: ({ params }) => {
@@ -26,7 +27,26 @@ export const Route = createFileRoute("/projects/$slug")({
         { property: "og:description", content: project.summary.en },
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary_large_image" },
+        { property: "og:url", content: absoluteUrl(`/projects/${project.slug}`) },
+        {
+          "script:ld+json": {
+            "@context": "https://schema.org",
+            "@type": "SoftwareSourceCode",
+            "@id": `${siteUrl}/projects/${project.slug}#project`,
+            name: project.title,
+            description: project.summary.en,
+            abstract: project.impact.en,
+            url: absoluteUrl(`/projects/${project.slug}`),
+            codeRepository: project.link,
+            dateCreated: project.year,
+            programmingLanguage: project.stack,
+            runtimePlatform: "Web",
+            creator: { "@id": `${siteUrl}/#person` },
+            keywords: project.stack.join(", "),
+          },
+        },
       ],
+      links: [{ rel: "canonical", href: absoluteUrl(`/projects/${project.slug}`) }],
     };
   },
   component: ProjectDetail,
@@ -39,8 +59,12 @@ function ProjectDetail() {
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
 
+  if (!next) {
+    throw notFound();
+  }
+
   return (
-    <Container className="mt-12 sm:mt-20">
+    <PortfolioPageLayout>
       <FadeIn className="mx-auto max-w-3xl">
         <Link
           to="/projects"
@@ -56,7 +80,7 @@ function ProjectDetail() {
         <h1 className="mt-8 text-4xl font-bold tracking-tight text-foreground">{project.title}</h1>
 
         <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
-          <span className="rounded-full bg-teal-50 px-3 py-1 font-medium text-primary dark:bg-teal-500/10 ">
+          <span className="rounded-full bg-primary/10 px-3 py-1 font-medium text-primary">
             {pick(project.category)}
           </span>
           <span>{pick(project.date)}</span>
@@ -66,7 +90,22 @@ function ProjectDetail() {
           {pick(project.summary)}
         </p>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <dl className="mt-8 grid gap-5 border-y border-border py-6 sm:grid-cols-3">
+          <div>
+            <dt className="text-xs text-muted-foreground">{t("project.role")}</dt>
+            <dd className="mt-1 text-sm font-medium text-foreground">{pick(project.role)}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-muted-foreground">{t("project.impact")}</dt>
+            <dd className="mt-1 text-sm leading-relaxed text-foreground">{pick(project.impact)}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-muted-foreground">{t("project.status")}</dt>
+            <dd className="mt-1 text-sm font-medium text-primary">{pick(project.status)}</dd>
+          </div>
+        </dl>
+
+        <div className="mt-8 flex flex-wrap items-center gap-3">
           {project.live && (
             <a
               href={project.live}
@@ -89,11 +128,11 @@ function ProjectDetail() {
           </a>
         </div>
 
-        <div className="mt-10 grid h-52 place-items-center overflow-hidden rounded-xl border-[1.5px] border-zinc-900/10 bg-linear-to-b from-zinc-100 to-zinc-50 dark:border-white/10 dark:from-zinc-800/70 dark:to-zinc-900">
+        <div className="mt-10 grid h-52 place-items-center overflow-hidden rounded-xl border border-border bg-linear-to-b from-secondary to-background">
           {project.image ? (
             <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
           ) : (
-            <div className="grid h-full w-full place-items-center bg-zinc-900 dark:bg-zinc-100">
+            <div className="grid h-full w-full place-items-center bg-foreground">
               <span
                 aria-hidden="true"
                 className="text-6xl font-semibold text-white dark:text-foreground"
@@ -131,7 +170,7 @@ function ProjectDetail() {
               >
                 <span
                   aria-hidden="true"
-                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600 dark:bg-teal-400"
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
                 />
                 {feature}
               </li>
@@ -147,7 +186,7 @@ function ProjectDetail() {
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full bg-zinc-100 px-3 py-1 text-sm font-medium text-foreground ring-1 ring-zinc-900/5 dark:bg-zinc-800  dark:ring-white/10"
+                className="rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground ring-1 ring-border"
               >
                 {tech}
               </span>
@@ -170,7 +209,7 @@ function ProjectDetail() {
               >
                 <span
                   aria-hidden="true"
-                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600 dark:bg-teal-400"
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
                 />
                 {challenge}
               </li>
@@ -205,13 +244,13 @@ function ProjectDetail() {
           <Link
             to="/projects/$slug"
             params={{ slug: next.slug }}
-            className="group mt-8 block rounded-xl border-[1.5px] border-zinc-900/10 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-zinc-800/5 active:scale-[0.99] dark:border-white/10"
+            className="group mt-8 block rounded-xl border border-border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-zinc-800/5 active:scale-[0.99]"
           >
             <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t("projects.next")}
             </p>
             <div className="mt-2 flex items-center justify-between gap-4">
-              <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary  group-hover:text-primary">
+              <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                 {next.title}
               </h3>
               <ArrowRight
@@ -225,6 +264,6 @@ function ProjectDetail() {
           </Link>
         </div>
       </FadeIn>
-    </Container>
+    </PortfolioPageLayout>
   );
 }

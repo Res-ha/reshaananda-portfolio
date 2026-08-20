@@ -25,7 +25,10 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-5">
-        <p className="text-xs font-medium text-muted-foreground">{project.year}</p>
+        <div className="flex items-center justify-between gap-3 text-xs font-medium">
+          <span className="text-muted-foreground">{project.year}</span>
+          <span className="text-primary">{pick(project.status)}</span>
+        </div>
 
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-foreground">
@@ -47,6 +50,19 @@ export function ProjectCard({ project }: { project: Project }) {
         <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
           {pick(project.summary)}
         </p>
+
+        <dl className="mt-2 grid gap-3 border-t border-border pt-4">
+          <div>
+            <dt className="text-xs text-muted-foreground">{t("project.role")}</dt>
+            <dd className="mt-1 text-sm font-medium text-foreground">{pick(project.role)}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-muted-foreground">{t("project.impact")}</dt>
+            <dd className="mt-1 line-clamp-2 text-sm leading-relaxed text-foreground">
+              {pick(project.impact)}
+            </dd>
+          </div>
+        </dl>
 
         <div className="mt-1 flex flex-wrap gap-2">
           {project.stack.slice(0, 4).map((tech) => (

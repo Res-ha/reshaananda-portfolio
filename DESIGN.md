@@ -19,27 +19,27 @@ Sistem warna Zinc (netral) + Teal (aksen). Tokens terdefinisi di `src/styles.css
 
 ### Light Mode (Default)
 
-| Role | Value |
-|---|---|
-| Background utama | `zinc-50` `#FAFAFA` |
-| Surface / card | `white` `#FFFFFF` |
-| Teks utama | `zinc-900` `#18181B` |
-| Teks sekunder / caption | `zinc-600` `#52525B` |
-| Border / ring halus | `zinc-900/5` |
-| Link & label (aksen) | `teal-700` `#0F766E` (kontras WCAG AA) |
-| Tombol primer | `bg-teal-700` + teks `white` |
+| Role                    | Value                                  |
+| ----------------------- | -------------------------------------- |
+| Background utama        | `zinc-50` `#FAFAFA`                    |
+| Surface / card          | `white` `#FFFFFF`                      |
+| Teks utama              | `zinc-900` `#18181B`                   |
+| Teks sekunder / caption | `zinc-600` `#52525B`                   |
+| Border / ring halus     | `zinc-900/5`                           |
+| Link & label (aksen)    | `teal-700` `#0F766E` (kontras WCAG AA) |
+| Tombol primer           | `bg-teal-700` + teks `white`           |
 
 ### Dark Mode
 
-| Role | Value |
-|---|---|
-| Background utama | `zinc-900` `#18181B` |
-| Surface / card | `zinc-800/50` + `backdrop-blur` |
-| Teks utama | `zinc-100` `#F4F4F5` |
-| Teks sekunder | `zinc-400` `#A1A1AA` |
-| Border | `white/10` |
-| Link & label (aksen) | `teal-400` `#2DD4BF` |
-| Tombol primer | `bg-teal-500` + teks `zinc-950` |
+| Role                 | Value                           |
+| -------------------- | ------------------------------- |
+| Background utama     | `zinc-900` `#18181B`            |
+| Surface / card       | `zinc-800/50` + `backdrop-blur` |
+| Teks utama           | `zinc-100` `#F4F4F5`            |
+| Teks sekunder        | `zinc-400` `#A1A1AA`            |
+| Border               | `white/10`                      |
+| Link & label (aksen) | `teal-400` `#2DD4BF`            |
+| Tombol primer        | `bg-teal-500` + teks `zinc-950` |
 
 > **Aturan kontras:** hindari `text-teal-600`, `text-zinc-400`, `text-zinc-500` sebagai teks statis di background terang (gagal kontras AA).
 
@@ -61,42 +61,51 @@ Warna mentah seperti `text-zinc-900` atau `bg-teal-700` boleh digunakan pada art
 
 ## 3. Tipografi (Geist Variable)
 
-| Elemen | Ukuran | Weight | Tracking |
-|---|---|---|---|
-| Display / Hero | `text-4xl`–`text-5xl` | Bold | `tracking-tight` |
-| Section heading | `text-2xl`–`text-3xl` | SemiBold | `tracking-tight` |
-| Card title | `text-base`–`text-lg` | Medium/SemiBold | normal |
-| Body | `text-base` | Regular | `leading-relaxed` |
-| Caption / meta | `text-xs`–`text-sm` | Regular/Medium | normal |
+| Elemen          | Ukuran                | Weight          | Tracking          |
+| --------------- | --------------------- | --------------- | ----------------- |
+| Display / Hero  | `text-4xl`–`text-5xl` | Bold            | `tracking-tight`  |
+| Section heading | `text-2xl`–`text-3xl` | SemiBold        | `tracking-tight`  |
+| Card title      | `text-base`–`text-lg` | Medium/SemiBold | normal            |
+| Body            | `text-base`           | Regular         | `leading-relaxed` |
+| Caption / meta  | `text-xs`–`text-sm`   | Regular/Medium  | normal            |
 
 ## 4. Komponen Inti
 
 ### A. Pill Navbar (Compact, tanpa Home)
+
 - Pill melayang di tengah atas (`rounded-full`, `w-fit`), `bg-white/90` / `dark:bg-zinc-800/90`, `backdrop-blur-md`, `ring-1 ring-zinc-900/5`, `shadow-lg shadow-zinc-800/5`.
 - **Menu:** About, Project, Blog, Gallery (Home dihapus). Aktif = `aria-current="page"` + teks teal.
 - **Theme Toggle terpisah** dari pill — tombol melayang `absolute right-4`.
 - **Avatar kondisional:** Home → tidak tampil (pindah ke Hero); non-Home → avatar + nama di `absolute left-4`, klik ke `/`.
 - Hamburger dropdown di mobile (`md:hidden`).
 
-### B. Hero & Photo Collage
-- Hero: portrait bulat, headline besar, bio ≤ 20 kata, ikon sosial.
-- Collage: 5 foto `aspect-9/10`, rotasi artistik `+2, -2, +1, +3, -2` deg; card 4–5 `hidden sm:block`.
-- Hover: foto melurus (`rotate-0`) + membesar (`scale-105`) + naik `z-10`.
-- Float: animasi `float-soft` 6s ease-in-out, stagger 400ms; mati saat `prefers-reduced-motion`.
-- Mobile: scroll horizontal `snap-x snap-mandatory`.
+### B. Hero
 
-### C. Grid Konten Home (2 Kolom)
-- Kiri `lg:col-span-7`: Selected Projects (4 item) → Tulisan terbaru (3) + link "Semua tulisan" → Skills.
-- Kanan `lg:col-span-5`: Work Experience card (tombol Download CV) + Contact card.
+- Split layout: headline dan CTA di kiri, satu portrait utama di kanan.
+- Headline maksimal dua baris, bio ≤ 20 kata, CTA utama dan ikon sosial tetap terlihat tanpa scroll berlebih.
+- Portrait menggunakan `aspect-[4/5]`, `rounded-2xl`, dan motion ringan yang mati saat `prefers-reduced-motion`.
+- Photo collage tidak digunakan di Home; seluruh eksplorasi foto ditempatkan pada halaman Gallery.
+
+### C. Komposisi Home
+
+- **Core Capabilities** ditempatkan setelah hero sebagai tiga kolom editorial dengan border atas, bukan card.
+- **Selected Projects** menggunakan lebar penuh: satu case study visual sebagai anchor dan dua project pendukung dalam baris ringkas.
+- Chapter berikutnya memakai grid `lg:col-span-7/5`: Latest Notes di kiri dan Work Experience timeline di kanan.
+- Tombol Download CV berada di luar timeline sebagai CTA terpisah.
+- **Get in Touch** menjadi section full-width dengan layout dua kolom menjelang footer.
+- Data & Tools diberi penanda "Currently learning" karena menjadi area pengembangan kompetensi.
 
 ### D. About (ala Magic Portfolio)
+
 - Kiri sticky `lg:col-span-4`: portrait, role, lokasi (ikon MapPin), tag bahasa.
 - Kanan `lg:col-span-8` (max-w 2xl): nama → headline → sosial → bio → **Work** timeline → **Tools I reach for**.
 
 ### E. Skill Badges
+
 - Pill kecil: `bg-zinc-100`/`bg-zinc-800`, teks `zinc-700`/`zinc-300`.
 
 ### F. Radius & Shape Rules
+
 - Button dan badge: `rounded-full`.
 - Input dan mobile menu: `rounded-xl`.
 - Card dan image utama: `rounded-2xl`.
@@ -104,21 +113,26 @@ Warna mentah seperti `text-zinc-900` atau `bg-teal-700` boleh digunakan pada art
 - Jangan mencampur radius lain tanpa alasan hierarki yang terdokumentasi.
 
 ### G. Project Tiles (`/projects`)
+
 - Monokrom: avatar inisial `bg-zinc-900 text-white` (dark: `bg-zinc-100 text-zinc-900`).
 - Jika project memiliki image, tampilkan image tersebut; jika tidak, gunakan avatar inisial sebagai fallback.
 - Image wajib memiliki alt text deskriptif. Avatar inisial dapat bersifat dekoratif jika judul project sudah tersedia.
 - Hover: `-translate-y-1` + shadow naik + judul teal. Meta `domain · year`; indikator "Case study".
+- Pada Home, project pertama menggunakan visual `aspect-video`; dua project berikutnya memakai baris editorial tanpa card untuk menjaga hierarchy.
 
 ### H. CTA Hierarchy
+
 - Primary: View case study, Download CV, Send message.
 - Secondary: GitHub, Live demo, Read article.
 - Gunakan maksimal satu jenis primary CTA yang dominan dalam satu viewport.
 
 ### I. Footer
+
 - Navigasi sama dengan navbar (About, Project, Blog, Gallery).
 - Copyright: `© 2026 Resha Ananda Rahman. All rights reserved.`
 
 ### J. Branding Tab Browser
+
 - Favicon: `public/favicon.svg` — rounded square `teal-700` + teks putih tebal "RAR" (+ fallback `favicon.ico`).
 
 ## 5. Micro-Interactions & Motion

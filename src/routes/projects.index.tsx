@@ -1,23 +1,39 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Container } from "@/components/layout/Container";
+import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { SectionMarker } from "@/components/ui/SectionMarker";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
+import { absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/projects/")({
+  head: () => ({
+    meta: [
+      { title: "Projects - Resha Ananda Rahman" },
+      {
+        name: "description",
+        content:
+          "Selected PHP, Laravel, CodeIgniter, WordPress, data analytics, and web development projects by Resha Ananda Rahman.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: absoluteUrl("/projects") },
+    ],
+    links: [{ rel: "canonical", href: absoluteUrl("/projects") }],
+  }),
   component: ProjectsIndex,
 });
 
 function ProjectsIndex() {
   const { t } = useLanguage();
   return (
-    <Container className="mt-12 sm:mt-20">
+    <PortfolioPageLayout>
       <FadeIn className="max-w-2xl">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl ">
+        <SectionMarker index="00" label={t("projects.log")} />
+        <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
           {t("projects.title")}
         </h1>
-        <p className="mt-2 border-b border-dashed border-zinc-300 pb-6 text-base leading-relaxed text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+        <p className="mt-2 border-b border-dashed border-border pb-6 text-base leading-relaxed text-muted-foreground">
           {t("projects.intro")}
         </p>
       </FadeIn>
@@ -29,6 +45,6 @@ function ProjectsIndex() {
           </FadeIn>
         ))}
       </div>
-    </Container>
+    </PortfolioPageLayout>
   );
 }

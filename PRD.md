@@ -13,6 +13,7 @@ Website portfolio ini bertujuan menyediakan kehadiran daring terpadu yang menamp
 Tujuan utama website adalah menghadirkan portfolio yang cepat, rapi, profesional, mudah dirawat, mendukung SSR, tersedia dalam Bahasa Indonesia dan English, serta memungkinkan konten diperbarui melalui file di `src/data/` tanpa mengubah kode komponen.
 
 Target pengguna utama:
+
 - **Klien / Calon Pemberi Kerja:** melihat hasil kerja, CV, profesionalisme, dan jalur kontak.
 - **Rekan Developer:** membaca tulisan teknis, melihat tech stack, dan terhubung melalui GitHub/LinkedIn.
 - **HR / Perekrut:** meninjau profil dan mengunduh CV dalam format PDF.
@@ -38,12 +39,12 @@ Berikut adalah persyaratan tingkat tinggi untuk website portfolio:
 Fitur-fitur utama website portfolio adalah sebagai berikut:
 
 1. **Home / Landing Page**
-   - Hero menampilkan foto profil bulat, headline, bio singkat, dan ikon sosial.
-   - PhotoCollage dengan animasi hover.
-   - Section **Selected Projects** menampilkan proyek unggulan dengan badge tech stack dan tahun.
-   - Preview tulisan terbaru dengan tautan menuju Blog.
-   - Work Experience dengan tombol **Download CV**.
-   - Kartu kontak.
+   - Hero menampilkan satu foto profil, headline ringkas, bio singkat, CTA, dan ikon sosial.
+   - Section **Core Capabilities** menampilkan kelompok Web Development, IT & Networking, serta Data & Tools.
+   - Section **Selected Projects** menampilkan tiga proyek unggulan dengan badge tech stack dan tahun.
+   - Preview dua catatan terbaru dengan tautan menuju Blog.
+   - Work Experience dalam bentuk timeline dengan tombol **Download CV** terpisah.
+   - Section kontak full-width menjelang footer.
 
 2. **Navigation**
    - Menu utama: **About, Project, Blog, Gallery**.
@@ -191,13 +192,13 @@ erDiagram
     PROFILE ||--o{ EXPERIENCE : "has"
 ```
 
-| Data | Deskripsi |
-|------|-----------|
-| **profile** | Informasi identitas portfolio, headline, bio, lokasi, skill, dan sosial |
-| **projects** | Daftar proyek beserta slug, tahun, tech stack, overview, features, challenges, solutions, dan outcome |
-| **posts** | Konten blog bilingual beserta slug, judul, ringkasan, dan isi |
-| **experience** | Riwayat pekerjaan/peran beserta perusahaan dan periode |
-| **localStorage** | Preferensi lokal pengguna untuk bahasa dan tema; bukan penyimpanan data aplikasi/server |
+| Data             | Deskripsi                                                                                             |
+| ---------------- | ----------------------------------------------------------------------------------------------------- |
+| **profile**      | Informasi identitas portfolio, headline, bio, lokasi, skill, dan sosial                               |
+| **projects**     | Daftar proyek beserta slug, tahun, tech stack, overview, features, challenges, solutions, dan outcome |
+| **posts**        | Konten blog bilingual beserta slug, judul, ringkasan, dan isi                                         |
+| **experience**   | Riwayat pekerjaan/peran beserta perusahaan dan periode                                                |
+| **localStorage** | Preferensi lokal pengguna untuk bahasa dan tema; bukan penyimpanan data aplikasi/server               |
 
 ## 7. Design & Technical Constraints
 
@@ -237,7 +238,7 @@ Bagian ini menetapkan batasan teknis, desain, scope, dan kualitas implementasi w
 
 6. **In Scope**
    - Tujuh rute utama: `/`, `/about`, `/blog`, `/blog/$slug`, `/projects`, `/projects/$slug`, `/gallery`.
-   - Hero, PhotoCollage, Selected Projects, Blog preview, Skills, Work Experience, dan Contact pada Home.
+   - Hero, Core Capabilities, Selected Projects, Latest Notes, Work Experience, dan Contact pada Home.
    - Bilingual EN/ID.
    - Light/dark theme tanpa FOUC.
    - Konten terpusat di `src/data/`.
@@ -251,4 +252,3 @@ Bagian ini menetapkan batasan teknis, desain, scope, dan kualitas implementasi w
    - Komentar blog.
    - Halaman **Articles** terpisah; tulisan dikelola melalui Blog.
    - LiveClock/jam real-time di footer demi menjaga fokus performa.
-

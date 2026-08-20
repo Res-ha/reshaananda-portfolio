@@ -112,6 +112,95 @@
   }
 }
 
+.site-atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.site-atmosphere::before,
+.site-atmosphere::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.site-atmosphere::before {
+  background:
+    radial-gradient(
+      circle at 86% 0%,
+      color-mix(in oklab, var(--primary) 10%, transparent),
+      transparent 24rem
+    ),
+    radial-gradient(
+      circle at 8% 22%,
+      color-mix(in oklab, var(--primary) 5%, transparent),
+      transparent 20rem
+    );
+  filter: blur(10px);
+  opacity: 1;
+}
+
+.site-atmosphere::after {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--foreground) 3%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--foreground) 3%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 38%);
+  opacity: 0.42;
+}
+
+.ambient-glow {
+  position: absolute;
+  top: 8rem;
+  right: 10%;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--primary) 11%, transparent);
+  filter: blur(56px);
+  opacity: 0.68;
+  animation: ambient-drift 18s ease-in-out infinite;
+}
+
+.ambient-glow--secondary {
+  top: auto;
+  right: auto;
+  bottom: 18%;
+  left: -8rem;
+  width: 20rem;
+  height: 20rem;
+  background: color-mix(in oklab, var(--primary) 8%, transparent);
+  opacity: 0.5;
+  animation-delay: -8s;
+  animation-duration: 24s;
+}
+
+.hero-title-reveal,
+.hero-copy-reveal {
+  animation: hero-reveal 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-copy-reveal {
+  animation-delay: 100ms;
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes float-soft {
   0%,
   100% {
@@ -119,6 +208,16 @@
   }
   50% {
     transform: translateY(-8px);
+  }
+}
+
+@keyframes ambient-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-24px, 18px, 0) scale(1.08);
   }
 }
 
@@ -137,5 +236,14 @@
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .ambient-glow {
+    animation: none;
+  }
+
+  .hero-title-reveal,
+  .hero-copy-reveal {
+    animation: none;
   }
 }

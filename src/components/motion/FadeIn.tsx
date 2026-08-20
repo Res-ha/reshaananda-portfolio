@@ -13,11 +13,16 @@ export function FadeIn({
   as?: "div" | "section" | "li" | "article" | "header";
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    if (typeof IntersectionObserver === "undefined") return;
+
+    setShouldAnimate(true);
+    setVisible(false);
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
@@ -36,8 +41,9 @@ export function FadeIn({
       ref={ref as never}
       style={{ transitionDelay: `${delay}ms` }}
       className={cn(
-        "transition-all duration-700 ease-out motion-reduce:transition-none",
-        visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+        shouldAnimate &&
+          "will-change-[opacity,transform] transition-[opacity,transform] duration-700 ease-out motion-reduce:transition-none",
+        !shouldAnimate || visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
         className,
       )}
     >
