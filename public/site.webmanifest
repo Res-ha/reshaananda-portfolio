@@ -1,0 +1,17 @@
+{
+  "name": "Resha Ananda Rahman — Portfolio",
+  "short_name": "Resha Ananda",
+  "description": "Portfolio Resha Ananda Rahman, IT support specialist dan web developer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#0F766E",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
