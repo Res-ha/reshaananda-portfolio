@@ -1,66 +1,129 @@
-# Resha Ananda Rahman — Portofolio
+# Resha Ananda Rahman — Portfolio
 
-Website portofolio pribadi **Resha Ananda Rahman** — IT support specialist & web developer berbasis di Palangka Raya, Kalimantan Tengah. Estetika **Spotlight**: zinc neutrals, aksen teal, font Geist, full light/dark mode, dan dukungan dua bahasa (EN/ID).
+Portfolio pribadi Resha Ananda Rahman, seorang IT support specialist dan web developer dari Palangka Raya, Kalimantan Tengah.
 
-Dibangun dengan [TanStack Start](https://tanstack.com/start) (file-based routing + SSR), React 19, dan Tailwind CSS v4.
+Website ini menampilkan profil, pengalaman kerja, proyek, tulisan teknis, galeri, CV, dan kontak dalam satu tempat.
 
-**Live app**: https://reshaananda-portfolio.vercel.app
+**Live website:** [reshaananda-portfolio.vercel.app](https://reshaananda-portfolio.vercel.app)
+
+## Fitur Utama
+
+- Bilingual English / Bahasa Indonesia
+- Light dan dark mode dengan preferensi tersimpan
+- Server-side rendering menggunakan TanStack Start
+- Portfolio proyek dengan halaman detail
+- Blog dengan URL berbasis slug
+- Galeri foto responsif
+- Download CV dalam format PDF
+- Form kontak berbasis `mailto:`
+- Navigasi keyboard dan focus state yang accessible
+- Konten terpusat dan typed di `src/data/`
 
 ## Halaman
 
-| Route | Deskripsi |
-|---|---|
-| `/` | Hero (foto + nama), photo collage, Selected Projects, preview Blog, Skills, Work Experience + Download CV, kontak |
-| `/about` | Profil lengkap ala Magic Portfolio: bio, riwayat kerja, tools, sosial |
-| `/blog` | Daftar tulisan (EN/ID); `/blog/$slug` untuk detail |
-| `/projects` | Card grid proyek; `/projects/$slug` untuk detail (Overview, Tech Stack, Features, Challenges & Solutions, Outcome) |
-| `/gallery` | Grid foto |
-
-## Dokumentasi
-
-- [PRD.md](./PRD.md) — Product Requirements Document (kebutuhan, KPI, spesifikasi, roadmap).
-- [DESIGN.md](./DESIGN.md) — Design system: warna, tipografi, komponen, motion, aksesibilitas.
+| Route | Isi |
+| --- | --- |
+| `/` | Hero, proyek pilihan, tulisan terbaru, skills, pengalaman kerja, CV, dan kontak |
+| `/about` | Profil, bio, pengalaman, pendidikan, tools, dan sosial |
+| `/projects` | Daftar proyek dalam bentuk card grid |
+| `/projects/$slug` | Detail proyek: overview, fitur, tech stack, tantangan, dan outcome |
+| `/blog` | Daftar tulisan |
+| `/blog/$slug` | Detail tulisan |
+| `/gallery` | Galeri foto |
 
 ## Tech Stack
 
-- **Framework:** TanStack Start + TanStack Router (SSR, file-based routing)
-- **UI:** React 19 · Tailwind CSS v4 · lucide-react · Geist Variable
-- **Package manager:** [npm](https://www.npmjs.com)
-- **Konten:** file typed di `src/data/` (profile, projects, posts, experience) — bilingual EN/ID
+- [TanStack Start](https://tanstack.com/start) dan TanStack Router
+- React 19
+- Tailwind CSS v4
+- TypeScript
+- Geist Variable
+- lucide-react
+- npm
 
 ## Struktur Folder
 
-```
-public/                 Aset statis: favicon.svg, favicon.ico, cv-resha-ananda-rahman.pdf
+```text
 src/
-  routes/               Route file-based (index, about, blog, projects, gallery, __root)
-  components/           Komponen UI (SiteNav, SiteFooter, PhotoCollage, LanguageToggle, dll.)
-  components/motion/    FadeIn & Stagger (IntersectionObserver)
-  data/                 Konten terpusat bilingual (profile, projects, posts, experience)
-  assets/               Gambar (portrait.jpg, collage-*.jpg)
-  lib/                  Utilitas, tema, i18n (i18n.ts, LanguageProvider.tsx)
+├── assets/       Gambar lokal seperti portrait dan collage
+├── components/
+│   ├── layout/   Container, SiteNav, SiteFooter
+│   ├── media/    PhotoCollage
+│   ├── motion/   FadeIn dan Stagger
+│   └── ui/       Card, form, toggle, project, dan social components
+├── data/         Sumber konten typed: profile, projects, posts, experience
+├── lib/          i18n, theme, utility, dan error handling
+├── routes/       Route TanStack Router
+├── router.tsx    Konfigurasi router
+├── server.ts     Server entry
+└── styles.css    Design tokens dan global styles
+
+public/
+├── cv-resha-ananda-rahman.pdf
+├── favicon.svg
+└── projects/
 ```
 
-## Menjalankan Lokal
+## Menjalankan Secara Lokal
 
-```sh
-git clone <this-repository-url>
+### Persyaratan
+
+- Node.js versi LTS
+- npm
+
+### Instalasi
+
+```bash
+git clone https://github.com/Res-ha/reshaananda-portfolio.git
 cd reshaananda-portfolio
 npm install
-npm run dev        # dev server
-npm run build      # production build (SSR)
-npm run preview    # preview build
-npm run lint       # eslint
 ```
 
-## Build dengan Lovable
+### Development
 
-Dikembangkan dengan [Lovable](https://lovable.dev). Lanjutkan di [Lovable editor](https://lovable.dev/projects/00dddc2b-b90c-4539-a362-362ef631a5cd).
+```bash
+npm run dev
+```
 
-- **Ship faster:** deskripsikan fitur, Lovable mengurus kodenya.
-- **Stay in sync:** perubahan di Lovable ter-commit langsung ke repositori.
-- **Full ownership:** kode milik Anda; push ke `main` di GitHub dan perubahan sinkron kembali ke Lovable.
+Buka [http://localhost:3000](http://localhost:3000) atau URL yang ditampilkan oleh Vite.
+
+### Validasi dan Production Build
+
+```bash
+npm run lint       # Memeriksa kualitas kode
+npm run build      # Membuat production build
+npm run preview    # Menjalankan hasil build secara lokal
+npm run format     # Memformat source code dengan Prettier
+```
+
+## Mengelola Konten
+
+Konten portfolio dikelola melalui file typed di `src/data/`:
+
+- `profile.ts` — identitas, bio, skills, sosial, dan CV
+- `projects.ts` — daftar dan detail proyek
+- `posts.ts` — tulisan blog bilingual
+- `experience.ts` — riwayat pengalaman kerja
+
+Untuk menambahkan atau memperbarui konten, edit file data terkait tanpa mengubah komponen presentasi.
+
+## Dokumentasi Proyek
+
+- [PRD.md](./PRD.md) — kebutuhan produk, fitur, user flow, arsitektur, dan batasan teknis
+- [DESIGN.md](./DESIGN.md) — design system, tokens, layout, motion, aksesibilitas, dan QA checklist
+
+## Deployment
+
+Build menghasilkan output frontend dan SSR yang dapat digunakan pada platform yang mendukung TanStack Start/Nitro.
+
+Sebelum deployment, jalankan:
+
+```bash
+npm run lint
+npm run build
+```
 
 ## Lisensi
 
 © 2026 Resha Ananda Rahman. All rights reserved.
+
