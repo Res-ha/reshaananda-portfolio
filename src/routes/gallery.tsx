@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Container } from "@/components/Container";
+import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerContainer } from "@/components/motion/Stagger";
 import { useLanguage } from "@/lib/i18n";
@@ -78,12 +78,10 @@ function Gallery() {
   return (
     <Container className="mt-12 sm:mt-20">
       <FadeIn className="max-w-2xl">
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">
+        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl ">
           {t("gallery.title")}
         </h1>
-        <p className="mt-6 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-          {t("gallery.intro")}
-        </p>
+        <p className="mt-6 text-base leading-relaxed text-muted-foreground">{t("gallery.intro")}</p>
       </FadeIn>
 
       <StaggerContainer className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:gap-6">

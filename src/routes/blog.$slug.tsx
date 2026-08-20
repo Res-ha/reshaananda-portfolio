@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { Container } from "@/components/Container";
+import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { posts } from "@/data/posts";
 import { useLanguage } from "@/lib/i18n";
@@ -41,7 +41,7 @@ function BlogPost() {
       <FadeIn className="mx-auto max-w-2xl">
         <Link
           to="/blog"
-          className="group inline-flex items-center gap-1 text-sm font-medium text-zinc-600 transition-colors duration-300 hover:text-teal-700 dark:text-zinc-400 dark:hover:text-teal-400"
+          className="group inline-flex min-h-11 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors duration-300 hover:text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <ArrowLeft
             className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1"
@@ -49,16 +49,13 @@ function BlogPost() {
           />
           {t("blog.all")}
         </Link>
-        <p className="mt-8 text-xs text-zinc-600 dark:text-zinc-400">{pick(post.dateLabel)}</p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+        <p className="mt-8 text-xs text-muted-foreground">{pick(post.dateLabel)}</p>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight text-foreground">
           {pick(post.title)}
         </h1>
         <div className="mt-8 space-y-6">
           {pick(post.body).map((paragraph) => (
-            <p
-              key={paragraph}
-              className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400"
-            >
+            <p key={paragraph} className="text-base leading-relaxed text-muted-foreground">
               {paragraph}
             </p>
           ))}

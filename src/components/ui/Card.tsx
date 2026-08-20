@@ -5,7 +5,7 @@ export function SurfaceCard({ children, className }: { children: ReactNode; clas
   return (
     <div
       className={cn(
-        "rounded-2xl border border-zinc-900/5 bg-white p-6 transition-colors duration-300 dark:border-white/10 dark:bg-zinc-800/50 dark:backdrop-blur",
+        "rounded-2xl border border-border bg-card p-6 text-card-foreground transition-colors duration-300 dark:backdrop-blur",
         className,
       )}
     >

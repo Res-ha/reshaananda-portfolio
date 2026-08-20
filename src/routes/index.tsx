@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { Container } from "@/components/Container";
-import { ContactCard } from "@/components/ContactCard";
-import { ExperienceCard } from "@/components/ExperienceCard";
-import { PhotoCollage } from "@/components/PhotoCollage";
-import { ProjectListItem } from "@/components/ProjectListItem";
-import { SkillBadges } from "@/components/SkillBadges";
-import { SocialLinks } from "@/components/SocialLinks";
+import { Container } from "@/components/layout/Container";
+import { ContactCard } from "@/components/ui/ContactCard";
+import { ExperienceCard } from "@/components/ui/ExperienceCard";
+import { PhotoCollage } from "@/components/media/PhotoCollage";
+import { ProjectListItem } from "@/components/ui/ProjectListItem";
+import { SkillBadges } from "@/components/ui/SkillBadges";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerContainer } from "@/components/motion/Stagger";
 import { posts } from "@/data/posts";
@@ -40,10 +40,10 @@ function Home() {
       <Container className="mt-12 sm:mt-20">
         <div className="grid grid-cols-1 items-center gap-y-10 lg:grid-cols-12 lg:gap-x-16">
           <FadeIn className="lg:col-span-7">
-            <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">
+            <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
               {pick(profile.headline)}
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">
               {pick(profile.short)}
             </p>
             <div className="mt-8">
@@ -56,7 +56,7 @@ function Home() {
               alt={t("home.portraitAlt")}
               width={900}
               height={900}
-              className="float-soft mx-auto aspect-[4/5] w-full max-w-sm rotate-2 rounded-2xl object-cover ring-1 ring-zinc-900/5 lg:mx-0 lg:ml-auto dark:ring-white/10"
+              className="float-soft mx-auto aspect-[4/5] w-full max-w-sm rotate-2 rounded-2xl object-cover ring-1 ring-border lg:mx-0 lg:ml-auto"
             />
           </FadeIn>
         </div>
@@ -70,7 +70,7 @@ function Home() {
             <section aria-labelledby="projects-heading">
               <h2
                 id="projects-heading"
-                className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-100"
+                className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
               >
                 {t("home.selectedProjects")}
               </h2>
@@ -81,7 +81,7 @@ function Home() {
               </StaggerContainer>
               <Link
                 to="/projects"
-                className="group mt-6 ml-0 inline-flex items-center gap-1 text-sm font-medium text-teal-700 dark:text-teal-400"
+                className="group mt-6 ml-0 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {t("home.allProjects")}
                 <ArrowRight
@@ -94,26 +94,24 @@ function Home() {
             <section aria-labelledby="writing-heading" className="mt-16">
               <h2
                 id="writing-heading"
-                className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-100"
+                className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
               >
                 {t("home.latestWriting")}
               </h2>
               <StaggerContainer className="mt-6 space-y-6">
                 {posts.slice(0, 3).map((post) => (
                   <article key={post.slug} className="group">
-                    <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                      {pick(post.dateLabel)}
-                    </p>
-                    <h3 className="mt-1 text-lg font-medium text-zinc-900 dark:text-zinc-100">
+                    <p className="text-xs text-muted-foreground">{pick(post.dateLabel)}</p>
+                    <h3 className="mt-1 text-lg font-medium text-foreground">
                       <Link
                         to="/blog/$slug"
                         params={{ slug: post.slug }}
-                        className="transition-colors duration-300 group-hover:text-teal-700 dark:group-hover:text-teal-400"
+                        className="transition-colors duration-300 group-hover:text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
                       >
                         {pick(post.title)}
                       </Link>
                     </h3>
-                    <p className="mt-2 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                       {pick(post.excerpt)}
                     </p>
                   </article>
@@ -121,7 +119,7 @@ function Home() {
               </StaggerContainer>
               <Link
                 to="/blog"
-                className="group mt-8 ml-0 inline-flex items-center gap-1 text-sm font-medium text-teal-700 dark:text-teal-400"
+                className="group mt-8 ml-0 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {t("home.allPosts")}
                 <ArrowRight
@@ -134,7 +132,7 @@ function Home() {
             <section aria-labelledby="skills-heading" className="mt-16">
               <h2
                 id="skills-heading"
-                className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-100"
+                className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
               >
                 {t("home.skills")}
               </h2>

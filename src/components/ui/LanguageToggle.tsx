@@ -12,11 +12,11 @@ export function LanguageToggle({ className }: { className?: string }) {
       aria-label={t("lang.switchTo")}
       title={t("lang.button")}
       className={cn(
-        "grid h-9 w-9 shrink-0 place-items-center rounded-full ring-1 ring-zinc-900/5 transition-colors duration-300 hover:bg-zinc-100 active:scale-95 dark:ring-white/10 dark:hover:bg-zinc-700/60",
+        "grid h-11 w-11 shrink-0 place-items-center rounded-full text-foreground ring-1 ring-border transition-colors duration-300 hover:bg-accent active:scale-95 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         className,
       )}
     >
-      <span className="text-[10px] font-bold tracking-wider text-zinc-700 dark:text-zinc-300">
+      <span className="text-[10px] font-bold tracking-wider text-foreground">
         {lang.toUpperCase()}
       </span>
     </button>
