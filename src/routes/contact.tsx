@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { profile } from "@/data/profile";
 import { absoluteUrl, siteUrl } from "@/lib/seo";
 import { useLanguage } from "@/lib/i18n";
@@ -91,33 +94,38 @@ function ContactPage() {
 
             return (
               <FadeIn key={channel.id} delay={index * 60}>
-                <a
-                  href={channel.href}
-                  target={isEmail ? undefined : "_blank"}
-                  rel={isEmail ? undefined : "noreferrer"}
-                  className="group flex min-h-44 flex-col justify-between rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-zinc-800/5 active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:p-6"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <ArrowUpRight
-                      className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="mt-8">
-                    <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                      {t(channel.title)}
-                    </h2>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {t(channel.description)}
-                    </p>
-                    <span className="mt-4 inline-flex text-sm font-medium text-primary">
-                      {t(channel.action)}
-                    </span>
-                  </div>
-                </a>
+                <Card className="h-full border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-zinc-800/5">
+                  <a
+                    href={channel.href}
+                    target={isEmail ? undefined : "_blank"}
+                    rel={isEmail ? undefined : "noreferrer"}
+                    className="group flex min-h-44 h-full flex-col justify-between rounded-2xl p-5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:p-6"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <Badge
+                        variant="secondary"
+                        className="grid h-11 w-11 rounded-full p-0 text-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"
+                      >
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </Badge>
+                      <ArrowUpRight
+                        className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="mt-8">
+                      <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                        {t(channel.title)}
+                      </h2>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        {t(channel.description)}
+                      </p>
+                      <span className="mt-4 inline-flex text-sm font-medium text-primary">
+                        {t(channel.action)}
+                      </span>
+                    </div>
+                  </a>
+                </Card>
               </FadeIn>
             );
           })}
@@ -130,13 +138,14 @@ function ContactPage() {
           <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">
             {t("contact.messageDescription")}
           </p>
-          <a
-            href={`mailto:${profile.email}`}
-            className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          <Button
+            size="lg"
+            className="mt-6 min-h-11 rounded-full px-5"
+            render={<a href={`mailto:${profile.email}`} />}
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
             {t("contact.sendEmail")}
-          </a>
+          </Button>
         </div>
       </FadeIn>
     </PortfolioPageLayout>

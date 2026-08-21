@@ -3,12 +3,12 @@
 ## 1. Overview
 
 **Project:** Portfolio Website — Resha Ananda Rahman  
-**Version:** v2.0  
-**Tanggal:** 16 Agustus 2026  
-**Status:** **Fase Implementasi**  
+**Version:** v2.1
+**Tanggal:** 21 Agustus 2026
+**Status:** **Frontend implementation**
 **Stack:** TanStack Start + React 19 + Tailwind CSS v4
 
-Website portfolio ini bertujuan menyediakan kehadiran daring terpadu yang menampilkan profil, proyek, tulisan teknis, riwayat kerja, galeri, dan jalur kontak dalam satu tempat. Sebelumnya, konten tersebar dan tampilan belum konsisten sehingga calon klien, rekan developer, maupun perekrut tidak dapat menilai kemampuan secara cepat dari satu sumber.
+Website portfolio ini menyediakan kehadiran daring terpadu untuk menampilkan profil, proyek, sertifikasi, riwayat karier, galeri, dan jalur kontak dalam satu tempat. Struktur konten dipusatkan pada halaman yang paling relevan bagi recruiter dan calon klien, dengan pengalaman baca yang cepat, rapi, dan mudah dipindai.
 
 Tujuan utama website adalah menghadirkan portfolio yang cepat, rapi, profesional, mudah dirawat, mendukung SSR, tersedia dalam Bahasa Indonesia dan English, serta memungkinkan konten diperbarui melalui file di `src/data/` tanpa mengubah kode komponen.
 
@@ -27,11 +27,11 @@ Berikut adalah persyaratan tingkat tinggi untuk website portfolio:
 - **Accessibility:** Seluruh teks memenuhi kontras WCAG AA (≥ 4.5:1), mendukung navigasi keyboard, dan menggunakan `aria-current` pada navigasi aktif.
 - **Bilingual:** Seluruh UI dan konten utama tersedia dalam English dan Bahasa Indonesia melalui toggle **EN/ID**.
 - **Theme:** Mendukung light/dark mode dengan preferensi tersimpan dan tanpa flash tema (FOUC).
-- **Maintainability:** Konten profil, proyek, tulisan, dan pengalaman dikelola secara terpusat dan typed melalui `src/data/` sebagai single source of truth.
+- **Maintainability:** Konten profil, proyek, tulisan, sertifikasi, dan pengalaman dikelola secara terpusat dan typed melalui `src/data/` sebagai single source of truth.
 - **Reliability:** Tidak terdapat error konsol maupun tautan internal yang menghasilkan 404 secara tidak disengaja.
 - **Portability:** Menggunakan npm dengan `package-lock.json` dan tidak mempertahankan dependensi `ui/*` shadcn yang tidak digunakan.
 - **Privacy:** Tidak menggunakan backend untuk menyimpan data pengguna; link sosial menggunakan `rel="noreferrer"`.
-- **Navigation:** Navbar utama berisi **About, Project, Blog, Gallery** tanpa menu Home.
+- **Navigation:** Navbar utama berisi **About, Projects, Certifications, Contact** tanpa menu Home. Route Blog dan Gallery tetap tersedia sebagai route langsung.
 - **Content Delivery:** CV tersedia sebagai file PDF statis di `public/cv-resha-ananda-rahman.pdf`.
 
 ## 3. Core Features
@@ -42,12 +42,11 @@ Fitur-fitur utama website portfolio adalah sebagai berikut:
    - Hero menampilkan satu foto profil, headline ringkas, bio singkat, CTA, dan ikon sosial.
    - Section **Core Capabilities** menampilkan kelompok Web Development, IT & Networking, serta Data & Tools.
    - Section **Selected Projects** menampilkan tiga proyek unggulan dengan badge tech stack dan tahun.
-   - Preview dua catatan terbaru dengan tautan menuju Blog.
-   - Work Experience dalam bentuk timeline dengan tombol **Download CV** terpisah.
+   - Work Experience ringkas dalam bentuk timeline dengan tombol **Download CV** terpisah.
    - Section kontak full-width menjelang footer.
 
 2. **Navigation**
-   - Menu utama: **About, Project, Blog, Gallery**.
+   - Menu utama: **About, Projects, Certifications, Contact**.
    - Halaman aktif menggunakan `aria-current="page"` dan aksen teal.
    - Theme toggle dan language toggle berada di sisi kanan navbar.
    - Pada halaman selain Home, avatar dan nama tampil di kiri dan dapat diklik untuk kembali ke `/`.
@@ -59,8 +58,10 @@ Fitur-fitur utama website portfolio adalah sebagai berikut:
    - Bahasa default adalah English.
 
 4. **About**
-   - Kolom kiri sticky berisi portrait, role, lokasi dengan ikon MapPin, dan skill.
-   - Kolom kanan berisi nama, headline, ikon sosial, bio, timeline **Work**, dan **Tools I reach for**.
+   - Intro berisi nama, headline, bio, portrait, CTA CV, dan tautan sertifikasi.
+   - Section **Career** menampilkan riwayat kerja dalam Card timeline.
+   - Section **Education** menggunakan Card dengan visual yang konsisten dengan Career.
+   - Section **Tools & Skills** menampilkan skill yang dikelola dari `src/data/profile.ts`.
 
 5. **Projects**
    - `/projects` menampilkan daftar proyek.
@@ -75,19 +76,24 @@ Fitur-fitur utama website portfolio adalah sebagai berikut:
 7. **Gallery**
    - `/gallery` menampilkan grid foto.
 
-8. **Download CV**
+8. **Certifications**
+   - `/certifications` menampilkan sertifikasi dalam card.
+   - Klik card membuka modal detail menggunakan komponen Dialog shadcn.
+   - Modal responsif menampilkan gambar sertifikat dan metadata terstruktur.
+
+9. **Download CV**
    - Tombol **Download CV** membuka `/cv-resha-ananda-rahman.pdf`.
    - File PDF berada di `public/` dan harus berhasil disertakan dalam build.
 
-9. **Light/Dark Mode**
+10. **Light/Dark Mode**
    - Theme toggle menyimpan preferensi ke `localStorage`.
    - Jika belum ada preferensi, sistem menggunakan `prefers-color-scheme`.
    - Class `.dark` diterapkan melalui inline script untuk mencegah FOUC.
 
-10. **Contact**
+11. **Contact**
     - Form kontak menggunakan `mailto:` tanpa backend dan tanpa penyimpanan data pengguna.
 
-11. **Error Handling**
+12. **Error Handling**
     - 404 dan error UI ditangani melalui `__root.tsx`.
     - Pesan error tersedia dalam kedua bahasa.
 
@@ -95,15 +101,16 @@ Fitur-fitur utama website portfolio adalah sebagai berikut:
 
 Alur utama pengunjung saat menggunakan website:
 
-1. **Masuk ke Home:** Pengunjung membuka `/` dan melihat profil, headline, karya unggulan, tulisan terbaru, pengalaman kerja, serta jalur kontak.
+1. **Masuk ke Home:** Pengunjung membuka `/` dan melihat profil, headline, karya unggulan, kemampuan utama, pengalaman kerja, serta jalur kontak.
 2. **Menilai Portfolio:** Pengunjung membuka **Project** untuk melihat daftar karya dan memilih proyek tertentu untuk membaca detail implementasinya.
-3. **Mengenal Profil:** Pengunjung membuka **About** untuk melihat profil lengkap, skill, tools, dan riwayat kerja.
-4. **Membaca Tulisan:** Pengunjung membuka **Blog**, memilih tulisan, kemudian membaca konten melalui URL berbasis slug.
-5. **Menjelajah Gallery:** Pengunjung membuka **Gallery** untuk melihat koleksi foto.
-6. **Mengubah Bahasa:** Pengunjung menggunakan toggle **EN/ID**; pilihan tersimpan dan tetap aktif setelah reload atau perpindahan halaman.
-7. **Mengubah Tema:** Pengunjung memilih light/dark mode; preferensi tersimpan dan diterapkan tanpa FOUC.
-8. **Mengunduh CV:** HR atau perekrut menekan **Download CV** untuk membuka file PDF statis.
-9. **Menghubungi:** Pengunjung menggunakan form kontak yang membuka aplikasi email melalui `mailto:`.
+3. **Mengenal Profil:** Pengunjung membuka **About** untuk melihat intro, Career, Education, skill, dan tools.
+4. **Meninjau Sertifikasi:** Pengunjung membuka **Certifications** dan memilih card untuk melihat detail sertifikat.
+5. **Membaca Tulisan:** Pengunjung membuka **Blog**, memilih tulisan, kemudian membaca konten melalui URL berbasis slug.
+6. **Menjelajah Gallery:** Pengunjung membuka **Gallery** untuk melihat koleksi foto.
+7. **Mengubah Bahasa:** Pengunjung menggunakan toggle **EN/ID**; pilihan tersimpan dan tetap aktif setelah reload atau perpindahan halaman.
+8. **Mengubah Tema:** Pengunjung memilih light/dark mode; preferensi tersimpan dan diterapkan tanpa FOUC.
+9. **Mengunduh CV:** HR atau perekrut menekan **Download CV** untuk membuka file PDF statis.
+10. **Menghubungi:** Pengunjung menggunakan form kontak yang membuka aplikasi email melalui `mailto:`.
 
 Rute utama yang termasuk dalam scope:
 
@@ -114,6 +121,9 @@ Rute utama yang termasuk dalam scope:
 - `/projects`
 - `/projects/$slug`
 - `/gallery`
+- `/certifications`
+- `/contact`
+- `/experience` sebagai redirect kompatibilitas ke `/about#career`
 
 ## 5. Architecture
 
@@ -127,7 +137,7 @@ sequenceDiagram
     participant Public as public/
 
     User->>App: Request halaman
-    App->>Data: Ambil profile/projects/posts/experience
+    App->>Data: Ambil profile/projects/posts/credentials/experience
     Data-->>App: Typed content
     App-->>User: SSR HTML + UI
 
@@ -145,8 +155,10 @@ sequenceDiagram
 
 Struktur data dan tanggung jawab utama:
 
-- `src/data/`: single source of truth untuk profile, projects, posts, dan experience.
-- Route TanStack Start: menangani Home, About, Blog, Project, Gallery, detail berbasis slug, 404, dan error UI.
+- `src/data/`: single source of truth untuk profile, projects, posts, credentials, dan experience.
+- Route TanStack Start: menangani Home, About, Blog, Project, Gallery, Certifications, Contact, detail berbasis slug, 404, dan error UI.
+- `src/components/sections/`: komponen fitur yang dikelompokkan berdasarkan halaman atau domain.
+- `src/components/ui/`: primitive shadcn dan kontrol reusable seperti toggle bahasa dan tema.
 - React components: menangani presentasi UI dan interaksi pengguna.
 - `localStorage`: menyimpan preferensi bahasa dan tema pada browser pengguna.
 - `public/`: menyimpan aset statis termasuk CV PDF.
@@ -206,7 +218,7 @@ Bagian ini menetapkan batasan teknis, desain, scope, dan kualitas implementasi w
 
 1. **High-Level Technology**
    - Framework utama: **TanStack Start**.
-   - UI: **React 19**.
+   - UI: **React 19** dengan komponen shadcn yang source code-nya dimiliki project.
    - Styling: **Tailwind CSS v4**.
    - Rendering mengutamakan SSR untuk performa dan initial page load.
    - Package manager menggunakan npm dengan `package-lock.json`.
@@ -237,8 +249,9 @@ Bagian ini menetapkan batasan teknis, desain, scope, dan kualitas implementasi w
    - Dokumen PRD, DESIGN, dan README harus tetap sinkron dengan implementasi.
 
 6. **In Scope**
-   - Tujuh rute utama: `/`, `/about`, `/blog`, `/blog/$slug`, `/projects`, `/projects/$slug`, `/gallery`.
-   - Hero, Core Capabilities, Selected Projects, Latest Notes, Work Experience, dan Contact pada Home.
+   - Rute aktif: `/`, `/about`, `/blog`, `/blog/$slug`, `/projects`, `/projects/$slug`, `/gallery`, `/certifications`, `/contact`.
+   - `/experience` dipertahankan sebagai redirect ke section Career di About.
+   - Hero, Core Capabilities, Selected Projects, Work Experience, dan Contact pada Home.
    - Bilingual EN/ID.
    - Light/dark theme tanpa FOUC.
    - Konten terpusat di `src/data/`.

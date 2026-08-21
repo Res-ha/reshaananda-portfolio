@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
-import { SkillBadges } from "@/components/ui/SkillBadges";
+import { CareerSection } from "@/components/sections/about/CareerSection";
+import { EducationSection } from "@/components/sections/about/EducationSection";
+import { SkillBadges } from "@/components/sections/about/SkillBadges";
+import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { education } from "@/data/credentials";
 import { profile } from "@/data/profile";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl, personStructuredData, siteUrl } from "@/lib/seo";
@@ -61,64 +63,23 @@ function About() {
             </div>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <Link
-                to="/experience"
-                className="group inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                {t("about.viewExperience")}
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </Link>
-              <Link
-                to="/certifications"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                {t("about.viewCertifications")}
-              </Link>
-              <a
-                href={profile.cvUrl}
-                download
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              <Button
+                size="lg"
+                className="min-h-11 rounded-full px-5"
+                render={<a href={profile.cvUrl} download />}
               >
                 {t("experience.download")}
                 <Download className="h-4 w-4" aria-hidden="true" />
-              </a>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="min-h-11 rounded-full px-5"
+                render={<Link to="/certifications" />}
+              >
+                {t("about.viewCertifications")}
+              </Button>
             </div>
-
-            <section aria-labelledby="education-heading" className="mt-16">
-              <h2
-                id="education-heading"
-                className="text-2xl font-semibold tracking-tight text-foreground"
-              >
-                {t("about.education")}
-              </h2>
-              <div className="mt-8 flex flex-col gap-2">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="text-lg font-semibold text-foreground">{education.institution}</h3>
-                  <p className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                    {pick(education.period)}
-                  </p>
-                </div>
-                <p className="text-sm font-medium text-primary">{t("about.degree")}</p>
-                <p className="text-sm text-muted-foreground">
-                  {t("about.gpa")} {education.gpa}
-                </p>
-              </div>
-            </section>
-
-            <section aria-labelledby="tools-heading" className="mt-16">
-              <h2
-                id="tools-heading"
-                className="text-2xl font-semibold tracking-tight text-foreground"
-              >
-                {t("about.tools")}
-              </h2>
-              <div className="mt-6">
-                <SkillBadges skills={profile.skills} />
-              </div>
-            </section>
           </div>
 
           <figure className="order-first md:order-last">
@@ -133,6 +94,28 @@ function About() {
             />
           </figure>
         </div>
+      </FadeIn>
+
+      <FadeIn delay={180} className="mt-20">
+        <CareerSection />
+      </FadeIn>
+
+      <FadeIn delay={240} className="mt-20">
+        <EducationSection />
+      </FadeIn>
+
+      <FadeIn delay={300} className="mt-20">
+        <section aria-labelledby="tools-heading">
+          <h2
+            id="tools-heading"
+            className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+          >
+            {t("about.tools")}
+          </h2>
+          <div className="mt-6">
+            <SkillBadges skills={profile.skills} />
+          </div>
+        </section>
       </FadeIn>
     </PortfolioPageLayout>
   );

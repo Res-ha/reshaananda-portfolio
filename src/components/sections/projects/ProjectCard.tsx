@@ -1,12 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/Card";
 import type { Project } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 
 export function ProjectCard({ project }: { project: Project }) {
   const { pick, t } = useLanguage();
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-zinc-800/5 dark:hover:shadow-black/20">
+    <Card className="group h-full gap-0 border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-zinc-800/5 dark:hover:shadow-black/20">
       <div className="aspect-video w-full overflow-hidden bg-secondary">
         {project.image ? (
           <img
@@ -24,7 +27,7 @@ export function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 p-5">
+      <CardContent className="flex flex-1 flex-col gap-2 p-5">
         <div className="flex items-center justify-between gap-3 text-xs font-medium">
           <span className="text-muted-foreground">{project.year}</span>
           <span className="text-primary">{pick(project.status)}</span>
@@ -41,9 +44,9 @@ export function ProjectCard({ project }: { project: Project }) {
             </Link>
           </h2>
           {project.caseStudy && (
-            <span className="shrink-0 rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground ring-1 ring-border">
+            <Badge variant="secondary" className="shrink-0 ring-1 ring-border">
               {t("project.caseStudy")}
-            </span>
+            </Badge>
           )}
         </div>
 
@@ -74,39 +77,38 @@ export function ProjectCard({ project }: { project: Project }) {
             </span>
           ))}
         </div>
+      </CardContent>
 
-        <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-border pt-4">
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors duration-300 hover:border-primary hover:text-primary active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      <CardFooter className="mt-auto flex flex-wrap gap-2 border-border bg-transparent p-5 pt-4">
+        <Button
+          variant="outline"
+          size="lg"
+          className="min-h-11 rounded-full"
+          render={<a href={project.link} target="_blank" rel="noreferrer" />}
+        >
+          <Github className="h-4 w-4" aria-hidden="true" />
+          GitHub
+        </Button>
+        {project.live ? (
+          <Button
+            size="lg"
+            className="min-h-11 rounded-full"
+            render={<a href={project.live} target="_blank" rel="noreferrer" />}
           >
-            <Github className="h-4 w-4" aria-hidden="true" />
-            GitHub
-          </a>
-          {project.live ? (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              <ExternalLink className="h-4 w-4" aria-hidden="true" />
-              {t("project.liveDemo")}
-            </a>
-          ) : (
-            <Link
-              to="/projects/$slug"
-              params={{ slug: project.slug }}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              {t("project.view")}
-            </Link>
-          )}
-        </div>
-      </div>
-    </article>
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            {t("project.liveDemo")}
+          </Button>
+        ) : (
+          <Button
+            size="lg"
+            className="min-h-11 rounded-full"
+            render={<Link to="/projects/$slug" params={{ slug: project.slug }} />}
+          >
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            {t("project.view")}
+          </Button>
+        )}
+      </CardFooter>
+    </Card>
   );
 }

@@ -1,8 +1,8 @@
 # Resha Ananda Rahman — Portfolio
 
-Portfolio pribadi Resha Ananda Rahman, seorang IT support specialist dan web developer dari Palangka Raya, Kalimantan Tengah.
+Portfolio pribadi Resha Ananda Rahman, seorang Web Developer yang sedang mengembangkan kompetensi di bidang Data Analytics dari Palangka Raya, Kalimantan Tengah.
 
-Website ini menampilkan profil, pengalaman kerja, proyek, tulisan teknis, galeri, CV, dan kontak dalam satu tempat.
+Website ini menampilkan profil, career, proyek, sertifikasi, tulisan teknis, galeri, CV, dan kontak dalam satu tempat.
 
 **Live website:** [reshaananda-portfolio.vercel.app](https://reshaananda-portfolio.vercel.app)
 
@@ -12,6 +12,7 @@ Website ini menampilkan profil, pengalaman kerja, proyek, tulisan teknis, galeri
 - Light dan dark mode dengan preferensi tersimpan
 - Server-side rendering menggunakan TanStack Start
 - Portfolio proyek dengan halaman detail
+- Halaman sertifikasi dengan modal detail responsif
 - Blog dengan URL berbasis slug
 - Galeri foto responsif
 - Download CV dalam format PDF
@@ -23,19 +24,23 @@ Website ini menampilkan profil, pengalaman kerja, proyek, tulisan teknis, galeri
 
 | Route             | Isi                                                                             |
 | ----------------- | ------------------------------------------------------------------------------- |
-| `/`               | Hero, proyek pilihan, tulisan terbaru, skills, pengalaman kerja, CV, dan kontak |
-| `/about`          | Profil, bio, pengalaman, pendidikan, tools, dan sosial                          |
+| `/`               | Hero, capabilities, proyek pilihan, pengalaman kerja, dan kontak                 |
+| `/about`          | Intro, Career, Education, tools, skills, CV, dan sertifikasi                    |
 | `/projects`       | Daftar proyek dalam bentuk card grid                                            |
 | `/projects/$slug` | Detail proyek: overview, fitur, tech stack, tantangan, dan outcome              |
+| `/certifications` | Daftar sertifikasi dan modal detail                                             |
+| `/contact`        | Kanal kontak dan form email                                                     |
 | `/blog`           | Daftar tulisan                                                                  |
 | `/blog/$slug`     | Detail tulisan                                                                  |
 | `/gallery`        | Galeri foto                                                                     |
+| `/experience`     | Redirect kompatibilitas ke `/about#career`                                     |
 
 ## Tech Stack
 
 - [TanStack Start](https://tanstack.com/start) dan TanStack Router
 - React 19
 - Tailwind CSS v4
+- shadcn/ui primitives
 - TypeScript
 - Geist Variable
 - lucide-react
@@ -50,8 +55,15 @@ src/
 │   ├── layout/   Container, SiteNav, SiteFooter
 │   ├── media/    PhotoCollage
 │   ├── motion/   FadeIn dan Stagger
-│   └── ui/       Card, form, toggle, project, dan social components
-├── data/         Sumber konten typed: profile, projects, posts, experience
+│   ├── sections/ Komponen fitur berdasarkan domain halaman
+│   │   ├── about/
+│   │   ├── certifications/
+│   │   ├── contact/
+│   │   ├── home/
+│   │   ├── projects/
+│   │   └── shared/
+│   └── ui/       Primitive shadcn dan kontrol reusable
+├── data/         Sumber konten typed: profile, projects, posts, credentials, experience
 ├── lib/          i18n, theme, utility, dan error handling
 ├── routes/       Route TanStack Router
 ├── router.tsx    Konfigurasi router
@@ -63,6 +75,8 @@ public/
 ├── favicon.svg
 └── projects/
 ```
+
+> Folder `.lovable/` tetap dipertahankan untuk integrasi project, tetapi disembunyikan dari File Explorer.
 
 ## Menjalankan Secara Lokal
 
@@ -103,7 +117,7 @@ Konten portfolio dikelola melalui file typed di `src/data/`:
 - `profile.ts` — identitas, bio, skills, sosial, dan CV
 - `projects.ts` — daftar dan detail proyek
 - `posts.ts` — tulisan blog bilingual
-- `experience.ts` — riwayat pengalaman kerja
+- `experience.ts` — riwayat karier yang ditampilkan di halaman About
 
 Untuk menambahkan atau memperbarui konten, edit file data terkait tanpa mengubah komponen presentasi.
 

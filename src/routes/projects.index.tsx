@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
-import { ProjectCard } from "@/components/ui/ProjectCard";
+import { ProjectCard } from "@/components/sections/projects/ProjectCard";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { SectionMarker } from "@/components/ui/SectionMarker";
+import { SectionMarker } from "@/components/sections/shared/SectionMarker";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";

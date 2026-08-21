@@ -2,6 +2,9 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from "lucide-react";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/Card";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl, siteUrl } from "@/lib/seo";
@@ -80,9 +83,12 @@ function ProjectDetail() {
         <h1 className="mt-8 text-4xl font-bold tracking-tight text-foreground">{project.title}</h1>
 
         <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
-          <span className="rounded-full bg-primary/10 px-3 py-1 font-medium text-primary">
+          <Badge
+            variant="secondary"
+            className="rounded-full bg-primary/10 font-medium text-primary"
+          >
             {pick(project.category)}
-          </span>
+          </Badge>
           <span>{pick(project.date)}</span>
         </p>
 
@@ -107,25 +113,24 @@ function ProjectDetail() {
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            <Button
+              size="lg"
+              className="min-h-11 rounded-full px-4"
+              render={<a href={project.live} target="_blank" rel="noreferrer" />}
             >
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
               {t("project.liveDemo")}
-            </a>
+            </Button>
           )}
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors duration-300 hover:border-primary hover:text-primary active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          <Button
+            variant="outline"
+            size="lg"
+            className="min-h-11 rounded-full px-4"
+            render={<a href={project.link} target="_blank" rel="noreferrer" />}
           >
             <Github className="h-4 w-4" aria-hidden="true" />
             {t("project.sourceCode")}
-          </a>
+          </Button>
         </div>
 
         <div className="mt-10 grid h-52 place-items-center overflow-hidden rounded-xl border border-border bg-linear-to-b from-secondary to-background">
@@ -241,27 +246,29 @@ function ProjectDetail() {
             {t("projects.backAll")}
           </Link>
 
-          <Link
-            to="/projects/$slug"
-            params={{ slug: next.slug }}
-            className="group mt-8 block rounded-xl border border-border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-zinc-800/5 active:scale-[0.99]"
-          >
-            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t("projects.next")}
-            </p>
-            <div className="mt-2 flex items-center justify-between gap-4">
-              <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
-                {next.title}
-              </h3>
-              <ArrowRight
-                className="h-5 w-5 shrink-0 text-primary transition-transform duration-300 group-hover:translate-x-1 "
-                aria-hidden="true"
-              />
-            </div>
-            <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-              {pick(next.summary)}
-            </p>
-          </Link>
+          <Card className="mt-8 gap-0 border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-zinc-800/5">
+            <Link
+              to="/projects/$slug"
+              params={{ slug: next.slug }}
+              className="group block rounded-xl p-6 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t("projects.next")}
+              </p>
+              <div className="mt-2 flex items-center justify-between gap-4">
+                <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                  {next.title}
+                </h3>
+                <ArrowRight
+                  className="h-5 w-5 shrink-0 text-primary transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </div>
+              <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                {pick(next.summary)}
+              </p>
+            </Link>
+          </Card>
         </div>
       </FadeIn>
     </PortfolioPageLayout>

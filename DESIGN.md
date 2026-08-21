@@ -74,7 +74,7 @@ Warna mentah seperti `text-zinc-900` atau `bg-teal-700` boleh digunakan pada art
 ### A. Pill Navbar (Compact, tanpa Home)
 
 - Pill melayang di tengah atas (`rounded-full`, `w-fit`), `bg-white/90` / `dark:bg-zinc-800/90`, `backdrop-blur-md`, `ring-1 ring-zinc-900/5`, `shadow-lg shadow-zinc-800/5`.
-- **Menu:** About, Project, Blog, Gallery (Home dihapus). Aktif = `aria-current="page"` + teks teal.
+- **Menu:** About, Projects, Certifications, Contact (Home dihapus). Aktif = `aria-current="page"` + teks teal.
 - **Theme Toggle terpisah** dari pill — tombol melayang `absolute right-4`.
 - **Avatar kondisional:** Home → tidak tampil (pindah ke Hero); non-Home → avatar + nama di `absolute left-4`, klik ke `/`.
 - Hamburger dropdown di mobile (`md:hidden`).
@@ -90,15 +90,18 @@ Warna mentah seperti `text-zinc-900` atau `bg-teal-700` boleh digunakan pada art
 
 - **Core Capabilities** ditempatkan setelah hero sebagai tiga kolom editorial dengan border atas, bukan card.
 - **Selected Projects** menggunakan lebar penuh: satu case study visual sebagai anchor dan dua project pendukung dalam baris ringkas.
-- Chapter berikutnya memakai grid `lg:col-span-7/5`: Latest Notes di kiri dan Work Experience timeline di kanan.
+- Chapter berikutnya menampilkan Work Experience timeline dengan fokus pada metrik dan peran profesional.
 - Tombol Download CV berada di luar timeline sebagai CTA terpisah.
 - **Get in Touch** menjadi section full-width dengan layout dua kolom menjelang footer.
 - Data & Tools diberi penanda "Currently learning" karena menjadi area pengembangan kompetensi.
 
-### D. About (ala Magic Portfolio)
+### D. About
 
-- Kiri sticky `lg:col-span-4`: portrait, role, lokasi (ikon MapPin), tag bahasa.
-- Kanan `lg:col-span-8` (max-w 2xl): nama → headline → sosial → bio → **Work** timeline → **Tools I reach for**.
+- Intro menggunakan grid responsif dengan bio di kiri dan portrait di kanan.
+- CTA utama: Download CV. CTA sekunder: View Certifications.
+- **Career** menggunakan satu Card timeline dengan metadata perusahaan, peran, periode, dan tautan LinkedIn.
+- **Education** menggunakan Card dengan shell, spacing, ikon, dan metadata yang konsisten dengan Career.
+- **Tools I reach for** tetap menjadi daftar skill berbentuk pill setelah Career dan Education.
 
 ### E. Skill Badges
 
@@ -128,12 +131,23 @@ Warna mentah seperti `text-zinc-900` atau `bg-teal-700` boleh digunakan pada art
 
 ### I. Footer
 
-- Navigasi sama dengan navbar (About, Project, Blog, Gallery).
+- Tidak ada menu tambahan di footer.
+- Logo dan nama berada di kiri; copyright berada di kanan pada desktop.
 - Copyright: `© 2026 Resha Ananda Rahman. All rights reserved.`
 
 ### J. Branding Tab Browser
 
 - Favicon: `public/favicon.svg` — rounded square `teal-700` + teks putih tebal "RAR" (+ fallback `favicon.ico`).
+
+### K. Component Organization
+
+- `src/components/ui/` hanya berisi primitive shadcn dan kontrol reusable seperti language serta theme toggle.
+- `src/components/sections/about/` berisi Career, Education, dan skill sections.
+- `src/components/sections/home/` berisi Capabilities dan Work Experience summary.
+- `src/components/sections/projects/` berisi project cards dan list items.
+- `src/components/sections/certifications/` berisi certification card dan modal.
+- `src/components/sections/contact/` berisi contact section.
+- `src/components/sections/shared/` berisi SectionMarker dan social links.
 
 ## 5. Micro-Interactions & Motion
 

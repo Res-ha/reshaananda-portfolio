@@ -1,8 +1,17 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Menu } from "lucide-react";
+import { useEffect, useState } from "react";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import { profile } from "@/data/profile";
 import { useLanguage, type MessageKey } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -11,7 +20,6 @@ import portrait from "@/assets/portrait.jpg";
 const links = [
   { kind: "route", to: "/about", label: "nav.about" },
   { kind: "route", to: "/projects", label: "nav.projects" },
-  { kind: "route", to: "/experience", label: "nav.experience" },
   { kind: "route", to: "/certifications", label: "nav.certifications" },
   { kind: "route", to: "/contact", label: "nav.contact" },
 ] as const satisfies ReadonlyArray<{ kind: "route"; to: string; label: MessageKey }>;
@@ -19,27 +27,12 @@ const links = [
 export function SiteNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const isHome = pathname === "/";
   const { t } = useLanguage();
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
-
-  useEffect(() => {
-    if (!open) return;
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open]);
 
   const isActive = (to: string) => pathname.startsWith(to);
 
@@ -91,44 +84,48 @@ export function SiteNav() {
             ))}
           </ul>
 
-          <button
-            type="button"
-            ref={menuButtonRef}
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
-            className="grid h-11 w-11 place-items-center rounded-full text-foreground transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:hidden"
-          >
-            {open ? (
-              <X className="h-5 w-5" aria-hidden="true" />
-            ) : (
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon-lg"
+                  aria-label={t("nav.openMenu")}
+                  className="rounded-full md:hidden"
+                />
+              }
+            >
               <Menu className="h-5 w-5" aria-hidden="true" />
-            )}
-          </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[min(88vw,22rem)]">
+              <SheetHeader className="border-b border-border pb-5">
+                <SheetTitle>{profile.name}</SheetTitle>
+                <SheetDescription>{t("nav.openMenu")}</SheetDescription>
+              </SheetHeader>
+              <nav aria-label="Mobile" className="px-4">
+                <ul className="grid gap-1">
+                  {links.map((link) => (
+                    <li key={link.to}>
+                      <Link
+                        to={link.to}
+                        aria-current={isActive(link.to) ? "page" : undefined}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "block rounded-xl px-3 py-3 text-sm transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                          isActive(link.to)
+                            ? "bg-secondary font-medium text-primary"
+                            : "text-foreground hover:bg-secondary hover:text-primary",
+                        )}
+                      >
+                        {t(link.label)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </SheetContent>
+          </Sheet>
         </nav>
-
-        {open && (
-          <ul
-            id="mobile-nav"
-            className="absolute top-full left-1/2 mt-2 w-56 -translate-x-1/2 rounded-2xl bg-card/95 p-2 text-card-foreground shadow-lg shadow-zinc-800/5 ring-1 ring-border backdrop-blur-md md:hidden"
-          >
-            {links.map((link) => (
-              <li key={link.to}>
-                <Link
-                  to={link.to}
-                  aria-current={isActive(link.to) ? "page" : undefined}
-                  className={cn(
-                    "block rounded-xl px-3 py-3 text-sm transition-colors duration-300 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                    isActive(link.to) ? "text-primary" : "text-foreground",
-                  )}
-                >
-                  {t(link.label)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
     </header>
   );

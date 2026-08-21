@@ -2,7 +2,11 @@ import { Mail } from "lucide-react";
 import { useId, useState, type FormEvent } from "react";
 import { profile } from "@/data/profile";
 import { useLanguage } from "@/lib/i18n";
-import { SectionMarker } from "@/components/ui/SectionMarker";
+import { SectionMarker } from "@/components/sections/shared/SectionMarker";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -74,10 +78,10 @@ export function ContactCard({ sectionIndex }: { sectionIndex?: string }) {
 
         <form onSubmit={handleSubmit} noValidate className="space-y-5 lg:col-span-7">
           <div>
-            <label htmlFor={emailId} className="block text-xs font-medium text-foreground">
+            <Label htmlFor={emailId} className="text-xs">
               {t("contact.email")}
-            </label>
-            <input
+            </Label>
+            <Input
               id={emailId}
               name="email"
               type="email"
@@ -86,7 +90,7 @@ export function ContactCard({ sectionIndex }: { sectionIndex?: string }) {
               aria-invalid={errors.email ? true : undefined}
               aria-describedby={errors.email ? `${emailId}-error` : undefined}
               placeholder={t("contact.emailPlaceholder")}
-              className="mt-2 min-h-11 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground transition-colors duration-300 placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="mt-2 min-h-11 rounded-xl bg-background px-4"
             />
             {errors.email && (
               <p id={`${emailId}-error`} className="mt-1.5 text-xs text-destructive">
@@ -96,10 +100,10 @@ export function ContactCard({ sectionIndex }: { sectionIndex?: string }) {
           </div>
 
           <div>
-            <label htmlFor={messageId} className="block text-xs font-medium text-foreground">
+            <Label htmlFor={messageId} className="text-xs">
               {t("contact.message")}
-            </label>
-            <textarea
+            </Label>
+            <Textarea
               id={messageId}
               name="message"
               rows={4}
@@ -108,7 +112,7 @@ export function ContactCard({ sectionIndex }: { sectionIndex?: string }) {
               aria-invalid={errors.message ? true : undefined}
               aria-describedby={errors.message ? `${messageId}-error` : undefined}
               placeholder={t("contact.messagePlaceholder")}
-              className="mt-2 w-full rounded-xl border border-input bg-background p-4 text-sm text-foreground transition-colors duration-300 placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="mt-2 min-h-32 rounded-xl bg-background p-4"
             />
             {errors.message && (
               <p id={`${messageId}-error`} className="mt-1.5 text-xs text-destructive">
@@ -117,13 +121,14 @@ export function ContactCard({ sectionIndex }: { sectionIndex?: string }) {
             )}
           </div>
 
-          <button
+          <Button
             type="submit"
+            size="lg"
+            className="min-h-11 rounded-full px-5"
             disabled={status === "sending"}
-            className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {status === "sending" ? t("contact.sending") : t("contact.send")}
-          </button>
+          </Button>
 
           {status === "success" && (
             <p role="status" className="text-xs text-primary">

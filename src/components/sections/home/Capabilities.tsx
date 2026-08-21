@@ -1,6 +1,6 @@
 import { profile } from "@/data/profile";
 import { useLanguage } from "@/lib/i18n";
-import { SectionMarker } from "@/components/ui/SectionMarker";
+import { SectionMarker } from "@/components/sections/shared/SectionMarker";
 
 type CapabilityGroup = {
   id: "web" | "networking" | "data";

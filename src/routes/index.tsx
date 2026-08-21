@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
-import { ContactCard } from "@/components/ui/ContactCard";
-import { Capabilities } from "@/components/ui/Capabilities";
-import { ExperienceCard } from "@/components/ui/ExperienceCard";
-import { ProjectListItem } from "@/components/ui/ProjectListItem";
-import { SectionMarker } from "@/components/ui/SectionMarker";
-import { SocialLinks } from "@/components/ui/SocialLinks";
+import { ContactCard } from "@/components/sections/contact/ContactCard";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Capabilities } from "@/components/sections/home/Capabilities";
+import { ExperienceCard } from "@/components/sections/home/ExperienceCard";
+import { ProjectListItem } from "@/components/sections/projects/ProjectListItem";
+import { SectionMarker } from "@/components/sections/shared/SectionMarker";
+import { SocialLinks } from "@/components/sections/shared/SocialLinks";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerContainer } from "@/components/motion/Stagger";
 import { profile } from "@/data/profile";
@@ -75,31 +77,34 @@ function Home() {
             {pick(profile.heroShort)}
           </p>
           <div className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
-            <p className="flex items-center gap-2">
+            <Badge variant="secondary" className="h-7 gap-2 rounded-full px-3">
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-30 motion-reduce:hidden" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-              {t("home.availability")}
-            </p>
-            <p className="flex items-center gap-2 before:hidden before:text-border before:content-['/'] sm:before:inline">
+              <span>{t("home.availability")}</span>
+            </Badge>
+            <Badge variant="outline" className="h-7 rounded-full px-3">
               {t("home.currentFocus")}
-            </p>
+            </Badge>
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              to="/projects"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary/90 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            <Button
+              size="lg"
+              className="min-h-11 rounded-full px-5"
+              render={<Link to="/projects" />}
             >
               {t("home.viewProjects")}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-            <a
-              href="#contact"
-              className="inline-flex min-h-11 items-center rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:border-primary hover:text-primary active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="min-h-11 rounded-full px-5"
+              render={<a href="#contact" />}
             >
               {t("home.contactMe")}
-            </a>
+            </Button>
           </div>
 
           <div className="mt-10 border-t border-border pt-6">
