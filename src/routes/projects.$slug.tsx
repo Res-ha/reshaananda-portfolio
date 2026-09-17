@@ -1,5 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Badge } from "@/components/ui/badge";
@@ -8,31 +8,19 @@ import { Card } from "@/components/ui/Card";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl, siteUrl } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 
-export const Route = createFileRoute("/projects/$slug")({
-  loader: ({ params }) => {
-    const project = projects.find((p) => p.slug === params.slug);
-    if (!project) throw notFound();
-    return { project };
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [{ title: "Project not found" }, { name: "robots", content: "noindex" }],
-      };
-    }
-    const { project } = loaderData;
-    return {
-      meta: [
-        { title: `${project.title} - Resha Ananda Rahman` },
-        { name: "description", content: project.summary.en },
-        { property: "og:title", content: project.title },
-        { property: "og:description", content: project.summary.en },
-        { property: "og:type", content: "website" },
-        { name: "twitter:card", content: "summary_large_image" },
-        { property: "og:url", content: absoluteUrl(`/projects/${project.slug}`) },
-        {
-          "script:ld+json": {
+export function ProjectDetail() {
+  const { slug } = useParams<{ slug: string }>();
+  const project = projects.find((item) => item.slug === slug);
+  const { pick, t } = useLanguage();
+  useDocumentMeta(
+    project
+      ? {
+          title: `${project.title} - Resha Ananda Rahman`,
+          description: project.summary.en,
+          canonical: absoluteUrl(`/projects/${project.slug}`),
+          structuredData: {
             "@context": "https://schema.org",
             "@type": "SoftwareSourceCode",
             "@id": `${siteUrl}/projects/${project.slug}#project`,
@@ -47,23 +35,30 @@ export const Route = createFileRoute("/projects/$slug")({
             creator: { "@id": `${siteUrl}/#person` },
             keywords: project.stack.join(", "),
           },
-        },
-      ],
-      links: [{ rel: "canonical", href: absoluteUrl(`/projects/${project.slug}`) }],
-    };
-  },
-  component: ProjectDetail,
-});
+        }
+      : { title: "Project not found", robots: "noindex" },
+  );
 
-function ProjectDetail() {
-  const { project } = Route.useLoaderData();
-  const { pick, t } = useLanguage();
+  if (!project) {
+    return (
+      <PortfolioPageLayout>
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-bold text-foreground">{t("notFound.title")}</h1>
+          <p className="mt-3 text-muted-foreground">{t("notFound.desc")}</p>
+          <Link to="/projects" className="mt-6 inline-flex min-h-11 items-center text-primary">
+            <ArrowLeft className="mr-1 h-4 w-4" aria-hidden="true" />
+            {t("projects.backAll")}
+          </Link>
+        </div>
+      </PortfolioPageLayout>
+    );
+  }
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
 
   if (!next) {
-    throw notFound();
+    return null;
   }
 
   return (
@@ -248,8 +243,7 @@ function ProjectDetail() {
 
           <Card className="mt-8 gap-0 border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-zinc-800/5">
             <Link
-              to="/projects/$slug"
-              params={{ slug: next.slug }}
+              to={`/projects/${next.slug}`}
               className="group block rounded-xl p-6 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">

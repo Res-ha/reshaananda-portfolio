@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { ProjectCard } from "@/components/sections/projects/ProjectCard";
 import { FadeIn } from "@/components/motion/FadeIn";
@@ -6,26 +5,16 @@ import { SectionMarker } from "@/components/sections/shared/SectionMarker";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 
-export const Route = createFileRoute("/projects/")({
-  head: () => ({
-    meta: [
-      { title: "Projects - Resha Ananda Rahman" },
-      {
-        name: "description",
-        content:
-          "Selected PHP, Laravel, CodeIgniter, WordPress, data analytics, and web development projects by Resha Ananda Rahman.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: absoluteUrl("/projects") },
-    ],
-    links: [{ rel: "canonical", href: absoluteUrl("/projects") }],
-  }),
-  component: ProjectsIndex,
-});
+const title = "Projects - Resha Ananda Rahman";
+const description =
+  "Selected PHP, Laravel, CodeIgniter, WordPress, data analytics, and web development projects by Resha Ananda Rahman.";
 
-function ProjectsIndex() {
+export function ProjectsIndex() {
   const { t } = useLanguage();
+  useDocumentMeta({ title, description, canonical: absoluteUrl("/projects") });
+
   return (
     <PortfolioPageLayout>
       <FadeIn className="max-w-2xl">

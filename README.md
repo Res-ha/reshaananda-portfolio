@@ -10,7 +10,7 @@ Website ini menampilkan profil, career, proyek, sertifikasi, tulisan teknis, gal
 
 - Bilingual English / Bahasa Indonesia
 - Light dan dark mode dengan preferensi tersimpan
-- Server-side rendering menggunakan TanStack Start
+- React SPA mandiri dengan Vite dan client-side routing
 - Portfolio proyek dengan halaman detail
 - Halaman sertifikasi dengan modal detail responsif
 - Blog dengan URL berbasis slug
@@ -22,23 +22,24 @@ Website ini menampilkan profil, career, proyek, sertifikasi, tulisan teknis, gal
 
 ## Halaman
 
-| Route             | Isi                                                                             |
-| ----------------- | ------------------------------------------------------------------------------- |
-| `/`               | Hero, capabilities, proyek pilihan, pengalaman kerja, dan kontak                 |
-| `/about`          | Intro, Career, Education, tools, skills, CV, dan sertifikasi                    |
-| `/projects`       | Daftar proyek dalam bentuk card grid                                            |
-| `/projects/$slug` | Detail proyek: overview, fitur, tech stack, tantangan, dan outcome              |
-| `/certifications` | Daftar sertifikasi dan modal detail                                             |
-| `/contact`        | Kanal kontak dan form email                                                     |
-| `/blog`           | Daftar tulisan                                                                  |
-| `/blog/$slug`     | Detail tulisan                                                                  |
-| `/gallery`        | Galeri foto                                                                     |
-| `/experience`     | Redirect kompatibilitas ke `/about#career`                                     |
+| Route             | Isi                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| `/`               | Hero, capabilities, proyek pilihan, pengalaman kerja, dan kontak   |
+| `/about`          | Intro, Career, Education, tools, skills, CV, dan sertifikasi       |
+| `/projects`       | Daftar proyek dalam bentuk card grid                               |
+| `/projects/:slug` | Detail proyek: overview, fitur, tech stack, tantangan, dan outcome |
+| `/certifications` | Daftar sertifikasi dan modal detail                                |
+| `/contact`        | Kanal kontak dan form email                                        |
+| `/blog`           | Daftar tulisan                                                     |
+| `/blog/:slug`     | Detail tulisan                                                     |
+| `/gallery`        | Galeri foto                                                        |
+| `/experience`     | Redirect kompatibilitas ke `/about#career`                         |
 
 ## Tech Stack
 
-- [TanStack Start](https://tanstack.com/start) dan TanStack Router
 - React 19
+- [Vite](https://vite.dev/)
+- [React Router](https://reactrouter.com/)
 - Tailwind CSS v4
 - shadcn/ui primitives
 - TypeScript
@@ -64,10 +65,10 @@ src/
 │   │   └── shared/
 │   └── ui/       Primitive shadcn dan kontrol reusable
 ├── data/         Sumber konten typed: profile, projects, posts, credentials, experience
-├── lib/          i18n, theme, utility, dan error handling
-├── routes/       Route TanStack Router
-├── router.tsx    Konfigurasi router
-├── server.ts     Server entry
+├── lib/          i18n, theme, SEO client-side, dan utility
+├── routes/       Komponen halaman React
+├── App.tsx       Layout utama dan konfigurasi routing
+├── main.tsx      Entry aplikasi React
 └── styles.css    Design tokens dan global styles
 
 public/
@@ -75,8 +76,6 @@ public/
 ├── favicon.svg
 └── projects/
 ```
-
-> Folder `.lovable/` tetap dipertahankan untuk integrasi project, tetapi disembunyikan dari File Explorer.
 
 ## Menjalankan Secara Lokal
 
@@ -99,7 +98,7 @@ npm install
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000) atau URL yang ditampilkan oleh Vite.
+Buka [http://localhost:5173](http://localhost:5173) atau URL yang ditampilkan oleh Vite.
 
 ### Validasi dan Production Build
 
@@ -128,7 +127,7 @@ Untuk menambahkan atau memperbarui konten, edit file data terkait tanpa mengubah
 
 ## Deployment
 
-Build menghasilkan output frontend dan SSR yang dapat digunakan pada platform yang mendukung TanStack Start/Nitro.
+Build menghasilkan aplikasi frontend statis di folder `dist/`. Konfigurasi `vercel.json` memastikan semua URL aplikasi diarahkan ke `index.html` agar client-side routing tetap berfungsi ketika halaman dimuat langsung.
 
 Sebelum deployment, jalankan:
 

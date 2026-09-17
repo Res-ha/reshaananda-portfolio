@@ -1,35 +1,24 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { posts } from "@/data/posts";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 
-export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = posts.find((p) => p.slug === params.slug);
-    if (!post) throw notFound();
-    return { post };
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {
-        meta: [{ title: "Tulisan tidak ditemukan" }, { name: "robots", content: "noindex" }],
-      };
-    }
-    const { post } = loaderData;
-    return {
-      meta: [
-        { title: `${post.title.en} - Blog Resha` },
-        { name: "description", content: post.excerpt.en },
-        { property: "og:title", content: post.title.en },
-        { property: "og:description", content: post.excerpt.en },
-        { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary_large_image" },
-        { property: "og:url", content: absoluteUrl(`/blog/${post.slug}`) },
-        {
-          "script:ld+json": {
+export function BlogPost() {
+  const { slug } = useParams<{ slug: string }>();
+  const post = posts.find((item) => item.slug === slug);
+  const { pick, t } = useLanguage();
+  useDocumentMeta(
+    post
+      ? {
+          title: `${post.title.en} - Blog Resha`,
+          description: post.excerpt.en,
+          canonical: absoluteUrl(`/blog/${post.slug}`),
+          type: "article",
+          structuredData: {
             "@context": "https://schema.org",
             "@type": "BlogPosting",
             headline: post.title.en,
@@ -39,17 +28,24 @@ export const Route = createFileRoute("/blog/$slug")({
             mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
             author: { "@id": "https://reshaananda-portfolio.vercel.app/#person" },
           },
-        },
-      ],
-      links: [{ rel: "canonical", href: absoluteUrl(`/blog/${post.slug}`) }],
-    };
-  },
-  component: BlogPost,
-});
+        }
+      : { title: "Tulisan tidak ditemukan", robots: "noindex" },
+  );
 
-function BlogPost() {
-  const { post } = Route.useLoaderData();
-  const { pick, t } = useLanguage();
+  if (!post) {
+    return (
+      <Container className="mt-12 sm:mt-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-bold text-foreground">{t("notFound.title")}</h1>
+          <p className="mt-3 text-muted-foreground">{t("notFound.desc")}</p>
+          <Link to="/blog" className="mt-6 inline-flex min-h-11 items-center text-primary">
+            <ArrowLeft className="mr-1 h-4 w-4" aria-hidden="true" />
+            {t("blog.all")}
+          </Link>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <Container className="mt-12 sm:mt-20">

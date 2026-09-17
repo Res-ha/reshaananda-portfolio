@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download } from "lucide-react";
+import { Link } from "react-router-dom";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { CareerSection } from "@/components/sections/about/CareerSection";
 import { EducationSection } from "@/components/sections/about/EducationSection";
@@ -9,41 +9,31 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { profile } from "@/data/profile";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl, personStructuredData, siteUrl } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import portrait from "@/assets/portrait.jpg";
 
 const title = "About Resha Ananda Rahman | Web Developer & Data Analytics Learner";
 const description =
   "Learn about Resha Ananda Rahman, a Web Developer in Palangka Raya with experience in PHP, Laravel, WordPress, client website maintenance, and ongoing data analytics study.";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:url", content: absoluteUrl("/about") },
-      { property: "og:type", content: "profile" },
-      { name: "twitter:card", content: "summary_large_image" },
-      {
-        "script:ld+json": {
-          "@context": "https://schema.org",
-          "@type": "ProfilePage",
-          "@id": `${siteUrl}/about#profilepage`,
-          name: title,
-          url: absoluteUrl("/about"),
-          mainEntity: personStructuredData,
-          inLanguage: ["en", "id"],
-        },
-      },
-    ],
-    links: [{ rel: "canonical", href: absoluteUrl("/about") }],
-  }),
-  component: About,
-});
-
-function About() {
+export function About() {
   const { pick, t } = useLanguage();
+  useDocumentMeta({
+    title,
+    description,
+    canonical: absoluteUrl("/about"),
+    type: "profile",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "@id": `${siteUrl}/about#profilepage`,
+      name: title,
+      url: absoluteUrl("/about"),
+      mainEntity: personStructuredData,
+      inLanguage: ["en", "id"],
+    },
+  });
+
   return (
     <PortfolioPageLayout>
       <FadeIn delay={100}>

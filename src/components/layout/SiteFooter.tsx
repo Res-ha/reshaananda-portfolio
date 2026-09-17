@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Container } from "@/components/layout/Container";
 import { profile } from "@/data/profile";
 import { useLanguage } from "@/lib/i18n";

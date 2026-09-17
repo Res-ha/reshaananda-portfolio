@@ -1,6 +1,6 @@
-import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import {
@@ -25,7 +25,7 @@ const links = [
 ] as const satisfies ReadonlyArray<{ kind: "route"; to: string; label: MessageKey }>;
 
 export function SiteNav() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const isHome = pathname === "/";
   const { t } = useLanguage();

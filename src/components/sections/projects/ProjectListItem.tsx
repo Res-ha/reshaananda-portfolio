@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { Project } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 
@@ -15,8 +15,7 @@ export function ProjectListItem({
   if (!featured) {
     return (
       <Link
-        to="/projects/$slug"
-        params={{ slug: project.slug }}
+        to={`/projects/${project.slug}`}
         className="group grid gap-4 border-b border-border py-6 transition-colors duration-300 md:grid-cols-[minmax(0,1fr)_auto] md:items-start focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         <div>
@@ -56,8 +55,7 @@ export function ProjectListItem({
 
   return (
     <Link
-      to="/projects/$slug"
-      params={{ slug: project.slug }}
+      to={`/projects/${project.slug}`}
       className="group grid gap-8 border-y border-border py-8 md:grid-cols-12 md:items-center focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <div className="overflow-hidden rounded-2xl bg-secondary md:col-span-5">

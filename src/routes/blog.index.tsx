@@ -1,34 +1,21 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerContainer } from "@/components/motion/Stagger";
 import { posts } from "@/data/posts";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 
 const title = "Blog - Catatan Resha Ananda Rahman";
 const description =
   "Tulisan santai dalam Bahasa Indonesia soal pengembangan web, jaringan kantor, dan kebiasaan kerja sehari-hari.";
 
-export const Route = createFileRoute("/blog/")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: absoluteUrl("/blog") },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: absoluteUrl("/blog") }],
-  }),
-  component: BlogIndex,
-});
-
-function BlogIndex() {
+export function BlogIndex() {
   const { pick, t } = useLanguage();
+  useDocumentMeta({ title, description, canonical: absoluteUrl("/blog") });
+
   return (
     <Container className="mt-12 sm:mt-20">
       <FadeIn className="max-w-2xl">
@@ -44,8 +31,7 @@ function BlogIndex() {
             <p className="text-xs text-muted-foreground">{pick(post.dateLabel)}</p>
             <h2 className="mt-1 text-lg font-semibold text-foreground">
               <Link
-                to="/blog/$slug"
-                params={{ slug: post.slug }}
+                to={`/blog/${post.slug}`}
                 className="transition-colors duration-300 group-hover:text-primary group-hover:text-primary"
               >
                 {pick(post.title)}

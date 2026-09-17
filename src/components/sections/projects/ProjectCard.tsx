@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/Card";
@@ -36,8 +36,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-foreground">
             <Link
-              to="/projects/$slug"
-              params={{ slug: project.slug }}
+              to={`/projects/${project.slug}`}
               className="transition-colors duration-300 group-hover:text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
             >
               {project.title}
@@ -102,7 +101,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <Button
             size="lg"
             className="min-h-11 rounded-full"
-            render={<Link to="/projects/$slug" params={{ slug: project.slug }} />}
+            render={<Link to={`/projects/${project.slug}`} />}
           >
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             {t("project.view")}

@@ -1,7 +1,7 @@
 # DESIGN.md — Design System Portofolio Resha Ananda Rahman
 
 > Referensi desain resmi website portofolio **Resha Ananda Rahman**.
-> Bersumber dari `.lovable/plan/spotlight-style-portfolio-resha-ananda-rahman-2026-08-15.md` dan kondisi implementasi terkini.
+> Disusun berdasarkan kondisi implementasi dan arah visual website terkini.
 > Stack visual: Tailwind CSS v4 · Font: Geist Variable · Accent: Teal · Neutrals: Zinc
 
 ---

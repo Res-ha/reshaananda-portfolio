@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { ContactCard } from "@/components/sections/contact/ContactCard";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +15,7 @@ import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl, personStructuredData, siteUrl, websiteStructuredData } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 
 const title = `${profile.name} | Web Developer & Data Analytics Learner`;
 const description =
@@ -23,42 +24,30 @@ const featuredProjects = [projects[2], projects[0], projects[3]].filter(
   (project): project is (typeof projects)[number] => project !== undefined,
 );
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:url", content: siteUrl },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      {
-        "script:ld+json": {
-          "@context": "https://schema.org",
-          "@graph": [
-            personStructuredData,
-            websiteStructuredData,
-            {
-              "@type": "WebPage",
-              "@id": `${siteUrl}/#webpage`,
-              name: title,
-              url: absoluteUrl("/"),
-              isPartOf: { "@id": `${siteUrl}/#website` },
-              about: { "@id": `${siteUrl}/#person` },
-              inLanguage: ["en", "id"],
-            },
-          ],
-        },
-      },
-    ],
-    links: [{ rel: "canonical", href: absoluteUrl("/") }],
-  }),
-  component: Home,
-});
-
-function Home() {
+export function Home() {
   const { pick, t } = useLanguage();
+  useDocumentMeta({
+    title,
+    description,
+    canonical: absoluteUrl("/"),
+    structuredData: {
+      "@context": "https://schema.org",
+      "@graph": [
+        personStructuredData,
+        websiteStructuredData,
+        {
+          "@type": "WebPage",
+          "@id": `${siteUrl}/#webpage`,
+          name: title,
+          url: absoluteUrl("/"),
+          isPartOf: { "@id": `${siteUrl}/#website` },
+          about: { "@id": `${siteUrl}/#person` },
+          inLanguage: ["en", "id"],
+        },
+      ],
+    },
+  });
+
   return (
     <PortfolioPageLayout className="mt-10 sm:mt-16">
       <section aria-labelledby="home-hero-heading">

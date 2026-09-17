@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { StaggerContainer } from "@/components/motion/Stagger";
 import { useLanguage } from "@/lib/i18n";
+import { absoluteUrl } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import c1 from "@/assets/collage-1.jpg";
 import c2 from "@/assets/collage-2.jpg";
 import c3 from "@/assets/collage-3.jpg";
@@ -59,22 +60,10 @@ const title = "Gallery - Resha Ananda Rahman";
 const description =
   "A small visual diary: desks, networks, maps, and the quiet corners where the work happens.";
 
-export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Gallery,
-});
-
-function Gallery() {
+export function Gallery() {
   const { pick, t } = useLanguage();
+  useDocumentMeta({ title, description, canonical: absoluteUrl("/gallery") });
+
   return (
     <Container className="mt-12 sm:mt-20">
       <FadeIn className="max-w-2xl">

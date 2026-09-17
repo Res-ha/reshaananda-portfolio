@@ -88,31 +88,31 @@ export const projects: Project[] = [
     date: { en: "August 2026", id: "Agustus 2026" },
     role: { en: "Designer & Frontend Developer", id: "Designer & Frontend Developer" },
     impact: {
-      en: "SSR portfolio with bilingual EN/ID content and typed data-driven pages.",
-      id: "Portofolio SSR dengan konten bilingual EN/ID dan halaman berbasis typed data.",
+      en: "Independent React portfolio with bilingual EN/ID content and typed data-driven pages.",
+      id: "Portofolio React mandiri dengan konten bilingual EN/ID dan halaman berbasis typed data.",
     },
     status: { en: "Live", id: "Live" },
     summary: {
-      en: "A personal portfolio with server-side rendering, built with TanStack Start and Tailwind CSS v4, styled after the Spotlight design system with full EN/ID bilingual support.",
-      id: "Portofolio pribadi dengan server-side rendering, dibangun dengan TanStack Start dan Tailwind CSS v4, bergaya mengikuti design system Spotlight dengan dukungan bilingual penuh EN/ID.",
+      en: "A personal portfolio built as a React SPA with Vite and Tailwind CSS v4, styled after the Spotlight design system with full EN/ID bilingual support.",
+      id: "Portofolio pribadi berbentuk React SPA dengan Vite dan Tailwind CSS v4, bergaya mengikuti design system Spotlight dengan dukungan bilingual penuh EN/ID.",
     },
-    stack: ["TanStack Start", "React 19", "Tailwind CSS v4", "i18n EN/ID"],
+    stack: ["React 19", "Vite", "React Router", "Tailwind CSS v4"],
     caseStudy: false,
     link: "https://github.com/Res-ha/reshaananda-portfolio",
     live: "https://reshaananda-portfolio.vercel.app",
     overview: {
-      en: "The personal portfolio of Resha Ananda Rahman, built with TanStack Start (SSR), React 19, and Tailwind CSS v4. It adopts the Spotlight aesthetic by Tailwind UI - calm, editorial, a Zinc palette with a Teal accent, complete with dark mode and full English/Indonesian bilingual support.",
-      id: "Portofolio pribadi Resha Ananda Rahman, dibangun dengan TanStack Start (SSR), React 19, dan Tailwind CSS v4. Mengadopsi estetika Spotlight dari Tailwind UI - tenang, editorial, palet Zinc dengan aksen Teal, lengkap dengan mode gelap dan dukungan bilingual penuh English/Indonesia.",
+      en: "The personal portfolio of Resha Ananda Rahman, built as an independent React 19 application with Vite, React Router, and Tailwind CSS v4. It adopts the Spotlight aesthetic by Tailwind UI - calm, editorial, a Zinc palette with a Teal accent, complete with dark mode and full English/Indonesian bilingual support.",
+      id: "Portofolio pribadi Resha Ananda Rahman, dibangun sebagai aplikasi React 19 mandiri dengan Vite, React Router, dan Tailwind CSS v4. Mengadopsi estetika Spotlight dari Tailwind UI - tenang, editorial, palet Zinc dengan aksen Teal, lengkap dengan mode gelap dan dukungan bilingual penuh English/Indonesia.",
     },
     features: {
       en: [
-        "TanStack Start with server-side rendering and file-based routing",
+        "React SPA with client-side routing through React Router",
         "Tailwind CSS v4 with a custom-variant dark mode",
         "Full bilingual support (English & Indonesian) with a language toggle",
         "Spotlight theme: Zinc + Teal accent, calm and editorial",
       ],
       id: [
-        "TanStack Start dengan server-side rendering dan file-based routing",
+        "React SPA dengan client-side routing melalui React Router",
         "Tailwind CSS v4 dengan mode gelap custom-variant",
         "Dukungan bilingual penuh (English & Indonesia) dengan tombol pengalih bahasa",
         "Tema Spotlight: aksen Zinc + Teal, tenang dan editorial",
@@ -129,8 +129,8 @@ export const projects: Project[] = [
       ],
     },
     outcome: {
-      en: "A live portfolio on Vercel with SSR, bilingual EN/ID, and a clean content pipeline managed through typed data files.",
-      id: "Portofolio live di Vercel dengan SSR, bilingual EN/ID, dan pipeline konten bersih yang dikelola lewat file data typed.",
+      en: "A live React portfolio on Vercel with bilingual EN/ID content and a clean content pipeline managed through typed data files.",
+      id: "Portofolio React live di Vercel dengan konten bilingual EN/ID dan pipeline konten bersih yang dikelola lewat file data typed.",
     },
   },
   {

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { CertificationCard } from "@/components/sections/certifications/CertificationCard";
@@ -7,41 +6,29 @@ import { CertificationModal } from "@/components/sections/certifications/Certifi
 import { certifications, type Certification } from "@/data/credentials";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl, personStructuredData, siteUrl } from "@/lib/seo";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 
 const title = "Certifications - Resha Ananda Rahman";
 const description =
   "Certificates and professional learning achievements in cybersecurity, data analytics, Python, and web development by Resha Ananda Rahman.";
 
-export const Route = createFileRoute("/certifications")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:url", content: absoluteUrl("/certifications") },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      {
-        "script:ld+json": {
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          "@id": `${siteUrl}/certifications#collectionpage`,
-          name: title,
-          url: absoluteUrl("/certifications"),
-          about: personStructuredData,
-          inLanguage: ["en", "id"],
-        },
-      },
-    ],
-    links: [{ rel: "canonical", href: absoluteUrl("/certifications") }],
-  }),
-  component: CertificationsPage,
-});
-
-function CertificationsPage() {
+export function CertificationsPage() {
   const { t } = useLanguage();
   const [selected, setSelected] = useState<Certification | null>(null);
+  useDocumentMeta({
+    title,
+    description,
+    canonical: absoluteUrl("/certifications"),
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": `${siteUrl}/certifications#collectionpage`,
+      name: title,
+      url: absoluteUrl("/certifications"),
+      about: personStructuredData,
+      inLanguage: ["en", "id"],
+    },
+  });
 
   return (
     <PortfolioPageLayout>

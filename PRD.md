@@ -6,11 +6,11 @@
 **Version:** v2.1
 **Tanggal:** 21 Agustus 2026
 **Status:** **Frontend implementation**
-**Stack:** TanStack Start + React 19 + Tailwind CSS v4
+**Stack:** React 19 + Vite + React Router + Tailwind CSS v4
 
 Website portfolio ini menyediakan kehadiran daring terpadu untuk menampilkan profil, proyek, sertifikasi, riwayat karier, galeri, dan jalur kontak dalam satu tempat. Struktur konten dipusatkan pada halaman yang paling relevan bagi recruiter dan calon klien, dengan pengalaman baca yang cepat, rapi, dan mudah dipindai.
 
-Tujuan utama website adalah menghadirkan portfolio yang cepat, rapi, profesional, mudah dirawat, mendukung SSR, tersedia dalam Bahasa Indonesia dan English, serta memungkinkan konten diperbarui melalui file di `src/data/` tanpa mengubah kode komponen.
+Tujuan utama website adalah menghadirkan portfolio yang cepat, rapi, profesional, mudah dirawat, tersedia dalam Bahasa Indonesia dan English, serta memungkinkan konten diperbarui melalui file di `src/data/` tanpa mengubah kode komponen.
 
 Target pengguna utama:
 
@@ -23,7 +23,7 @@ Target pengguna utama:
 
 Berikut adalah persyaratan tingkat tinggi untuk website portfolio:
 
-- **Performance:** Lighthouse Performance ≥ 90 dan FCP < 1,5 detik pada emulasi 4G, dengan SSR dan bundle yang tetap kecil.
+- **Performance:** Lighthouse Performance ≥ 90 dan FCP < 1,5 detik pada emulasi 4G, dengan aset statis dan bundle yang tetap kecil.
 - **Accessibility:** Seluruh teks memenuhi kontras WCAG AA (≥ 4.5:1), mendukung navigasi keyboard, dan menggunakan `aria-current` pada navigasi aktif.
 - **Bilingual:** Seluruh UI dan konten utama tersedia dalam English dan Bahasa Indonesia melalui toggle **EN/ID**.
 - **Theme:** Mendukung light/dark mode dengan preferensi tersimpan dan tanpa flash tema (FOUC).
@@ -86,15 +86,16 @@ Fitur-fitur utama website portfolio adalah sebagai berikut:
    - File PDF berada di `public/` dan harus berhasil disertakan dalam build.
 
 10. **Light/Dark Mode**
-   - Theme toggle menyimpan preferensi ke `localStorage`.
-   - Jika belum ada preferensi, sistem menggunakan `prefers-color-scheme`.
-   - Class `.dark` diterapkan melalui inline script untuk mencegah FOUC.
+
+- Theme toggle menyimpan preferensi ke `localStorage`.
+- Jika belum ada preferensi, sistem menggunakan `prefers-color-scheme`.
+- Class `.dark` diterapkan melalui inline script untuk mencegah FOUC.
 
 11. **Contact**
     - Form kontak menggunakan `mailto:` tanpa backend dan tanpa penyimpanan data pengguna.
 
 12. **Error Handling**
-    - 404 dan error UI ditangani melalui `__root.tsx`.
+    - 404 dan error UI ditangani melalui route fallback dan React Error Boundary di `App.tsx`.
     - Pesan error tersedia dalam kedua bahasa.
 
 ## 4. User Flow
@@ -117,9 +118,9 @@ Rute utama yang termasuk dalam scope:
 - `/`
 - `/about`
 - `/blog`
-- `/blog/$slug`
+- `/blog/:slug`
 - `/projects`
-- `/projects/$slug`
+- `/projects/:slug`
 - `/gallery`
 - `/certifications`
 - `/contact`
@@ -127,19 +128,19 @@ Rute utama yang termasuk dalam scope:
 
 ## 5. Architecture
 
-Website menggunakan arsitektur frontend berbasis **TanStack Start + React 19 + Tailwind CSS v4** dengan SSR. Konten utama tidak bergantung pada database atau CMS, melainkan disimpan secara terpusat di `src/data/` dan dikonsumsi oleh route serta komponen React.
+Website menggunakan arsitektur frontend mandiri berbasis **React 19 + Vite + React Router + Tailwind CSS v4** sebagai single-page application. Konten utama tidak bergantung pada database atau CMS, melainkan disimpan secara terpusat di `src/data/` dan dikonsumsi oleh komponen halaman React.
 
 ```mermaid
 sequenceDiagram
     participant User as Visitor (Browser)
-    participant App as TanStack Start / React
+    participant App as React SPA
     participant Data as src/data
     participant Public as public/
 
-    User->>App: Request halaman
+    User->>App: Buka URL aplikasi
     App->>Data: Ambil profile/projects/posts/credentials/experience
     Data-->>App: Typed content
-    App-->>User: SSR HTML + UI
+    App-->>User: Render UI di browser
 
     User->>App: Ubah bahasa EN/ID
     App->>User: Update konten dan html lang
@@ -156,7 +157,7 @@ sequenceDiagram
 Struktur data dan tanggung jawab utama:
 
 - `src/data/`: single source of truth untuk profile, projects, posts, credentials, dan experience.
-- Route TanStack Start: menangani Home, About, Blog, Project, Gallery, Certifications, Contact, detail berbasis slug, 404, dan error UI.
+- React Router: menangani Home, About, Blog, Project, Gallery, Certifications, Contact, detail berbasis slug, redirect, dan 404.
 - `src/components/sections/`: komponen fitur yang dikelompokkan berdasarkan halaman atau domain.
 - `src/components/ui/`: primitive shadcn dan kontrol reusable seperti toggle bahasa dan tema.
 - React components: menangani presentasi UI dan interaksi pengguna.
@@ -217,10 +218,11 @@ erDiagram
 Bagian ini menetapkan batasan teknis, desain, scope, dan kualitas implementasi website.
 
 1. **High-Level Technology**
-   - Framework utama: **TanStack Start**.
-   - UI: **React 19** dengan komponen shadcn yang source code-nya dimiliki project.
+   - Library utama: **React 19** dengan build tool **Vite**.
+   - Routing: **React Router** dalam mode client-side.
+   - UI menggunakan komponen shadcn yang source code-nya dimiliki project.
    - Styling: **Tailwind CSS v4**.
-   - Rendering mengutamakan SSR untuk performa dan initial page load.
+   - Rendering dilakukan sebagai React SPA dengan output build statis di `dist/`.
    - Package manager menggunakan npm dengan `package-lock.json`.
 
 2. **Visual Design**

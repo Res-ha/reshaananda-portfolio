@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { FadeIn } from "@/components/motion/FadeIn";
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { profile } from "@/data/profile";
 import { absoluteUrl, siteUrl } from "@/lib/seo";
 import { useLanguage } from "@/lib/i18n";
+import { useDocumentMeta } from "@/lib/useDocumentMeta";
 
 const channels = [
   {
@@ -44,35 +44,25 @@ const channels = [
   },
 ] as const;
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact - Resha Ananda Rahman" },
-      {
-        name: "description",
-        content:
-          "Get in touch with Resha Ananda Rahman for web development projects, collaborations, and professional opportunities.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: absoluteUrl("/contact") },
-      {
-        "script:ld+json": {
-          "@context": "https://schema.org",
-          "@type": "ContactPage",
-          "@id": `${siteUrl}/contact#contactpage`,
-          name: "Contact Resha Ananda Rahman",
-          url: absoluteUrl("/contact"),
-          mainEntity: { "@id": `${siteUrl}/#person` },
-        },
-      },
-    ],
-    links: [{ rel: "canonical", href: absoluteUrl("/contact") }],
-  }),
-  component: ContactPage,
-});
+const contactTitle = "Contact - Resha Ananda Rahman";
+const contactDescription =
+  "Get in touch with Resha Ananda Rahman for web development projects, collaborations, and professional opportunities.";
 
-function ContactPage() {
+export function ContactPage() {
   const { t } = useLanguage();
+  useDocumentMeta({
+    title: contactTitle,
+    description: contactDescription,
+    canonical: absoluteUrl("/contact"),
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "@id": `${siteUrl}/contact#contactpage`,
+      name: "Contact Resha Ananda Rahman",
+      url: absoluteUrl("/contact"),
+      mainEntity: { "@id": `${siteUrl}/#person` },
+    },
+  });
 
   return (
     <PortfolioPageLayout>
