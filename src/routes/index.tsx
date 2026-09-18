@@ -1,16 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
-import { ContactCard } from "@/components/sections/contact/ContactCard";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { AboutPreview } from "@/components/sections/home/AboutPreview";
 import { Capabilities } from "@/components/sections/home/Capabilities";
 import { ExperienceCard } from "@/components/sections/home/ExperienceCard";
+import { HomeContact } from "@/components/sections/home/HomeContact";
 import { ProjectListItem } from "@/components/sections/projects/ProjectListItem";
-import { SectionMarker } from "@/components/sections/shared/SectionMarker";
-import { SocialLinks } from "@/components/sections/shared/SocialLinks";
+import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { StaggerContainer } from "@/components/motion/Stagger";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
@@ -49,38 +46,30 @@ export function Home() {
   });
 
   return (
-    <PortfolioPageLayout className="mt-10 sm:mt-16">
-      <section aria-labelledby="home-hero-heading">
-        <FadeIn>
-          <SectionMarker index="00" label={t("home.profile")} />
+    <PortfolioPageLayout className="mt-0 sm:mt-0">
+      <section
+        aria-labelledby="home-hero-heading"
+        className="flex min-h-[calc(100svh-5rem)] items-center py-20 sm:py-24"
+      >
+        <FadeIn className="w-full">
+          <p className="hero-copy-reveal font-mono text-sm text-primary">{t("home.greeting")}</p>
           <h1
             id="home-hero-heading"
-            className="hero-title-reveal mt-3 max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+            className="hero-title-reveal mt-5 max-w-5xl text-[clamp(3rem,8vw,6.75rem)] leading-[0.94] font-bold tracking-[-0.055em] text-foreground"
           >
-            {profile.name}
+            {profile.name}.
           </h1>
-          <p className="hero-copy-reveal mt-4 max-w-2xl text-lg font-medium leading-relaxed text-primary">
-            {pick(profile.role)}
+          <p className="hero-copy-reveal mt-4 max-w-5xl text-[clamp(2.25rem,6.5vw,5.5rem)] leading-[1] font-bold tracking-[-0.05em] text-muted-foreground [animation-delay:100ms]">
+            {pick(profile.role)}.
           </p>
-          <p className="hero-copy-reveal mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground [animation-delay:180ms]">
+          <p className="hero-copy-reveal mt-7 max-w-xl text-base leading-8 text-muted-foreground [animation-delay:180ms] sm:text-lg">
             {pick(profile.heroShort)}
           </p>
-          <div className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
-            <Badge variant="secondary" className="h-7 gap-2 rounded-full px-3">
-              <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-30 motion-reduce:hidden" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-              </span>
-              <span>{t("home.availability")}</span>
-            </Badge>
-            <Badge variant="outline" className="h-7 rounded-full px-3">
-              {t("home.currentFocus")}
-            </Badge>
-          </div>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="hero-copy-reveal mt-9 flex flex-wrap gap-3 [animation-delay:240ms]">
             <Button
               size="lg"
-              className="min-h-11 rounded-full px-5"
+              nativeButton={false}
+              className="min-h-12 rounded-md px-6 font-mono text-xs"
               render={<Link to="/projects" />}
             >
               {t("home.viewProjects")}
@@ -89,57 +78,69 @@ export function Home() {
             <Button
               variant="outline"
               size="lg"
-              className="min-h-11 rounded-full px-5"
+              nativeButton={false}
+              className="min-h-12 rounded-md border-primary px-6 font-mono text-xs text-primary hover:bg-primary/10 hover:text-primary"
               render={<a href="#contact" />}
             >
               {t("home.contactMe")}
             </Button>
           </div>
-
-          <div className="mt-10 border-t border-border pt-6">
-            <p className="text-sm font-medium text-muted-foreground">{t("home.connect")}</p>
-            <div className="mt-3">
-              <SocialLinks label={t("home.connect")} />
-            </div>
-          </div>
+          <p className="hero-copy-reveal mt-8 flex items-center gap-3 font-mono text-[11px] text-muted-foreground [animation-delay:300ms]">
+            <span className="relative flex h-2 w-2" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-35 motion-reduce:hidden" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+            </span>
+            {t("home.availability")}
+          </p>
         </FadeIn>
       </section>
 
-      <div className="mt-20 border-t border-border pt-10 sm:mt-24 sm:pt-12">
-        <Capabilities />
-      </div>
-
-      <section aria-labelledby="projects-heading" className="mt-20 sm:mt-24">
-        <SectionMarker index="02" label={t("home.sectionProjects")} />
-        <h2
-          id="projects-heading"
-          className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-        >
-          {t("home.selectedProjects")}
-        </h2>
-        <StaggerContainer className="mt-8">
-          {featuredProjects.map((project, index) => (
-            <ProjectListItem key={project.slug} project={project} featured={index === 0} />
-          ))}
-        </StaggerContainer>
-        <Link
-          to="/projects"
-          className="group mt-6 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        >
-          {t("home.allProjects")}
-          <ArrowRight
-            className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-            aria-hidden="true"
-          />
-        </Link>
-      </section>
-
-      <FadeIn className="mt-20 sm:mt-24">
-        <ExperienceCard sectionIndex="03" />
+      <FadeIn className="py-24 sm:py-32">
+        <AboutPreview />
       </FadeIn>
 
-      <FadeIn delay={100} className="mt-20 sm:mt-24">
-        <ContactCard sectionIndex="04" />
+      <FadeIn className="py-24 sm:py-32">
+        <Capabilities />
+      </FadeIn>
+
+      <FadeIn className="py-24 sm:py-32">
+        <ExperienceCard />
+      </FadeIn>
+
+      <section
+        id="projects"
+        aria-labelledby="projects-heading"
+        className="scroll-mt-28 py-24 sm:py-32"
+      >
+        <FadeIn className="max-w-2xl">
+          <p className="section-kicker">{t("home.sectionProjects")}</p>
+          <h2 id="projects-heading" className="section-title mt-4">
+            {t("home.selectedProjects")}
+          </h2>
+        </FadeIn>
+        <div className="mt-14 space-y-24 sm:space-y-32">
+          {featuredProjects.map((project, index) => (
+            <FadeIn key={project.slug} delay={index * 80}>
+              <ProjectListItem project={project} index={index} />
+            </FadeIn>
+          ))}
+        </div>
+        <div className="mt-16 text-center">
+          <Link
+            to="/projects"
+            className="group inline-flex min-h-11 items-center gap-2 font-mono text-xs text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t("home.allProjects")}
+            <ArrowRight
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            />
+          </Link>
+        </div>
+      </section>
+
+      <FadeIn className="py-24 sm:py-36">
+        <HomeContact />
       </FadeIn>
     </PortfolioPageLayout>
   );

@@ -110,7 +110,8 @@ export function ProjectDetail() {
           {project.live && (
             <Button
               size="lg"
-              className="min-h-11 rounded-full px-4"
+              nativeButton={false}
+              className="min-h-11 rounded-md px-4 font-mono text-xs"
               render={<a href={project.live} target="_blank" rel="noreferrer" />}
             >
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -120,7 +121,8 @@ export function ProjectDetail() {
           <Button
             variant="outline"
             size="lg"
-            className="min-h-11 rounded-full px-4"
+            nativeButton={false}
+            className="min-h-11 rounded-md px-4 font-mono text-xs"
             render={<a href={project.link} target="_blank" rel="noreferrer" />}
           >
             <Github className="h-4 w-4" aria-hidden="true" />
@@ -241,7 +243,7 @@ export function ProjectDetail() {
             {t("projects.backAll")}
           </Link>
 
-          <Card className="mt-8 gap-0 border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-zinc-800/5">
+          <Card className="mt-8 gap-0 border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-foreground/5">
             <Link
               to={`/projects/${next.slug}`}
               className="group block rounded-xl p-6 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"

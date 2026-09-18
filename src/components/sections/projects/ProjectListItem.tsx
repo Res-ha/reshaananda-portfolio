@@ -1,122 +1,115 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Project } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
-export function ProjectListItem({
-  project,
-  featured = false,
-}: {
-  project: Project;
-  featured?: boolean;
-}) {
+export function ProjectListItem({ project, index = 0 }: { project: Project; index?: number }) {
   const { pick, t } = useLanguage();
-
-  if (!featured) {
-    return (
-      <Link
-        to={`/projects/${project.slug}`}
-        className="group grid gap-4 border-b border-border py-6 transition-colors duration-300 md:grid-cols-[minmax(0,1fr)_auto] md:items-start focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      >
-        <div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-            <span>{pick(project.date)}</span>
-            <span aria-hidden="true">·</span>
-            <span>{pick(project.category)}</span>
-            <span className="font-medium text-primary">{pick(project.status)}</span>
-          </div>
-          <h3 className="mt-2 text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
-            {project.title}
-          </h3>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            {pick(project.summary)}
-          </p>
-          <dl className="mt-4 grid gap-3 border-t border-border pt-4 text-sm sm:grid-cols-[9rem_minmax(0,1fr)]">
-            <div>
-              <dt className="text-xs text-muted-foreground">{t("project.role")}</dt>
-              <dd className="mt-1 font-medium text-foreground">{pick(project.role)}</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-muted-foreground">{t("project.impact")}</dt>
-              <dd className="mt-1 leading-relaxed text-foreground">{pick(project.impact)}</dd>
-            </div>
-          </dl>
-        </div>
-        <p className="flex min-h-11 items-center gap-1 text-sm font-medium text-primary md:mt-4">
-          {t("project.view")}
-          <ArrowRight
-            className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-            aria-hidden="true"
-          />
-        </p>
-      </Link>
-    );
-  }
+  const reversed = index % 2 === 1;
 
   return (
-    <Link
-      to={`/projects/${project.slug}`}
-      className="group grid gap-8 border-y border-border py-8 md:grid-cols-12 md:items-center focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-    >
-      <div className="overflow-hidden rounded-2xl bg-secondary md:col-span-5">
+    <article className="group grid items-center gap-7 lg:grid-cols-12 lg:gap-0">
+      <Link
+        to={`/projects/${project.slug}`}
+        aria-label={`${t("project.view")}: ${project.title}`}
+        className={cn(
+          "relative overflow-hidden rounded-lg border border-border bg-secondary focus-visible:ring-2 focus-visible:ring-ring lg:col-span-7 lg:row-start-1",
+          reversed ? "lg:col-start-6" : "lg:col-start-1",
+        )}
+      >
         {project.image ? (
-          <img
-            src={project.image}
-            alt=""
-            width={960}
-            height={540}
-            loading="lazy"
-            className="aspect-video h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
-          />
+          <>
+            <img
+              src={project.image}
+              alt={`${project.title} interface preview`}
+              width={960}
+              height={540}
+              loading="lazy"
+              className="aspect-video w-full object-cover grayscale-[35%] transition-[filter,transform] duration-500 group-hover:scale-[1.02] group-hover:grayscale-0"
+            />
+            <span
+              className="absolute inset-0 bg-primary/10 mix-blend-color transition-opacity duration-500 group-hover:opacity-0 dark:bg-primary/20"
+              aria-hidden="true"
+            />
+          </>
         ) : (
-          <div className="grid aspect-video place-items-center bg-foreground transition-colors duration-300 group-hover:bg-primary">
-            <span className="text-4xl font-semibold text-background" aria-hidden="true">
-              {project.initials}
-            </span>
+          <div className="project-placeholder grid aspect-video place-items-center p-8">
+            <div className="text-center">
+              <span className="font-mono text-xs tracking-[0.25em] text-primary">
+                {pick(project.category)}
+              </span>
+              <span className="mt-4 block text-[clamp(2.5rem,7vw,5rem)] font-bold tracking-[-0.08em] text-foreground/90">
+                {project.initials}
+              </span>
+            </div>
           </div>
         )}
-      </div>
-      <div className="md:col-span-7">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-          <span>{pick(project.date)}</span>
-          <span aria-hidden="true">·</span>
-          <span>{pick(project.category)}</span>
-          <span className="font-medium text-primary">{pick(project.status)}</span>
-        </div>
-        <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary sm:text-3xl">
-          {project.title}
+      </Link>
+
+      <div
+        className={cn(
+          "relative z-10 lg:col-span-6 lg:row-start-1",
+          reversed ? "lg:col-start-1 lg:text-left" : "lg:col-start-7 lg:text-right",
+        )}
+      >
+        <p className="font-mono text-xs text-primary">{t("project.caseStudy")}</p>
+        <h3 className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+          <Link
+            to={`/projects/${project.slug}`}
+            className="transition-colors duration-300 hover:text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {project.title}
+          </Link>
         </h3>
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-          {pick(project.summary)}
-        </p>
-        <dl className="mt-5 grid gap-4 border-t border-border pt-5 sm:grid-cols-2">
-          <div>
-            <dt className="text-xs text-muted-foreground">{t("project.role")}</dt>
-            <dd className="mt-1 text-sm font-medium text-foreground">{pick(project.role)}</dd>
-          </div>
-          <div>
-            <dt className="text-xs text-muted-foreground">{t("project.impact")}</dt>
-            <dd className="mt-1 text-sm leading-relaxed text-foreground">{pick(project.impact)}</dd>
-          </div>
-        </dl>
-        <div className="mt-5 flex flex-wrap items-center gap-2">
-          {project.stack.slice(0, 4).map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
-            >
-              {tech}
-            </span>
-          ))}
+        <div className="mt-5 rounded-lg border border-border bg-card p-5 shadow-xl shadow-foreground/5 lg:p-6">
+          <p className="text-sm leading-7 text-muted-foreground">{pick(project.summary)}</p>
+          <p className="mt-3 text-sm leading-6 text-foreground">{pick(project.impact)}</p>
         </div>
-        <p className="mt-6 flex items-center gap-1 text-sm font-medium text-primary">
-          {t("project.view")}
-          <ArrowRight
-            className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-            aria-hidden="true"
-          />
-        </p>
+        <ul
+          aria-label={t("projects.stack")}
+          className={cn(
+            "mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[11px] text-muted-foreground",
+            !reversed && "lg:justify-end",
+          )}
+        >
+          {project.stack.map((tech) => (
+            <li key={tech}>{tech}</li>
+          ))}
+        </ul>
+        <div className={cn("mt-5 flex items-center gap-1", !reversed && "lg:justify-end")}>
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${project.title} GitHub`}
+            className="grid h-11 w-11 place-items-center rounded-md text-foreground transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <Github className="h-5 w-5" aria-hidden="true" />
+          </a>
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${project.title} ${t("project.liveDemo")}`}
+              className="grid h-11 w-11 place-items-center rounded-md text-foreground transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <ExternalLink className="h-5 w-5" aria-hidden="true" />
+            </a>
+          )}
+          <Link
+            to={`/projects/${project.slug}`}
+            className="group/link ml-2 inline-flex min-h-11 items-center gap-2 font-mono text-xs text-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t("project.view")}
+            <ArrowRight
+              className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1"
+              aria-hidden="true"
+            />
+          </Link>
+        </div>
       </div>
-    </Link>
+    </article>
   );
 }

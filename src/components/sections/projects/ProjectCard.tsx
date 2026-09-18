@@ -9,7 +9,7 @@ import { useLanguage } from "@/lib/i18n";
 export function ProjectCard({ project }: { project: Project }) {
   const { pick, t } = useLanguage();
   return (
-    <Card className="group h-full gap-0 border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-zinc-800/5 dark:hover:shadow-black/20">
+    <Card className="group h-full gap-0 overflow-hidden rounded-lg border-border bg-card p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-foreground/5">
       <div className="aspect-video w-full overflow-hidden bg-secondary">
         {project.image ? (
           <img
@@ -19,8 +19,11 @@ export function ProjectCard({ project }: { project: Project }) {
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="grid h-full w-full place-items-center bg-foreground transition-colors duration-300 group-hover:bg-primary">
-            <span aria-hidden="true" className="text-4xl font-semibold text-background">
+          <div className="project-placeholder grid h-full w-full place-items-center transition-colors duration-300">
+            <span
+              aria-hidden="true"
+              className="text-4xl font-semibold tracking-[-0.05em] text-foreground"
+            >
               {project.initials}
             </span>
           </div>
@@ -70,7 +73,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {project.stack.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-border"
+              className="rounded-sm bg-secondary px-2.5 py-1 font-mono text-[10px] text-secondary-foreground"
             >
               {tech}
             </span>
@@ -82,7 +85,8 @@ export function ProjectCard({ project }: { project: Project }) {
         <Button
           variant="outline"
           size="lg"
-          className="min-h-11 rounded-full"
+          nativeButton={false}
+          className="min-h-11 rounded-md font-mono text-xs"
           render={<a href={project.link} target="_blank" rel="noreferrer" />}
         >
           <Github className="h-4 w-4" aria-hidden="true" />
@@ -91,7 +95,8 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.live ? (
           <Button
             size="lg"
-            className="min-h-11 rounded-full"
+            nativeButton={false}
+            className="min-h-11 rounded-md font-mono text-xs"
             render={<a href={project.live} target="_blank" rel="noreferrer" />}
           >
             <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -100,7 +105,8 @@ export function ProjectCard({ project }: { project: Project }) {
         ) : (
           <Button
             size="lg"
-            className="min-h-11 rounded-full"
+            nativeButton={false}
+            className="min-h-11 rounded-md font-mono text-xs"
             render={<Link to={`/projects/${project.slug}`} />}
           >
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

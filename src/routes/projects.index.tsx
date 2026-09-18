@@ -1,7 +1,6 @@
 import { PortfolioPageLayout } from "@/components/layout/PortfolioPageLayout";
 import { ProjectCard } from "@/components/sections/projects/ProjectCard";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { SectionMarker } from "@/components/sections/shared/SectionMarker";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
@@ -18,8 +17,8 @@ export function ProjectsIndex() {
   return (
     <PortfolioPageLayout>
       <FadeIn className="max-w-2xl">
-        <SectionMarker index="00" label={t("projects.log")} />
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <p className="section-kicker">{t("projects.log")}</p>
+        <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
           {t("projects.title")}
         </h1>
         <p className="mt-2 border-b border-dashed border-border pb-6 text-base leading-relaxed text-muted-foreground">

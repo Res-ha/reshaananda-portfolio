@@ -76,7 +76,7 @@ export function Gallery() {
       <StaggerContainer className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:gap-6">
         {images.map((image) => (
           <div
-            className="aspect-9/10 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-900/5 dark:bg-zinc-800 dark:ring-white/10"
+            className="aspect-9/10 overflow-hidden rounded-2xl bg-secondary ring-1 ring-border"
             key={image.alt.en}
           >
             <img

@@ -67,7 +67,7 @@ export function PhotoCollage() {
           >
             <div
               className={cn(
-                "aspect-9/10 w-40 overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-900/5 transition-all duration-300 hover:z-10 hover:scale-105 hover:rotate-0 sm:w-44 lg:w-52 dark:bg-zinc-800 dark:ring-white/10",
+                "aspect-9/10 w-40 overflow-hidden rounded-2xl bg-secondary ring-1 ring-border transition-all duration-300 hover:z-10 hover:scale-105 hover:rotate-0 sm:w-44 lg:w-52",
                 photo.rotate,
               )}
             >

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
   <title id="title">RA</title>
-  <rect width="64" height="64" rx="14" fill="#0F766E"/>
-  <text x="32" y="33" font-family="Geist, Arial, sans-serif" font-size="29" font-weight="700" letter-spacing="-2" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">RA</text>
+  <rect width="64" height="64" rx="14" fill="#D88B55"/>
+  <text x="32" y="33" font-family="Geist, Arial, sans-serif" font-size="29" font-weight="700" letter-spacing="-2" fill="#16100C" text-anchor="middle" dominant-baseline="central">RA</text>
 </svg>

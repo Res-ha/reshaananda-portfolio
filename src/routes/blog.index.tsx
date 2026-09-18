@@ -25,7 +25,7 @@ export function BlogIndex() {
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">{t("blog.intro")}</p>
       </FadeIn>
 
-      <StaggerContainer className="mt-16 max-w-3xl space-y-10 border-l border-zinc-900/5 pl-6 dark:border-white/10">
+      <StaggerContainer className="mt-16 max-w-3xl space-y-10 border-l border-border pl-6">
         {posts.map((post) => (
           <article key={post.slug} className="group">
             <p className="text-xs text-muted-foreground">{pick(post.dateLabel)}</p>

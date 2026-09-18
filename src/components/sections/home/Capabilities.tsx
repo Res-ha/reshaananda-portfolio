@@ -1,6 +1,5 @@
 import { profile } from "@/data/profile";
 import { useLanguage } from "@/lib/i18n";
-import { SectionMarker } from "@/components/sections/shared/SectionMarker";
 
 type CapabilityGroup = {
   id: "web" | "networking" | "data";
@@ -24,11 +23,8 @@ export function Capabilities() {
   return (
     <section aria-labelledby="capabilities-heading">
       <div className="max-w-2xl">
-        <SectionMarker index="01" label={t("home.sectionCapabilities")} />
-        <h2
-          id="capabilities-heading"
-          className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-        >
+        <p className="section-kicker">{t("home.sectionCapabilities")}</p>
+        <h2 id="capabilities-heading" className="section-title mt-4">
           {t("home.capabilities")}
         </h2>
         <p className="mt-3 text-base leading-relaxed text-muted-foreground">
@@ -45,7 +41,7 @@ export function Capabilities() {
             <div className="flex items-start justify-between gap-3">
               <h3 className="text-base font-semibold text-foreground">{t(`skills.${group.id}`)}</h3>
               {group.id === "data" && (
-                <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
+                <span className="shrink-0 rounded-sm bg-primary/10 px-2.5 py-1 font-mono text-[10px] font-medium text-primary">
                   {t("skills.learning")}
                 </span>
               )}

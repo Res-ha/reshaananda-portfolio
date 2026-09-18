@@ -2,6 +2,7 @@ import { Component, useEffect, type ErrorInfo, type ReactNode } from "react";
 import { Link, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteNav } from "@/components/layout/SiteNav";
+import { SideRails } from "@/components/layout/SideRails";
 import { useLanguage } from "@/lib/i18n";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { About } from "@/routes/about";
@@ -91,12 +92,9 @@ function SiteLayout() {
       >
         {t("a11y.skipToContent")}
       </a>
-      <div className="relative flex min-h-dvh overflow-clip bg-background transition-colors duration-300">
-        <div className="site-atmosphere" aria-hidden="true">
-          <span className="ambient-glow" />
-          <span className="ambient-glow ambient-glow--secondary" />
-        </div>
-        <div className="relative z-10 flex min-h-dvh w-full flex-col">
+      <div className="relative flex min-h-dvh bg-background transition-colors duration-300">
+        <SideRails />
+        <div className="relative flex min-h-dvh w-full flex-col">
           <SiteNav />
           <main id="main-content" className="flex-1 pb-16">
             <Outlet />

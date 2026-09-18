@@ -93,29 +93,29 @@ export const projects: Project[] = [
     },
     status: { en: "Live", id: "Live" },
     summary: {
-      en: "A personal portfolio built as a React SPA with Vite and Tailwind CSS v4, styled after the Spotlight design system with full EN/ID bilingual support.",
-      id: "Portofolio pribadi berbentuk React SPA dengan Vite dan Tailwind CSS v4, bergaya mengikuti design system Spotlight dengan dukungan bilingual penuh EN/ID.",
+      en: "A personal React portfolio with a focused editorial interface, dark and light themes, and full EN/ID bilingual support.",
+      id: "Portofolio React pribadi dengan antarmuka editorial yang fokus, mode gelap dan terang, serta dukungan bilingual penuh EN/ID.",
     },
     stack: ["React 19", "Vite", "React Router", "Tailwind CSS v4"],
     caseStudy: false,
     link: "https://github.com/Res-ha/reshaananda-portfolio",
     live: "https://reshaananda-portfolio.vercel.app",
     overview: {
-      en: "The personal portfolio of Resha Ananda Rahman, built as an independent React 19 application with Vite, React Router, and Tailwind CSS v4. It adopts the Spotlight aesthetic by Tailwind UI - calm, editorial, a Zinc palette with a Teal accent, complete with dark mode and full English/Indonesian bilingual support.",
-      id: "Portofolio pribadi Resha Ananda Rahman, dibangun sebagai aplikasi React 19 mandiri dengan Vite, React Router, dan Tailwind CSS v4. Mengadopsi estetika Spotlight dari Tailwind UI - tenang, editorial, palet Zinc dengan aksen Teal, lengkap dengan mode gelap dan dukungan bilingual penuh English/Indonesia.",
+      en: "The personal portfolio of Resha Ananda Rahman, built as an independent React 19 application with Vite, React Router, and Tailwind CSS v4. Its interface uses a calm editorial layout, charcoal ink surfaces, a focused copper accent, dark mode by default, and full English/Indonesian support.",
+      id: "Portofolio pribadi Resha Ananda Rahman, dibangun sebagai aplikasi React 19 mandiri dengan Vite, React Router, dan Tailwind CSS v4. Antarmukanya memakai layout editorial yang tenang, surface charcoal ink, aksen copper yang fokus, mode gelap sebagai default, dan dukungan penuh English/Indonesia.",
     },
     features: {
       en: [
         "React SPA with client-side routing through React Router",
         "Tailwind CSS v4 with a custom-variant dark mode",
         "Full bilingual support (English & Indonesian) with a language toggle",
-        "Spotlight theme: Zinc + Teal accent, calm and editorial",
+        "Editorial developer theme with charcoal ink surfaces and a focused copper accent",
       ],
       id: [
         "React SPA dengan client-side routing melalui React Router",
         "Tailwind CSS v4 dengan mode gelap custom-variant",
         "Dukungan bilingual penuh (English & Indonesia) dengan tombol pengalih bahasa",
-        "Tema Spotlight: aksen Zinc + Teal, tenang dan editorial",
+        "Tema developer editorial dengan surface charcoal ink dan satu aksen copper",
       ],
     },
     challenges: {

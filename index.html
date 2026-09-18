@@ -8,22 +8,18 @@
       name="description"
       content="Portfolio of Resha Ananda Rahman, a Web Developer in Palangka Raya specializing in PHP, Laravel, WordPress, and practical web solutions while learning data analytics."
     />
-    <meta name="theme-color" content="#0f766e" />
+    <meta name="theme-color" content="#0b1118" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <title>Resha Ananda Rahman</title>
     <script>
       (function () {
         try {
           var theme = localStorage.getItem("theme");
-          var dark = theme
-            ? theme === "dark"
-            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = theme ? theme === "dark" : true;
           document.documentElement.classList.toggle("dark", dark);
         } catch (error) {
-          // Keep the system default when storage is unavailable.
+          // Keep the document usable when storage is unavailable.
         }
       })();
     </script>

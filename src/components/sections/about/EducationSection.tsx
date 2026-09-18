@@ -9,7 +9,7 @@ export function EducationSection() {
 
   return (
     <section id="education" aria-labelledby="education-heading" className="scroll-mt-28">
-      <Card className="overflow-hidden rounded-2xl border-border bg-card/75 shadow-sm">
+      <Card className="overflow-hidden rounded-lg border-border bg-card/75 shadow-sm">
         <CardHeader className="p-6 sm:p-8">
           <CardTitle
             id="education-heading"
