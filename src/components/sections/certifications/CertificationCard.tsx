@@ -14,7 +14,7 @@ export function CertificationCard({
   const { pick, t } = useLanguage();
 
   return (
-    <Card className="h-full gap-0 border-border p-0 transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:bg-card/80 hover:shadow-lg hover:shadow-zinc-900/5 dark:hover:shadow-black/20">
+    <Card className="h-full gap-0 border-border p-0 transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:bg-card/80 hover:shadow-lg hover:shadow-foreground/5">
       <button
         type="button"
         onClick={onOpen}

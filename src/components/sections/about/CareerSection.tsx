@@ -17,7 +17,7 @@ export function CareerSection() {
 
   return (
     <section id="career" aria-labelledby="career-heading" className="scroll-mt-28">
-      <Card className="overflow-hidden rounded-2xl border-border bg-card/75 shadow-sm">
+      <Card className="overflow-hidden rounded-lg border-border bg-card/75 shadow-sm">
         <CardHeader className="p-6 sm:p-8">
           <CardTitle
             id="career-heading"
@@ -63,7 +63,8 @@ export function CareerSection() {
         <CardFooter className="justify-start border-t border-border bg-muted/30 px-6 py-4 sm:px-8">
           <Button
             variant="outline"
-            className="min-h-10 rounded-full"
+            nativeButton={false}
+            className="min-h-10 rounded-md font-mono text-xs"
             render={
               <a
                 href="https://www.linkedin.com/in/resha-ananda-rahman/"

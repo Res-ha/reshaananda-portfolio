@@ -55,7 +55,8 @@ export function About() {
             <div className="mt-10 flex flex-wrap gap-3">
               <Button
                 size="lg"
-                className="min-h-11 rounded-full px-5"
+                nativeButton={false}
+                className="min-h-11 rounded-md px-5 font-mono text-xs"
                 render={<a href={profile.cvUrl} download />}
               >
                 {t("experience.download")}
@@ -64,7 +65,8 @@ export function About() {
               <Button
                 variant="outline"
                 size="lg"
-                className="min-h-11 rounded-full px-5"
+                nativeButton={false}
+                className="min-h-11 rounded-md px-5 font-mono text-xs"
                 render={<Link to="/certifications" />}
               >
                 {t("about.viewCertifications")}
@@ -73,15 +75,21 @@ export function About() {
           </div>
 
           <figure className="order-first md:order-last">
-            <img
-              src={portrait}
-              alt={t("home.portraitAlt")}
-              width={900}
-              height={900}
-              loading="eager"
-              decoding="async"
-              className="aspect-square w-40 rounded-3xl object-cover ring-1 ring-border sm:w-48 md:w-full"
-            />
+            <div className="relative">
+              <span
+                className="absolute inset-0 translate-x-3 translate-y-3 rounded-lg border-2 border-primary"
+                aria-hidden="true"
+              />
+              <img
+                src={portrait}
+                alt={t("home.portraitAlt")}
+                width={900}
+                height={900}
+                loading="eager"
+                decoding="async"
+                className="relative aspect-square w-40 rounded-lg object-cover sm:w-48 md:w-full"
+              />
+            </div>
           </figure>
         </div>
       </FadeIn>

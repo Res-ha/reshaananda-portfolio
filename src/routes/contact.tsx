@@ -84,12 +84,12 @@ export function ContactPage() {
 
             return (
               <FadeIn key={channel.id} delay={index * 60}>
-                <Card className="h-full border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-zinc-800/5">
+                <Card className="h-full border-border p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-foreground/5">
                   <a
                     href={channel.href}
                     target={isEmail ? undefined : "_blank"}
                     rel={isEmail ? undefined : "noreferrer"}
-                    className="group flex min-h-44 h-full flex-col justify-between rounded-2xl p-5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:p-6"
+                    className="group flex min-h-44 h-full flex-col justify-between rounded-lg p-5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:p-6"
                   >
                     <div className="flex items-center justify-between gap-4">
                       <Badge
@@ -130,7 +130,8 @@ export function ContactPage() {
           </p>
           <Button
             size="lg"
-            className="mt-6 min-h-11 rounded-full px-5"
+            nativeButton={false}
+            className="mt-6 min-h-11 rounded-md px-5 font-mono text-xs"
             render={<a href={`mailto:${profile.email}`} />}
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
