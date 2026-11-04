@@ -32,6 +32,8 @@ Or with context:
 
 ### All skills
 
+**Core (Phase 1)**
+
 | Skill | Purpose | When to use |
 |-------|---------|-------------|
 | `poteto-mode` | Main entry, routes to playbooks | Start of any rigorous task |
@@ -41,6 +43,19 @@ Or with context:
 | `technical-writing` | Write for 3am maintainer | Commits, PRs, comments, docs |
 | `setup-pstack` | Configure model routing | First run, model access changed |
 | `poteto-help` | This skill | "Which skill?" |
+
+**Direct-invocation (Phase 2)**
+
+| Skill | Purpose | When to use |
+|-------|---------|-------------|
+| `no-comments` | Comments explain why; delete what restates | Before every PR, after refactor |
+| `verify` | Trust but verify, automate the chain | After EVERY change, before "done" |
+| `repro-first` | Never fix without failing repro | Every bug report, flaky tests |
+| `architect` | Design before code, ADR for irreversible | New structure, big refactors |
+| `arena` | Compare 3+ options with evidence | Any "A vs B" decision, library choices |
+| `swarm` | Parallel delegates via poteto-agent | 3+ independent, non-overlapping slices |
+| `how` | "How does X work?" with verified trace | Before changing unfamiliar code |
+| `why` | "Why was this written this way?" via history | Before judging/refactoring old code |
 
 ### Agents
 

@@ -76,7 +76,9 @@ Combine with OpenCode's loop command for overnight runs:
 
 ## Principles index (inline)
 
-These 24 principles are indexed here and read by `poteto-agent` delegates. Each maps to a standalone skill file for reference.
+These 24 principles are indexed here and read by `poteto-agent` delegates.
+
+**Standalone skill files exist for #1–10** (`unslop`, `tdd`, `interrogate`, `technical-writing`, `no-comments`, `architect`, `arena`, `swarm`, `verify`, `repro-first`) — poteto-mode routes to them, and each can be invoked directly. #11–24 are index-only: poteto-mode applies them from the one-liners below without a separate file.
 
 | #   | Principle                    | Skill                      | One-liner                                                |
 | --- | ---------------------------- | -------------------------- | -------------------------------------------------------- |
