@@ -2,14 +2,14 @@ import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/Card";
+import { Card } from "@/components/ui/Card";
 import type { Project } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
 
 export function ProjectCard({ project }: { project: Project }) {
   const { pick, t } = useLanguage();
   return (
-    <Card className="group h-full gap-0 overflow-hidden rounded-lg border-border bg-card p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-foreground/5">
+    <article className="group h-full overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-foreground/5">
       <div className="aspect-video w-full overflow-hidden bg-secondary">
         {project.image ? (
           <img
@@ -30,7 +30,7 @@ export function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
 
-      <CardContent className="flex flex-1 flex-col gap-2 p-5">
+      <div className="flex flex-1 flex-col gap-2 p-5">
         <div className="flex items-center justify-between gap-3 text-xs font-medium">
           <span className="text-muted-foreground">{project.year}</span>
           <span className="text-primary">{pick(project.status)}</span>
@@ -79,41 +79,36 @@ export function ProjectCard({ project }: { project: Project }) {
             </span>
           ))}
         </div>
-      </CardContent>
 
-      <CardFooter className="mt-auto flex flex-wrap gap-2 border-border bg-transparent p-5 pt-4">
-        <Button
-          variant="outline"
-          size="lg"
-          nativeButton={false}
-          className="min-h-11 rounded-md font-mono text-xs"
-          render={<a href={project.link} target="_blank" rel="noreferrer" />}
-        >
-          <Github className="h-4 w-4" aria-hidden="true" />
-          GitHub
-        </Button>
-        {project.live ? (
+        <footer className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-border">
           <Button
+            variant="outline"
             size="lg"
-            nativeButton={false}
+            asChild
             className="min-h-11 rounded-md font-mono text-xs"
-            render={<a href={project.live} target="_blank" rel="noreferrer" />}
           >
-            <ExternalLink className="h-4 w-4" aria-hidden="true" />
-            {t("project.liveDemo")}
+            <a href={project.link} target="_blank" rel="noreferrer">
+              <Github className="h-4 w-4" aria-hidden="true" />
+              GitHub
+            </a>
           </Button>
-        ) : (
-          <Button
-            size="lg"
-            nativeButton={false}
-            className="min-h-11 rounded-md font-mono text-xs"
-            render={<Link to={`/projects/${project.slug}`} />}
-          >
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            {t("project.view")}
-          </Button>
-        )}
-      </CardFooter>
-    </Card>
+          {project.live ? (
+            <Button size="lg" asChild className="min-h-11 rounded-md font-mono text-xs">
+              <a href={project.live} target="_blank" rel="noreferrer">
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                {t("project.liveDemo")}
+              </a>
+            </Button>
+          ) : (
+            <Button size="lg" asChild className="min-h-11 rounded-md font-mono text-xs">
+              <Link to={`/projects/${project.slug}`}>
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                {t("project.view")}
+              </Link>
+            </Button>
+          )}
+        </footer>
+      </div>
+    </article>
   );
 }

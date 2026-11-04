@@ -57,10 +57,6 @@ export function ProjectDetail() {
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
 
-  if (!next) {
-    return null;
-  }
-
   return (
     <PortfolioPageLayout>
       <FadeIn className="mx-auto max-w-3xl">

@@ -1,7 +1,7 @@
 import { GraduationCap } from "lucide-react";
 import { education } from "@/data/credentials";
 import { useLanguage } from "@/lib/i18n";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Card } from "@/components/ui/Card";
 import { Separator } from "@/components/ui/separator";
 
 export function EducationSection() {
@@ -9,21 +9,21 @@ export function EducationSection() {
 
   return (
     <section id="education" aria-labelledby="education-heading" className="scroll-mt-28">
-      <Card className="overflow-hidden rounded-lg border-border bg-card/75 shadow-sm">
-        <CardHeader className="p-6 sm:p-8">
-          <CardTitle
+      <Card className="overflow-hidden rounded-lg border-border bg-card/75 shadow-sm p-6 sm:p-8">
+        <header className="mb-6">
+          <h2
             id="education-heading"
             className="flex items-center gap-2 text-2xl tracking-tight text-foreground sm:text-3xl"
           >
             <GraduationCap className="h-5 w-5 text-primary" aria-hidden="true" />
             {t("about.education")}
-          </CardTitle>
-          <CardDescription className="max-w-xl text-sm leading-relaxed sm:text-base">
+          </h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             {t("about.educationIntro")}
-          </CardDescription>
-        </CardHeader>
+          </p>
+        </header>
 
-        <CardContent className="px-6 pb-6 sm:px-8 sm:pb-8">
+        <div className="space-y-5">
           <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-8">
             <div className="flex items-start gap-3">
               <span
@@ -46,13 +46,13 @@ export function EducationSection() {
 
           <Separator className="my-5" />
 
-          <dl>
+          <dl className="grid gap-3 sm:grid-cols-2">
             <div>
               <dt className="text-xs text-muted-foreground">{t("about.gpa")}</dt>
               <dd className="mt-1 text-sm font-medium text-foreground">{education.gpa}</dd>
             </div>
           </dl>
-        </CardContent>
+        </div>
       </Card>
     </section>
   );
