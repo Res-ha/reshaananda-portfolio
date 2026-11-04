@@ -1,7 +1,6 @@
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/Card";
 import type { Project } from "@/data/projects";
 import { useLanguage } from "@/lib/i18n";
@@ -81,31 +80,33 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <footer className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-border">
-          <Button
-            variant="outline"
-            size="lg"
-            asChild
-            className="min-h-11 rounded-md font-mono text-xs"
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md border border-border bg-background px-3 text-xs font-mono font-medium text-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
-            <a href={project.link} target="_blank" rel="noreferrer">
-              <Github className="h-4 w-4" aria-hidden="true" />
-              GitHub
-            </a>
-          </Button>
+            <Github className="h-4 w-4" aria-hidden="true" />
+            GitHub
+          </a>
           {project.live ? (
-            <Button size="lg" asChild className="min-h-11 rounded-md font-mono text-xs">
-              <a href={project.live} target="_blank" rel="noreferrer">
-                <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                {t("project.liveDemo")}
-              </a>
-            </Button>
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md border border-border bg-background px-3 text-xs font-mono font-medium text-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              {t("project.liveDemo")}
+            </a>
           ) : (
-            <Button size="lg" asChild className="min-h-11 rounded-md font-mono text-xs">
-              <Link to={`/projects/${project.slug}`}>
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                {t("project.view")}
-              </Link>
-            </Button>
+            <Link
+              to={`/projects/${project.slug}`}
+              className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md border border-border bg-background px-3 text-xs font-mono font-medium text-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              {t("project.view")}
+            </Link>
           )}
         </footer>
       </div>

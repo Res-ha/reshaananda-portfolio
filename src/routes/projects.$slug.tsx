@@ -55,7 +55,7 @@ export function ProjectDetail() {
   }
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
-  const next = projects[(currentIndex + 1) % projects.length];
+  const next = projects[(currentIndex + 1) % projects.length] as typeof project;
 
   return (
     <PortfolioPageLayout>

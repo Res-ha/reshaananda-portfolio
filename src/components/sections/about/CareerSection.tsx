@@ -1,7 +1,6 @@
 import { Briefcase, Linkedin } from "lucide-react";
 import { experiences } from "@/data/experience";
 import { useLanguage } from "@/lib/i18n";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/Card";
 import { Separator } from "@/components/ui/separator";
 
@@ -52,16 +51,15 @@ export function CareerSection() {
         </ol>
 
         <footer className="mt-6 border-t border-border bg-muted/30 p-4 sm:px-0">
-          <Button variant="outline" asChild className="min-h-10 rounded-md font-mono text-xs">
-            <a
-              href="https://www.linkedin.com/in/resha-ananda-rahman/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Linkedin className="h-4 w-4" aria-hidden="true" />
-              {t("experience.linkedin")}
-            </a>
-          </Button>
+          <a
+            href="https://www.linkedin.com/in/resha-ananda-rahman/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md border border-border bg-background px-3 text-xs font-mono font-medium text-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          >
+            <Linkedin className="h-4 w-4" aria-hidden="true" />
+            {t("experience.linkedin")}
+          </a>
         </footer>
       </Card>
     </section>
