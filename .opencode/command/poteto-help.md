@@ -27,6 +27,6 @@ skill: poteto-help
 
 - Lists all pstack skills and agents
 - Recommends the right skill for your context
-- Routes UI/UX tasks (`design-taste-frontend`, `frontend-design`, `prototype`, `webapp-testing`)
+- Routes UI/UX tasks — brief first, lalu patokan skills.sh: `design-taste-frontend` v2 / `frontend-design` / `web-design-guidelines` / `ui-ux-pro-max` / `emil-design-eng`
 - Shows the 24 principles index
 - Quick start guide

@@ -54,15 +54,44 @@ model: opus-5.5
 
 ## UI/UX tasks
 
-Playbooks di atas adalah proses engineering, bukan desain visual. Untuk task UI/UX, route langsung:
+Playbooks di atas adalah proses engineering, bukan desain visual. Task UI/UX dikerjakan dengan **patokan frontend** (detail: `docs/agents/frontend-skill-benchmarks.md`, sumber skills.sh 2026-11-05).
 
-| Task | Route to |
-|------|----------|
-| Landing page, redesign, desain visual (aesthetic/typografi) | `design-taste-frontend` (installed in repo) |
-| Membangun UI baru dengan identitas yang tidak templated | `frontend-design` |
-| Belum yakin seperti apa UI yang tepat | `prototype` (throwaway, satu pertanyaan desain) |
-| Verifikasi perilaku UI di browser | `webapp-testing` (Playwright) → lalu `/verify` |
-| Membandingkan pendekatan UI (A vs B) | `/arena` |
+### Brief first (wajib)
+
+Sebelum eksekusi desain: tanya apa yang perlu diubah — halaman mana, apa yang terasa salah/generik, referensi yang disukai, batasan yang tetap (stack, brand, konten) — ATAU minta rekomendasi skill via `poteto-help`. Jangan mulai koding sebelum brief disepakati.
+
+### Route patokan
+
+| Jenis task | Patokan |
+|------------|---------|
+| Desain/baru UI dengan identitas | `frontend-design` (+ `ui-ux-pro-max` bila kompleks) |
+| Redesign/restyle halaman yang sudah ada | `design-taste-frontend` v2 — pakai 4-step workflow |
+| Arah visual landing marketing/portfolio | `design-taste-frontend` v2 — deal 3 directions, pilih 1 |
+| Audit/review UI (a11y, guidelines) | `web-design-guidelines` (fetch live) |
+| Motion/mikrointeraksi/detail | `emil-design-eng` |
+| Eksplorasi "seperti apa yang tepat?" | `prototype` |
+| Verifikasi di browser | `webapp-testing` (Playwright) |
+| Bandingkan pendekatan UI | `/arena` |
+
+### Patokan design-taste-frontend v2
+
+**Redesign — 4 langkah:** (1) record the before — inspect ke `.taste-skill/before`; (2) review & putuskan restyle vs redesign penuh; (3) urutan kerja dampak-terbesar — type → colour → frame/margins → states → ganti pola stock; (4) prove it — inspect `.taste-skill/after`, bandingkan tiap lebar, klik semua fitur yang tadinya jalan.
+
+**Style — deal 3:** `draw.mjs --options 3` deals tiga directions; pilih yang lolos competitor test (membawa sesuatu yang hanya subjek ini punya), bukan yang paling akrab; semua redraw dicatat dengan alasannya.
+
+### Alur implementasi UI/UX
+
+```
+/poteto-mode <task UI>
+  1. Brief first (hapus keraguan SEBELUM koding)
+  2. Route patokan (tabel di atas)
+  3. Implementasi — poteto-agent untuk mekanik (types, refactor struktur)
+  4. Audit visual (web-design-guidelines + inspect.mjs) — notasebelum/after
+  5. Motion layer (emil-design-eng) bila brief memintanya
+  6. webapp-testing → lihat screenshot di browser
+  7. /verify (build + lint + tsc)
+  8. /no-comments → commit (technical-writing)
+```
 
 Poteto-agent tetap dipakai untuk step engineering di dalam task UI (tests, types, refactoring struct) sesuai playbook yang relevan.
 

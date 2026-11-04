@@ -29,6 +29,6 @@ skill: poteto-mode
 3. Routes to skills as needed: `unslop`, `tdd`, `interrogate`, `technical-writing`, etc.
 4. Spawns `poteto-agent` delegates for parallel work
 5. Writes unslopped replies for consumer and maintainer
-6. Routes UI/UX tasks outside playbooks: `design-taste-frontend` / `frontend-design` / `prototype` / `webapp-testing`
+6. Routes UI/UX tasks outside playbooks — brief first, lalu patokan skills.sh: `design-taste-frontend` v2 (redesign), `frontend-design` (baru), `web-design-guidelines` (audit), `ui-ux-pro-max` (kompleks), `emil-design-eng` (motion)
 
 **Prerequisites:** Run `/setup-pstack` once to configure models.
