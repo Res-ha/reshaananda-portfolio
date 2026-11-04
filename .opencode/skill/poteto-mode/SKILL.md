@@ -52,6 +52,20 @@ model: opus-5.5
 | `tech-debt-budget`    | "tech debt budget", "allocate"           | Inventory → prioritize → schedule                              |
 | `poteto-help`         | "help", "which skill"                    | Route to poteto-help skill                                     |
 
+## UI/UX tasks
+
+Playbooks di atas adalah proses engineering, bukan desain visual. Untuk task UI/UX, route langsung:
+
+| Task | Route to |
+|------|----------|
+| Landing page, redesign, desain visual (aesthetic/typografi) | `design-taste-frontend` (installed in repo) |
+| Membangun UI baru dengan identitas yang tidak templated | `frontend-design` |
+| Belum yakin seperti apa UI yang tepat | `prototype` (throwaway, satu pertanyaan desain) |
+| Verifikasi perilaku UI di browser | `webapp-testing` (Playwright) → lalu `/verify` |
+| Membandingkan pendekatan UI (A vs B) | `/arena` |
+
+Poteto-agent tetap dipakai untuk step engineering di dalam task UI (tests, types, refactoring struct) sesuai playbook yang relevan.
+
 ## Usage
 
 ```

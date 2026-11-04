@@ -57,6 +57,16 @@ Or with context:
 | `how` | "How does X work?" with verified trace | Before changing unfamiliar code |
 | `why` | "Why was this written this way?" via history | Before judging/refactoring old code |
 
+### UI/UX routing
+
+| Task | Route to |
+|------|----------|
+| Landing page, redesign, desain visual (aesthetic/typografi) | `design-taste-frontend` (installed in repo) |
+| Membangun UI baru dengan identitas yang tidak templated | `frontend-design` |
+| Belum yakin seperti apa UI yang tepat | `prototype` (throwaway, satu pertanyaan desain) |
+| Verifikasi perilaku UI di browser | `webapp-testing` (Playwright) → lalu `/verify` |
+| Membandingkan pendekatan UI (A vs B) | `/arena` |
+
 ### Agents
 
 | Agent | Purpose |
