@@ -29,5 +29,6 @@ skill: poteto-mode
 3. Routes to skills as needed: `unslop`, `tdd`, `interrogate`, `technical-writing`, etc.
 4. Spawns `poteto-agent` delegates for parallel work
 5. Writes unslopped replies for consumer and maintainer
+6. Routes UI/UX tasks outside playbooks: `design-taste-frontend` / `frontend-design` / `prototype` / `webapp-testing`
 
 **Prerequisites:** Run `/setup-pstack` once to configure models.
